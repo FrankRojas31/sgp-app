@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../css/targetTeam.module.css';
 import PersonIcon from '@mui/icons-material/Person';
 
-function targetTeam() {
+function TargetTeam() {
   // Datos simulados para dos equipos con sus miembros
   const teamsData = [
     {
@@ -44,4 +44,4 @@ function targetTeam() {
   );
 }
 
-export default targetTeam;
+export default TargetTeam;

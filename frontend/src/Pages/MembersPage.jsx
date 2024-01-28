@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import styles from '../css/members.module.css';
 import Swal from 'sweetalert2';
@@ -11,18 +10,13 @@ function createData(id, name, team, speciality, job) {
 }
 
 export default function Members() {
-  let user = 'Juan Mendoza';
-
-  const menuItems = [
-    { id: 1, label: 'Equipos' },
-    { id: 2, label: 'Proyectos' },
-    { id: 3, label: 'Miembros' },
-  ];
-
-  const [rows, setRows] = useState([
+  const initialRows = [
     createData('1', 'Agripino Hernández', 'team demoledor', 'Programador', 1),
     createData('2', 'Agripino Hernández', 'Esternocleidomastoideo', 'Diseñador', 7),
-  ]);
+  ];
+
+  const [rows, setRows] = useState(initialRows);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleAgregarClick = () => {
     Swal.fire({
@@ -45,33 +39,42 @@ export default function Members() {
         const nuevaFila = createData(rows.length + 1, nombre, equipo, especialidad, cargo);
         setRows([...rows, nuevaFila]);
 
-
         return true;
       },
     });
   };
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
-
+  const filteredRows = rows.filter((row) =>
+    row.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
-      <Sidebar/>
+      <Sidebar />
       <div className={styles.content}>
-        <h1>
-          MIEMBROS
-        </h1>
+        <h1>MIEMBROS</h1>
+
+        <div className={styles.box}>
+          <form name="search">
+            <input type="text" className={styles.input}
+              value={searchTerm}
+              onChange={handleSearchChange}
+              placeholder='Buscar por nombre' />
+          </form>
+          <i class="fas fa-search"></i>
+
+        </div>
+
 
         <button className={styles.botonagregar} onClick={handleAgregarClick}>
           Agregar
         </button>
-        <TablaMiembros rows={rows} styles={styles} />
+        <TablaMiembros rows={filteredRows} styles={styles} />
       </div>
     </div>
   );
 }
-
-
-
-
-
