@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from '../css/members.module.css';
 import Swal from 'sweetalert2';
 
