@@ -3,9 +3,11 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ValidRoles } from '../interfaces/valid-roles.interface';
+import { Team } from 'src/teams/entities/team.entity';
 
 @Entity('users')
 export class User {
@@ -46,4 +48,7 @@ export class User {
   checkFieldsOnUpdate() {
     this.email = this.email.toLowerCase().trim();
   }
+
+  @ManyToOne(() => Team, (team) => team.members)
+  team: Team;
 }

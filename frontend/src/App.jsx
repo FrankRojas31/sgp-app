@@ -10,10 +10,6 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LoginPage/>} />
         <Route path="/members" element={<Members/>} />
-       
-
-
-
       </Routes>
     </BrowserRouter>
   )

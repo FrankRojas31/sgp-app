@@ -26,8 +26,14 @@ export class AuthService {
   ) {}
 
   async findUser(id: string) {
-    const user = await this.userRepository.findOneBy({ id: id });
-
+    const user = await this.userRepository.find({
+      where: {
+        id,
+      },
+      relations: {
+        team: true,
+      },
+    });
     if (!user) throw new NotFoundException('User not found');
     return user;
   }
@@ -37,6 +43,9 @@ export class AuthService {
     const getAllUsers = await this.userRepository.find({
       take: limit,
       skip: offset,
+      relations: {
+        team: true,
+      },
     });
     return getAllUsers;
   }
@@ -92,7 +101,6 @@ export class AuthService {
 
   async updateUser(id: string, updateUser: UpdateUserDto) {
     const { password, ...restUserUpdate } = updateUser;
-
     const updatedUser = await this.userRepository.preload({
       id,
       password,

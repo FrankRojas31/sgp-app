@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Team } from 'src/teams/entities/team.entity';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'projects' })
 export class Project {
@@ -8,6 +9,7 @@ export class Project {
   @Column('varchar')
   name: string;
 
-//   @Column('varchar')
-
+  @OneToOne(() => Team, (team) => team.project, { eager: true })
+  @JoinColumn()
+  team: Team;
 }

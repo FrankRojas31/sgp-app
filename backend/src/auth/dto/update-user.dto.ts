@@ -6,11 +6,13 @@ import {
   IsIn,
   IsOptional,
   IsString,
+  IsUUID,
   Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
 import { ValidRoles } from '../interfaces/valid-roles.interface';
+import { Team } from 'src/teams/entities/team.entity';
 
 export class UpdateUserDto {
   @IsString()
@@ -47,4 +49,8 @@ export class UpdateUserDto {
   @IsEnum(ValidRoles)
   @IsOptional()
   roles?: ValidRoles;
+
+  @IsUUID()
+  @IsString()
+  team: Team;
 }
