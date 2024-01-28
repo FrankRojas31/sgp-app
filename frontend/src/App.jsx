@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
 import Members from "./Pages/Members";
 
-export default function App() {
+function App() {
   return (
     <BrowserRouter>
       <Routes>
@@ -18,3 +18,5 @@ export default function App() {
     </BrowserRouter>
   )
 }
+
+export default App;
