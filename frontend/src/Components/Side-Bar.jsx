@@ -1,5 +1,5 @@
 import styles from '../css/Sidebar.module.css';
-import user_default from '../../public/images/user_default.jpeg';
+import user_default from '/images/user_default.jpeg';
 
 function Sidebar() {
   let user = 'Juan Mendoza';
@@ -30,10 +30,7 @@ function Sidebar() {
         </div>
       </div>
 
-      <div className={styles.content}>
-        <h2>Content</h2>
-        <p>This is the main content area.</p>
-      </div>
+
     </div>
   );
 }
