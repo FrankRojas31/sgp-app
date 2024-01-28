@@ -1,8 +1,7 @@
 
 import React from 'react';
 import styles from '../css/members.module.css';
-
-import TablaMiembros from '../Components/table_members';
+import TablaMiembros from '../Components/table_members'
 
 
 function createData(id, name, team, speciality, job) {
@@ -11,7 +10,7 @@ function createData(id, name, team, speciality, job) {
 
 
 
-export default function Members() {
+export default function MembersPage() {
   let user = 'Juan Mendoza';
 
   const menuItems = [
