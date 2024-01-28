@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@700&display=swap');
+
+
 .sidebar {
     height: 100vh;
     width: 250px;
@@ -29,22 +33,30 @@
     display: flex;
     align-items: center;
     margin-left: 20px;
+
   }
   
   .sidebar text {
     margin-bottom: 30px;
     margin-left: 20px;
-    font-size: 20px
+    font-size: 20px;
+    color: #3F1D62;
+    font-family: 'Arimo', sans-serif;
   }
   .sidebar ul {
     list-style: none;
     padding: 0;
-    margin-top: 40px;
+    margin-top: 70px;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-family: 'Arimo', sans-serif;
   }
   
   .sidebar li {
-    margin-bottom: 10px;
-    text-align: center;
+    margin-top: 50px;
+    text-align:left;
+    margin-left:20px;
+    font-family: 'Arimo', sans-serif;
   }
   
   .sidebar span {
@@ -57,3 +69,19 @@
     padding: 20px;
   }
   
+
+.bottomtext {
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 140px;
+}
+
+.legend{
+  text-transform:capitalize;
+  font-size: 12px;
+  margin-left: 40px;
+}
+
+.icons {
+  margin-right: 20px;
+}
