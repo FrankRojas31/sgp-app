@@ -27,14 +27,13 @@ export class User {
   @Column({
     type: 'enum',
     enum: ValidRoles,
-    default: ValidRoles.member, 
+    default: ValidRoles.member,
   })
   roles: ValidRoles;
 
-
   @Column({
     type: 'varchar',
-    default: 'null'
+    default: 'null',
   })
   picture: string;
 
