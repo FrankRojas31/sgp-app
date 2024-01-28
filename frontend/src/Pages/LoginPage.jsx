@@ -12,7 +12,7 @@ import {
   CssBaseline
 } from '@mui/material';
 import { styled } from '@mui/system';
-import WelcomeIMG from './assets/WelcomeIMG.png';
+import WelcomeIMG from '../assets/WelcomeIMG.png';
 
 //tema
 const theme = createTheme({
