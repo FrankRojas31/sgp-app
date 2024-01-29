@@ -111,6 +111,48 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     cursor: pointer;
     position: relative;
   }
+.content h1 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  border: 2px solid #ffffff;
+  padding: 10px;
+  text-align: left;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.table th {
+  background-color: #a015e5;
+  font: bold;
+  color: white;
+}
+.table td {
+  background-color: #e1c5f0;
+}
+.botonagregar {
+  background-color: #7c4eab;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  height: 30px;
+  width: 150px;
+  font: bold;
+  font-size: 18px;
+  margin-left: 87.5%;
+  margin-bottom: 4%;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  cursor: pointer;
+}
 
   .botonagregar:hover{
     background-color: rgb(178, 146, 242);
@@ -179,6 +221,5 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     opacity: 0;
     z-index: -1;
 }
-
 
 

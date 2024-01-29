@@ -1,96 +1,90 @@
-
-
-
-
 .content {
   margin-left: 250px; /* Ajusta según sea necesario para dar espacio a la barra lateral */
   padding: 20px;
 }
 
 .content h1 {
-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
-.botonagregar{
-  background-color: #7C4EAB;
+.botonagregar {
+  background-color: #7c4eab;
   color: white;
   border: none;
   border-radius: 15px;
   height: 30px;
   width: 150px;
-  font:bold;
+  font: bold;
   font-size: 18px;
   margin-left: 87.5%;
   margin-bottom: 4%;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   cursor: pointer;
 }
 
-.botonagregar:hover{
+.botonagregar:hover {
   background-color: rgb(178, 146, 242);
   color: #fefeff;
 }
 /* DIV QUE ENGLOBA LA TARGET, QUITAR ESTOS ESTILOS DE SER NECESARIO*/
 .tableContainer {
-  display: grid; 
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 5px;
 }
 
-
 /*LA TARGET EN SI */
 .myTable {
-    width: 350px;
-    background-color: #DFD9E2;
-    border-collapse: collapse; /* Usa 'collapse' para manejar los bordes como un solo borde */
-    margin: 0 ;
-    border-radius: 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    font-family: 'Lalezar', sans-serif;                                    
-  }
-  
-  .myTableCell {
-    padding: 20px 10px;
-    text-align: center;
-    font-size: 25px;
-    border: none; /* Elimina todos los bordes */
-  }
-  
-  /* Agrega el borde solo a la primera celda */
-  .myTable tr:first-child .myTableCell {
-    border-bottom: 5px solid #FFFFFF;
-  }
-  
-  .membersCol {
-    color: #7C4EAB;
-    font-size: 20px;
-    padding-left: 27px;
-    display: flex; /* Usa Flexbox para alinear elementos internos */
-    align-items: center; 
-    padding-top: 10px; /* Aumenta el espacio en la parte superior */
-    padding-bottom: 10px; 
-  }
-  
-  .verMiembrosButton {
-    background-color: #7C4EAB; /* Color de fondo morado */
-    color: white; /* Texto en color blanco */
-    border: none; /* Sin borde */
-    padding: 8px 16px; /* Padding horizontal y vertical reducido */
-    border-radius: 20px; /* Bordes redondeados */
-    font-size: 14px; /* Tamaño de la fuente reducido */
-    cursor: pointer; /* Cambiar cursor a mano al pasar por encima */
-    margin-top: 20px; /* Espacio por encima del botón */
-    font-weight: bold; /* Fuente en negrita */
-    outline: none; /* Quitar outline al hacer focus */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para dar efecto elevado */
-    transition: background-color 0.3s; /* Transición suave al cambiar de color */
-    margin-left: auto;
-    display: block;
-    margin-right: 17px;
-    margin-bottom: 15px;
-  }
-  
-  
-  .verMiembrosButton:hover {
-    background-color: #6A3E9E; /* Color ligeramente más oscuro al pasar el ratón por encima */
-  }
+  width: 350px;
+  background-color: #dfd9e2;
+  border-collapse: collapse; /* Usa 'collapse' para manejar los bordes como un solo borde */
+  margin: 0;
+  border-radius: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: "Lalezar", sans-serif;
+}
+
+.myTableCell {
+  padding: 20px 10px;
+  text-align: center;
+  font-size: 25px;
+  border: none; /* Elimina todos los bordes */
+}
+
+/* Agrega el borde solo a la primera celda */
+.myTable tr:first-child .myTableCell {
+  border-bottom: 5px solid #ffffff;
+}
+
+.membersCol {
+  color: #7c4eab;
+  font-size: 20px;
+  padding-left: 27px;
+  display: flex; /* Usa Flexbox para alinear elementos internos */
+  align-items: center;
+  padding-top: 10px; /* Aumenta el espacio en la parte superior */
+  padding-bottom: 10px;
+}
+
+.verMiembrosButton {
+  background-color: #7c4eab; /* Color de fondo morado */
+  color: white; /* Texto en color blanco */
+  border: none; /* Sin borde */
+  padding: 8px 16px; /* Padding horizontal y vertical reducido */
+  border-radius: 20px; /* Bordes redondeados */
+  font-size: 14px; /* Tamaño de la fuente reducido */
+  cursor: pointer; /* Cambiar cursor a mano al pasar por encima */
+  margin-top: 20px; /* Espacio por encima del botón */
+  font-weight: bold; /* Fuente en negrita */
+  outline: none; /* Quitar outline al hacer focus */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para dar efecto elevado */
+  transition: background-color 0.3s; /* Transición suave al cambiar de color */
+  margin-left: auto;
+  display: block;
+  margin-right: 17px;
+  margin-bottom: 15px;
+}
+
+.verMiembrosButton:hover {
+  background-color: #6a3e9e; /* Color ligeramente más oscuro al pasar el ratón por encima */
+}
