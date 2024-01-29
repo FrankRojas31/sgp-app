@@ -1,6 +1,6 @@
 import styles from '../css/targetTeam.module.css';
 import { Sidebar } from '../Components/dashboard/Sidebar';
-
+import TargetTeam from '../Components/targetTeam';
 function TeamsPage() {
 
 
