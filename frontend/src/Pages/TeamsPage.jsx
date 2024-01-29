@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../css/targetTeam.module.css';
+import { Sidebar } from '../Components/dashboard/Sidebar';
 
 
 

@@ -1,0 +1,133 @@
+.menuContainer {
+  left: 0;
+  z-index: 10;
+  width: 20rem;
+  min-height: 100vh;
+  background-color: #191c40;
+  font-family: "Arial", sans-serif;
+  color: inherit;
+  text-decoration: none;
+  top: 0;
+  position: absolute;
+}
+
+.logoSection {
+  display: flex; 
+  align-items: center;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.logoSgp {
+  max-width: 30%;
+  height: auto; 
+  margin-right: -15px;
+}
+
+.logoTitle {
+  display: flex; 
+  align-items: center;
+  font-size: 1.125rem;
+  color: #ffffff;
+  margin-left: 0.5rem; 
+}
+
+
+@media (min-width: 768px) {
+  .logoTitle {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+.logoSubtitle {
+  font-size: 1rem;
+  line-height: 1rem;
+  color: #b8b3d2;
+}
+
+.logoDescription {
+  color: #94a3b8;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.profileSection {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-bottom: 20px;
+}
+
+.profileText {
+  margin-left: 30px;
+  color: rgb(100 116 139);
+}
+
+.profileLink {
+  text-decoration: none;
+  display: inline-flex;
+  margin-left: 0.5rem;
+  align-items: center;
+}
+
+.profileImage {
+  border-radius: 9999px;
+  width: 2rem;
+  height: 2rem;
+  margin-left: 20px;
+}
+
+.profileName {
+  margin-left: 10px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .profileName {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+.navSection {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  width: 100%;
+}
+
+.logoutLink {
+  margin-top: 2.5rem;
+}
+
+.buttom {
+  display: flex;
+  flex-direction: column;
+}
+
+.logoutText {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.logoutSubText {
+  color: #94a3b8;
+  display: none;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .logoutSubText {
+    display: block;
+  }
+}

@@ -1,150 +1,141 @@
-@import url('https://fonts.cdnfonts.com/css/lalezar');
-
-
-
+@import url("https://fonts.cdnfonts.com/css/lalezar");
 
 .sidebar {
-    height: 100vh;
-    width: 250px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #7C4EAB;
-    padding-top: 20px;
-    color: white;
-  }
-  
-  .sidebar h2 {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 40px;
-  }
-
-  .sidebar img {
-    max-width: 40px;
-    border-radius: 30px;
-    margin-top: 10px;
-  }
-  
-  .sidebar span {
-    font-size: 19px;
-  }
-  
-  .sidebar .userContainer {
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
-  }
-  
-  
-  
-  .sidebar text {
-    margin-bottom: 30px;
-    margin-left: 20px;
-    font-size: 20px
-  }
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 40px;
-  }
-  
-  .sidebar li {
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
-  .sidebar span {
-    margin-left: 20px;
-    font-size:19px;
-  }
-  
-
-
-  .content {
-    margin-left: 250px; /* Ajusta según sea necesario para dar espacio a la barra lateral */
-    padding: 20px;
-  }
-
-  .content h1 {
-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    border-radius: 20px; 
-    overflow: hidden;
-    
-  }
-  
-  .table th, .table td {
-    border: 2px solid #ffffff;
-    padding: 10px;
-    text-align: left;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
-
-    
-  }
-  
-  .table th {
-    background-color: #a015e5;
-    font: bold;
-    color: white;
-  }
-  .table td {
-    background-color: #e1c5f0;
-  }
-  .botonagregar{
-    background-color: #7C4EAB;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    height: 30px;
-    width: 150px;
-    font:bold;
-    font-size: 18px;
-    margin-left: 87.5%;
-    margin-bottom: 4%;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    cursor: pointer;
-  }
-
-  .botonagregar:hover{
-    background-color: rgb(178, 146, 242);
-    color: #fefeff;
+  height: 100vh;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #7c4eab;
+  padding-top: 20px;
+  color: white;
 }
-  .botoneseyb{
-    background-color: #5d068c;
-    margin-right: 5px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 40px;
-    height: 40px;
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 40px;
 }
-.botoneseyb:hover{
-    background-color: #973cc9;
-    margin-right: 5px;
-    border: none;
+
+.sidebar img {
+  max-width: 40px;
+  border-radius: 30px;
+  margin-top: 10px;
 }
-.iconpp{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+
+.sidebar span {
+  font-size: 19px;
+}
+
+.sidebar .userContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.sidebar text {
+  margin-bottom: 30px;
+  margin-left: 20px;
+  font-size: 20px;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 40px;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.sidebar span {
+  margin-left: 20px;
+  font-size: 19px;
+}
+
+.content {
+  margin-left: 250px; /* Ajusta según sea necesario para dar espacio a la barra lateral */
+  padding: 20px;
+}
+
+.content h1 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  border: 2px solid #ffffff;
+  padding: 10px;
+  text-align: left;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.table th {
+  background-color: #a015e5;
+  font: bold;
+  color: white;
+}
+.table td {
+  background-color: #e1c5f0;
+}
+.botonagregar {
+  background-color: #7c4eab;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  height: 30px;
+  width: 150px;
+  font: bold;
+  font-size: 18px;
+  margin-left: 87.5%;
+  margin-bottom: 4%;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  cursor: pointer;
+}
+
+.botonagregar:hover {
+  background-color: rgb(178, 146, 242);
+  color: #fefeff;
+}
+.botoneseyb {
+  background-color: #5d068c;
+  margin-right: 5px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+}
+.botoneseyb:hover {
+  background-color: #973cc9;
+  margin-right: 5px;
+  border: none;
+}
+.iconpp {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 /* TableStyles.module.css */
 /* TableStyles.module.css */
 .myTable {
   width: 350px;
-  background-color: #DFD9E2;
+  background-color: #dfd9e2;
   border-collapse: collapse; /* Usa 'collapse' para manejar los bordes como un solo borde */
   margin: 0 auto;
   border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  font-family: 'Lalezar', sans-serif;                                    
+  font-family: "Lalezar", sans-serif;
 }
 
 .myTableCell {
@@ -156,21 +147,21 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
 /* Agrega el borde solo a la primera celda */
 .myTable tr:first-child .myTableCell {
-  border-bottom: 5px solid #FFFFFF;
+  border-bottom: 5px solid #ffffff;
 }
 
 .membersCol {
-  color: #7C4EAB;
+  color: #7c4eab;
   font-size: 20px;
   padding-left: 27px;
   display: flex; /* Usa Flexbox para alinear elementos internos */
-  align-items: center; 
+  align-items: center;
   padding-top: 10px; /* Aumenta el espacio en la parte superior */
-  padding-bottom: 10px; 
+  padding-bottom: 10px;
 }
 
 .verMiembrosButton {
-  background-color: #7C4EAB; /* Color de fondo morado */
+  background-color: #7c4eab; /* Color de fondo morado */
   color: white; /* Texto en color blanco */
   border: none; /* Sin borde */
   padding: 8px 16px; /* Padding horizontal y vertical reducido */
@@ -188,7 +179,6 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   margin-bottom: 15px;
 }
 
-
 .verMiembrosButton:hover {
-  background-color: #6A3E9E; /* Color ligeramente más oscuro al pasar el ratón por encima */
+  background-color: #6a3e9e; /* Color ligeramente más oscuro al pasar el ratón por encima */
 }

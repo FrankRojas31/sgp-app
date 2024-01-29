@@ -4,7 +4,7 @@ import styles from '../css/members.module.css';
 import Swal from 'sweetalert2';
 
 import TablaMiembros from '../Components/table_members';
-import Sidebar from '../Components/Side-Bar';
+import { Sidebar} from '../Components/dashboard/Sidebar';
 
 function createData(id, name, team, speciality, job) {
   return { id, name, team, speciality, job };
