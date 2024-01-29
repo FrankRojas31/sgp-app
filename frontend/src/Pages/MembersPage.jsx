@@ -65,7 +65,7 @@ export default function Members() {
               onChange={handleSearchChange}
               placeholder='Buscar por nombre' />
           </form>
-          <i class="fas fa-search"></i>
+          <i className="fas fa-search"></i>
 
         </div>
 
