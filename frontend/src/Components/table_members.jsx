@@ -10,6 +10,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import styles from '../css/members.module.css';
 import defaultImage from '../assets/ppDefault.jpeg';
 import Swal from 'sweetalert2';
+import Bar from './projects/Bar';
 
 function TablaMiembros({ rows }) {
 
@@ -61,6 +62,8 @@ function TablaMiembros({ rows }) {
         });
       };
     return (
+      <>
+      <Bar/>
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 600 }} aria-label="caption table">
                 <TableHead sx={{ backgroundColor: '#a015e5' }}>
@@ -94,6 +97,7 @@ function TablaMiembros({ rows }) {
                 </TableBody>
             </Table>
         </TableContainer>
+        </>
     );
 }
 

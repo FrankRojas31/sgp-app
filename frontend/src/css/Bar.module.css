@@ -6,7 +6,7 @@
   }
   
   .header {
-    background-color: lightblue;
+    background-color: #1a26ad;
     padding: 20px;
     text-align: center;
     width: 100%;
@@ -24,12 +24,12 @@
     list-style: none;
     padding: 0;
     display: flex;
-    justify-content: flex-start; /* Alinea las etiquetas a la izquierda */
+    justify-content: flex-start;
   }
   
   .navList li {
-    margin-right: 10px; /* Ajusta el espacio entre las etiquetas según sea necesario */
-    color: #333; /* Cambia el color del texto según sea necesario */
+    margin-right: 10px;
+    color: white;
     cursor: pointer;
     font-weight: bold;
     text-transform: uppercase;
