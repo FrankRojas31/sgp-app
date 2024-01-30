@@ -1,19 +1,20 @@
-export default function Bar (){
-    return (
-        <ul className="menu">
-						<li> All
-							<div className="badge"> 87 </div>
-						</li>
-						<li className="selected"> Current
-							<div className="badge"> 6 </div>
-						</li>
-						<li> Pending
-							<div className="badge"> 2 </div>
-						</li>
-						<li> Completed
-							<div className="badge"> 79 </div>
-						</li>
-						<li> Failed </li>
-					</ul>
-    );
+// Bar.js
+import React from 'react';
+import { Sidebar } from '../dashboard/Sidebar';
+import styles from '../../css/Bar.module.css';
+
+export default function Bar() {
+  return (
+    <div className={styles.container}>
+      <Sidebar />
+      <header className={styles.header}>
+        <nav className={styles.nav}>
+          <ul className={styles.navList}>
+            <li>Proyectos</li>
+            <li>Estadísticas</li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+  );
 }

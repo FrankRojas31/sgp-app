@@ -1,0 +1,44 @@
+/* Bar.module.css */
+
+.container {
+    display: flex;
+    margin-left: 312px;
+  }
+  
+  .header {
+    background-color: lightblue;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .nav {
+    margin-top: 10px; /* Ajusta el margen superior según sea necesario */
+  }
+  
+  .navList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start; /* Alinea las etiquetas a la izquierda */
+  }
+  
+  .navList li {
+    margin-right: 10px; /* Ajusta el espacio entre las etiquetas según sea necesario */
+    color: #333; /* Cambia el color del texto según sea necesario */
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column-reverse;
+      margin-left: 0;
+    }
+  }
+  
