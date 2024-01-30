@@ -53,9 +53,9 @@ export default function Members() {
   );
 
   return (
-    <div>
+    <div className={styles.content}>
       <Sidebar />
-      <div className={styles.content}>
+      <div className={styles.mainContent}>
         <h1>MIEMBROS</h1>
 
         <div className={styles.box}>
