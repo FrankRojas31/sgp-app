@@ -1,36 +1,28 @@
-.content {
-  margin-left: 250px; /* Ajusta según sea necesario para dar espacio a la barra lateral */
-  padding: 20px;
-}
 
 .content h1 {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
-.botonagregar {
-  background-color: #7c4eab;
+.botonagregar{
+  background-color: #7C4EAB;
   color: white;
   border: none;
   border-radius: 15px;
   height: 30px;
   width: 150px;
-  font: bold;
+  font:bold;
   font-size: 18px;
   margin-left: 87.5%;
   margin-bottom: 4%;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   cursor: pointer;
 }
 
-.botonagregar:hover {
+.botonagregar:hover{
   background-color: rgb(178, 146, 242);
   color: #fefeff;
 }
 /* DIV QUE ENGLOBA LA TARGET, QUITAR ESTOS ESTILOS DE SER NECESARIO*/
-.tableContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 5px;
-}
+
 
 /*LA TARGET EN SI */
 .myTable {
@@ -88,3 +80,20 @@
 .verMiembrosButton:hover {
   background-color: #6a3e9e; /* Color ligeramente más oscuro al pasar el ratón por encima */
 }
+
+
+.pageContainer{
+  margin-left: 315px; /* Ajusta según sea necesario para dar espacio a la barra lateral */
+  padding: 20px;
+}
+
+.pageContainer h1 {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    .tableContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 5px;
+    }
+    
