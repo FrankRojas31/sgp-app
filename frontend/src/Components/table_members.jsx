@@ -66,7 +66,7 @@ function TablaMiembros({ rows }) {
       <Bar/>
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 600 }} aria-label="caption table">
-                <TableHead sx={{ backgroundColor: '#a015e5' }}>
+                <TableHead sx={{ backgroundColor: '#191c40' }}>
                     <TableRow>
                         <TableCell sx={{ color: '#e3f2fd' }}>#</TableCell>
                         <TableCell sx={{ color: '#e3f2fd' }} align="center">NOMBRE</TableCell>
@@ -80,15 +80,15 @@ function TablaMiembros({ rows }) {
                 <TableBody>
                     {rows.map((row) => (
                         <TableRow key={row.id}>
-                            <TableCell component="th" scope="row" sx={{ backgroundColor: '#e1c5f0' }}>
+                            <TableCell component="th" scope="row" sx={{ backgroundColor: '#b7bade' }}>
                                 {row.id}
                             </TableCell>
-                            <TableCell sx={{ backgroundColor: '#e1c5f0' }} align="center">{row.name}</TableCell>
-                            <TableCell sx={{ backgroundColor: '#e1c5f0' }} align="center"><img className={styles.iconpp} src={row.image || defaultImage} alt="Imagen" /></TableCell>
-                            <TableCell sx={{ backgroundColor: '#e1c5f0' }} align="center">{row.team}</TableCell>
-                            <TableCell sx={{ backgroundColor: '#e1c5f0' }} align="center">{row.speciality}</TableCell>
-                            <TableCell sx={{ backgroundColor: '#e1c5f0' }} align="center">{row.job}</TableCell>
-                            <TableCell sx={{ backgroundColor: '#e1c5f0' }} align="center">
+                            <TableCell sx={{ backgroundColor: '#b7bade' }} align="center">{row.name}</TableCell>
+                            <TableCell sx={{ backgroundColor: '#b7bade' }} align="center"><img className={styles.iconpp} src={row.image || defaultImage} alt="Imagen" /></TableCell>
+                            <TableCell sx={{ backgroundColor: '#b7bade' }} align="center">{row.team}</TableCell>
+                            <TableCell sx={{ backgroundColor: '#b7bade' }} align="center">{row.speciality}</TableCell>
+                            <TableCell sx={{ backgroundColor: '#b7bade' }} align="center">{row.job}</TableCell>
+                            <TableCell sx={{ backgroundColor: '#b7bade' }} align="center">
                                 <button className={styles.botoneseyb} onClick={handleEditarClick}><ModeEditIcon sx={{ color: '#fff' }} /></button>
                                 <button className={styles.botoneseyb} onClick={handleBorrarClick}><PersonRemoveIcon sx={{ color: '#fff' }} /></button>
                             </TableCell>

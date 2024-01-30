@@ -1,61 +1,11 @@
 @import url("https://fonts.cdnfonts.com/css/lalezar");
 
-.sidebar {
-  height: 100vh;
-  width: 250px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #7c4eab;
-  padding-top: 20px;
-  color: white;
-}
-
-.sidebar h2 {
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 40px;
-}
-
-.sidebar img {
-  max-width: 40px;
-  border-radius: 30px;
-  margin-top: 10px;
-}
-
-.sidebar span {
-  font-size: 19px;
-}
-
-.sidebar .userContainer {
+.content{
   display: flex;
-  align-items: center;
-  margin-left: 20px;
 }
 
-.sidebar text {
-  margin-bottom: 30px;
-  margin-left: 20px;
-  font-size: 20px;
-}
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 40px;
-}
-
-.sidebar li {
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.sidebar span {
-  margin-left: 20px;
-  font-size: 19px;
-}
-
-.content {
-  margin-left: 250px; /* Ajusta según sea necesario para dar espacio a la barra lateral */
+.mainContent {
+  margin-left: 25%; 
   padding: 20px;
 }
 
@@ -88,7 +38,7 @@
   background-color: #e1c5f0;
 }
 .botonagregar {
-  background-color: #7c4eab;
+  background-color: #1b2378;
   color: white;
   border: none;
   border-radius: 15px;
@@ -96,7 +46,7 @@
   width: 150px;
   font: bold;
   font-size: 18px;
-  margin-left: 87.5%;
+  margin-left: 85%;
   margin-bottom: 4%;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   cursor: pointer;
@@ -104,11 +54,11 @@
 }
 
 .botonagregar:hover {
-  background-color: rgb(178, 146, 242);
+  background-color:#1b2378;
   color: #fefeff;
 }
 .botoneseyb {
-  background-color: #5d068c;
+  background-color: #1b2378;
   margin-right: 5px;
   border: none;
   cursor: pointer;
@@ -117,7 +67,7 @@
   height: 40px;
 }
 .botoneseyb:hover {
-  background-color: #973cc9;
+  background-color: #2933a1;
   margin-right: 5px;
   border: none;
 }
