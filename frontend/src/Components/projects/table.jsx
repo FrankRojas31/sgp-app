@@ -53,7 +53,7 @@ export default function TableProject() {
 
   return (
     <div className={styles['main-container']}>
-      <h1>PROYECTOS / </h1>
+      <h1>PROYECTOS </h1>
       <div className={styles.toolbar}>
         <div className={styles.searchBar}>
           <input

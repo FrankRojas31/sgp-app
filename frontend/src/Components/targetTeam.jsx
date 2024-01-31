@@ -13,6 +13,12 @@ function TargetTeam() {
       teamName: 'Equipo #2',
       members: ['María', 'Ana', 'Carlos'],
     },
+    {
+      teamName: 'Equipo #2',
+      members: ['María', 'Ana', 'Carlos'],
+    },
+    
+
   ];
 
   return (
