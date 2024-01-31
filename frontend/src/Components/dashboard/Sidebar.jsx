@@ -10,7 +10,7 @@ import { FaPersonCirclePlus } from "react-icons/fa6";
 
 const menuItems = [
   { title: 'Dashboard', subTitle: 'Información general', href: '/dashboard', Icon: SiTaichigraphics },
-  { title: 'Proyectos', subTitle: 'Gestionar proyectos', href: '/projects', Icon: GrProjects },
+  { title: 'Proyectos', subTitle: 'Gestionar proyectos', href: '/PageFirstProject', Icon: GrProjects },
   { title: 'Equipos', subTitle: 'Gestionar equipos', href: '/teams', Icon: RiTeamFill },
   { title: 'Recursos', subTitle: 'Gestionar recursos', href: '/resources', Icon: GrResources },
   { title: 'Miembros', subTitle: 'Gestionar miembros', href: '/members', Icon: FaPersonCirclePlus },
