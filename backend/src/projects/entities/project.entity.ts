@@ -1,5 +1,5 @@
-import { Team } from 'src/teams/entities/team.entity';
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Team } from 'src/teams/entities/team.entity'; // Asegúrate de que la ruta sea correcta
 
 @Entity({ name: 'projects' })
 export class Project {
@@ -9,7 +9,18 @@ export class Project {
   @Column('varchar')
   name: string;
 
-  @OneToOne(() => Team, (team) => team.project, { eager: true })
-  @JoinColumn()
-  team: Team;
+  @Column('text', { nullable: true })
+  description: string;
+
+  @Column('date', { nullable: true })
+  startDate: Date;
+
+  @Column('date', { nullable: true })
+  endDate: Date;
+
+  @Column({ type: 'boolean', default: true })
+  isActive: boolean;
+
+  @OneToMany(() => Team, (team) => team.project, { eager: true })
+  teams: Team[];
 }
