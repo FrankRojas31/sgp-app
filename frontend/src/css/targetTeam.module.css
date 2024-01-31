@@ -3,7 +3,7 @@
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 .botonagregar{
-  background-color: #7C4EAB;
+  background-color:#191c40;
   color: white;
   border: none;
   border-radius: 15px;
@@ -18,7 +18,7 @@
 }
 
 .botonagregar:hover{
-  background-color: rgb(178, 146, 242);
+  background-color: #8093a1;
   color: #fefeff;
 }
 /* DIV QUE ENGLOBA LA TARGET, QUITAR ESTOS ESTILOS DE SER NECESARIO*/
@@ -49,7 +49,7 @@
 }
 
 .membersCol {
-  color: #7c4eab;
+  color: #1b205c;
   font-size: 20px;
   padding-left: 27px;
   display: flex; /* Usa Flexbox para alinear elementos internos */
@@ -59,7 +59,7 @@
 }
 
 .verMiembrosButton {
-  background-color: #7c4eab; /* Color de fondo morado */
+  background-color: #191c40; /* Color de fondo morado */
   color: white; /* Texto en color blanco */
   border: none; /* Sin borde */
   padding: 8px 16px; /* Padding horizontal y vertical reducido */
@@ -78,7 +78,7 @@
 }
 
 .verMiembrosButton:hover {
-  background-color: #6a3e9e; /* Color ligeramente más oscuro al pasar el ratón por encima */
+  background-color: #8093a1; /* Color ligeramente más oscuro al pasar el ratón por encima */
 }
 
 

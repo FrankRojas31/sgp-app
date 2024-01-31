@@ -12,12 +12,15 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/system';
 import WelcomeIMG from '../assets/WelcomeIMG.png';
+import Swal from 'sweetalert2';
+import styles from '../Components/dashboard/SideMenu.module.css'
+
 
 //tema
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#673ab7',
+      main: '#191C40',
     },
   },
   typography: {
@@ -70,7 +73,8 @@ const LoginPage = () => {
           alignItems: 'center', 
         }}>
           <LoginFormContainer>
-            <Typography component="h2" variant="h5" gutterBottom style={{ color: '#673ab7' }}>
+          <img src='/public/logo.png' className={styles.logoSgp} alt="SGP Logo"/>
+            <Typography component="h2" variant="h5" gutterBottom style={{ color: '#191C40' }}>
               Inicia sesión
             </Typography>
             <Box component="form" noValidate sx={{ mt: 1 }}>
@@ -94,9 +98,22 @@ const LoginPage = () => {
                 id="contraseña"
                 autoComplete="current-password"
               />
-              <Link href="#" variant="body2" sx={{ display: 'block', mt: 1 }}>
-                ¿Olvidaste la contraseña?
-              </Link>
+             <Link
+  href="#"
+  variant="body2"
+  sx={{ display: 'block', mt: 1 }}
+  onClick={(event) => {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Recuperación de cuenta',
+      text: 'Favor de comunicarse con el administrador para la recuperación de su cuenta.',
+      icon: 'info',
+      confirmButtonText: 'Entendido'
+    });
+  }}
+>
+  ¿Olvidaste la contraseña?
+</Link>
               <Button
                 type="submit"
                 fullWidth
