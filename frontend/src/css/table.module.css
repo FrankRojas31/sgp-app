@@ -1,22 +1,26 @@
 /* table.module.css */
 
 .main-container {
-    margin: -79px 0 20px 0; /* Ajusta el margen superior e inferior para más espacio */
+  margin-top: 80px;
+  border-style: dotted;
+  border-color: black;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-left: 320px;
+    font-family: "Arial", sans-serif;
   }
   
   .toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px; /* Ajusta el margen inferior de la barra de herramientas */
+    margin-bottom: 20px;
   }
   
   .searchBar {
     display: flex;
-    align-items: center;
+    margin-right: 830px;
   }
   
   .iconButton {
@@ -31,9 +35,9 @@
   }
   
   .table {
-    width: 80%; /* Ajusta el ancho de la tabla */
+    width: 80%;
     border-collapse: collapse;
-    margin-top: 20px; /* Añade espacio en la parte superior de la tabla */
+    margin-top: 20px;
   }
   
   th, td {
@@ -42,16 +46,17 @@
   }
   
   thead {
-    background-color: #2196f3;
+    background-color: #191c40;
     color: white;
+    text-transform: uppercase;
   }
   
   tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #b7bade;
   }
   
   tbody tr:hover {
-    background-color: #e0e0e0;
+    background-color: gray;
   }
   
   .actions {
@@ -65,3 +70,12 @@
     font-size: 24px;
   }
   
+  .botoneseyb {
+    background-color: #1b2378;
+    margin-right: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+  }
