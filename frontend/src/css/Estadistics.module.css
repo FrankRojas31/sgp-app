@@ -1,0 +1,78 @@
+/* App.module.css */
+
+.title {
+    font-size: 24px;
+  }
+  
+  .bgInfo {
+    background-color: #2196f3;
+  }
+  
+  .textCenter {
+    text-align: center;
+  }
+  
+  .fontMonospace {
+    font-family: monospace;
+  }
+  
+  .fwBold {
+    font-weight: bold;
+  }
+  
+  .lhBase {
+    line-height: 1.5;
+  }
+  
+  .m2 {
+    margin: 8px;
+  }
+  
+  .bgLight {
+    background-color: #f8f9fa;
+  }
+  
+  .mxAuto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .px2 {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  .border {
+    border: 1px solid rgba(0, 123, 255, 0.125);
+  }
+  
+  .border2 {
+    border-width: 2px;
+  }
+  
+  .borderPrimary {
+    border-color: #007bff;
+  }
+  
+  .mt3 {
+    margin-top: 16px;
+  }
+  
+  .mb2 {
+    margin-bottom: 8px;
+  }
+  
+  .chartContainer {
+    width: 450px;
+    height: 230px;
+  }
+  
+  .scrollContainer {
+    display: flex;
+    overflow-y: auto; /* Añade un desplazamiento vertical si es necesario */
+  }
+  
+  .mainContent {
+    max-height: 100vh; /* Fija la altura máxima al 100% de la altura de la ventana */
+    overflow-y: auto; /* Añade un desplazamiento vertical si es necesario */
+  }

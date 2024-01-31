@@ -1,0 +1,52 @@
+/* Bar.module.css */
+
+.container {
+  display: flex;
+  margin-left: 312px;
+}
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 200px;
+  width: 100%;
+}
+
+.header {
+  background-color: #1d5979;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav {
+  margin-top: 10px; /* Ajusta el margen superior según sea necesario */
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.navList li {
+  margin-right: 10px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: "Arial", sans-serif;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse;
+    margin-left: 0;
+  }
+}
