@@ -1,5 +1,6 @@
 import styles from '../css/targetTeam.module.css';
 import PersonIcon from '@mui/icons-material/Person';
+import defaultImage from '../assets/ppDefault.jpeg';
 
 function TargetTeam() {
   // Datos simulados para dos equipos con sus miembros
@@ -29,7 +30,11 @@ function TargetTeam() {
               {team.members.map((member, memberIndex) => (
                 <tr key={memberIndex}>
                   <td className={styles.membersCol}>
-                    <PersonIcon fontSize="large" />
+                  <img 
+        className={styles.iconpp} 
+        src={member.image || defaultImage} 
+        alt={member.name} 
+      />
                     {member}
                   </td>
                 </tr>

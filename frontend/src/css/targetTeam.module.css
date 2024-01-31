@@ -34,6 +34,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   font-family: "Lalezar", sans-serif;
+  
 }
 
 .myTableCell {
@@ -93,9 +94,22 @@
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     }
 
-    .tableContainer {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 5px;
+ .tableContainer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-height: 400px; /* Altura máxima antes de que la barra de desplazamiento aparezca, ajusta según sea necesario */
+      overflow-y: auto; 
     }
+    
+
+    .iconpp {
+      width: 24px; /* o el tamaño que prefieras */
+      height: 24px; /* asegúrate de que sea igual al ancho para mantener la imagen cuadrada */
+      border-radius: 50%; /* opcional, para hacer la imagen redonda */
+      margin-right: 10px; /* espacio entre la imagen y el texto */
+      vertical-align: middle; /* alinea la imagen con el texto */
+    }
+    
+
     
