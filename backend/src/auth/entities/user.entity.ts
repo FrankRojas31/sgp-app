@@ -4,10 +4,12 @@ import {
   Column,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ValidRoles } from '../interfaces/valid-roles.interface';
 import { Team } from 'src/teams/entities/team.entity';
+import { HumanResource } from 'src/resources/entities/human-resource.entity';
 
 @Entity('users')
 export class User {
@@ -39,6 +41,12 @@ export class User {
   })
   picture: string;
 
+  @ManyToOne(() => Team, (team) => team.members)
+  team: Team;
+
+  @OneToMany(() => HumanResource, (humanResource) => humanResource.user)
+  humanResource: HumanResource;
+
   @BeforeInsert()
   checkFields() {
     this.email = this.email.toLowerCase().trim();
@@ -48,7 +56,4 @@ export class User {
   checkFieldsOnUpdate() {
     this.email = this.email.toLowerCase().trim();
   }
-
-  @ManyToOne(() => Team, (team) => team.members)
-  team: Team;
 }

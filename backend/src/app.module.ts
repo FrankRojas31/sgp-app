@@ -5,6 +5,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { AuthModule } from './auth/auth.module';
 import { ProjectsModule } from './projects/projects.module';
 import { TeamsModule } from './teams/teams.module';
+import { ResourcesModule } from './resources/resources.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { TeamsModule } from './teams/teams.module';
     AuthModule,
     ProjectsModule,
     TeamsModule,
+    ResourcesModule,
   ],
 })
 export class AppModule {}
