@@ -4,7 +4,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import ModeDeleteIcon from '@mui/icons-material/Delete';
 import ModeSearchIcon from '@mui/icons-material/Search';
 
-import styles from '../../css/MResources.module.css';
+import styles from '../../css/Mresources.module.css';
 import Swal from 'sweetalert2';
 
 export default function TableResource() {

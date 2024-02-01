@@ -7,6 +7,7 @@ import { SiTaichigraphics } from "react-icons/si";
 import { RiTeamFill } from "react-icons/ri";
 import styles from './SideMenu.module.css'
 import { FaPersonCirclePlus } from "react-icons/fa6";
+import { useAuthStore } from '../../stores/Auth/authStore';
 
 const menuItems = [
   { title: 'Dashboard', subTitle: 'Información general', href: '/dashboard', Icon: SiTaichigraphics },
@@ -18,6 +19,8 @@ const menuItems = [
 
 
 export const Sidebar = () => {
+  const logout = useAuthStore((state) => state.logout);
+  const useUser = useAuthStore((state) => state.user);
 
   return (
     <div id="menu" className={styles.menuContainer}>
@@ -35,10 +38,10 @@ export const Sidebar = () => {
         <p className={styles.profileText}>Bienvenido,</p>
         <a href="#" className={styles.profileLink}>
           <span>
-            <img className={styles.profileImage} src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80" alt="" />
+            <img className={styles.profileImage} src={useUser.picture} alt="" />
           </span>
           <span className={styles.profileName}>
-            Juan Diego Mendoza
+            {useUser.fullName}
           </span>
         </a>
       </div>
@@ -52,11 +55,11 @@ export const Sidebar = () => {
         }
 
         {/* Logout */}
-        <NavLink to={'/auth/login'} className={styles.logoutLink}>
+        <NavLink to={'/login'} className={styles.logoutLink}>
           <div>
             <IoLogOutOutline />
           </div>
-          <div className={styles.buttom}>
+          <div className={styles.buttom} onClick={() => logout()}>
             <span className={styles.logoutText}>Salir</span>
             <span className={styles.logoutSubText}>Cerrar sesión</span>
           </div>
