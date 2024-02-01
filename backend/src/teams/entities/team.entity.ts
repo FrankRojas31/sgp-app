@@ -1,4 +1,11 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from 'src/auth/entities/user.entity';
 import { Project } from 'src/projects/entities/project.entity';
 
@@ -10,9 +17,12 @@ export class Team {
   @Column('varchar')
   name: string;
 
+  @Column({ type: 'boolean', default: true })
+  isActive: boolean;
+
   @OneToMany(() => User, (user) => user.team, { eager: true })
   members: User[];
 
-  @OneToOne(() => Project, (project) => project.team)
-  project: Project
+  @ManyToOne(() => Project, (project) => project.teams)
+  project: Project;
 }

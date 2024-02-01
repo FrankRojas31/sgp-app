@@ -3,6 +3,7 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
@@ -10,6 +11,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Team } from './entities/team.entity';
 import { Repository } from 'typeorm';
 import { AuthService } from '../auth/auth.service';
+import { AddMemberDto } from './dto/add-member.dto';
+import { User } from 'src/auth/entities/user.entity';
 
 @Injectable()
 export class TeamsService {
@@ -17,6 +20,7 @@ export class TeamsService {
   constructor(
     @InjectRepository(Team) private readonly teamRepository: Repository<Team>,
     private readonly authService: AuthService,
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
   async create(createTeamDto: CreateTeamDto) {
@@ -45,16 +49,47 @@ export class TeamsService {
     return this.teamRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} team`;
+  async findOne(id: string) {
+    const team = this.teamRepository.findOneBy({ id });
+    if (!team)
+      throw new NotFoundException(
+        `El equipo con el id: ${id} no fue encontrado`,
+      );
+    return team;
   }
 
-  update(id: number, updateTeamDto: UpdateTeamDto) {
-    return `This action updates a #${id} team`;
+  async update(id: string, updateTeamDto: UpdateTeamDto) {
+    const team = await this.teamRepository.preload({ id, ...updateTeamDto });
+    if (!team)
+      throw new NotFoundException(
+        `El equipo con el id: ${id} no fue encontrado`,
+      );
+    return await this.teamRepository.save(team);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} team`;
+  async remove(id: string) {
+    const team = await this.teamRepository.preload({ id, isActive: false });
+    if (!team)
+      throw new NotFoundException(
+        `El equipo con el id: ${id} no fue encontrado`,
+      );
+    return await this.teamRepository.save(team);
+  }
+
+  async AddMember(addMemberDto: AddMemberDto) {
+    const { teamId, userId } = addMemberDto;
+    const findUser = await this.userRepository.findOneBy({ id: userId });
+    if (!findUser)
+      throw new NotFoundException(
+        `El usuario con el Id: ${userId} no fue encontrado`,
+      );
+
+    const loadMember = await this.userRepository.preload({
+      id: userId,
+      team: teamId,
+    });
+
+    return await this.userRepository.save(loadMember);
   }
 
   private handleDBErrors(error: any): never {
