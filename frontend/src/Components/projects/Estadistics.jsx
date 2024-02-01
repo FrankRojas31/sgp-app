@@ -6,15 +6,12 @@ import styles from '../../css/Estadistics.module.css';
 export default function Estadistics() {
   return (
     <>
+    <div className={styles.container}>
     <div className={styles.scrollContainer}>
       
       <div className={styles.mainContent}>
         <div className={`${styles.bgLight} ${styles.mxAuto} ${styles.px2} ${styles.border} ${styles.border2} ${styles.borderPrimary} ${styles.chartContainer}`}>
           <LinesChart />
-        </div>
-        <br/>
-        <div className={`${styles.bgLight} ${styles.mxAuto} ${styles.px2} ${styles.border} ${styles.border2} ${styles.borderPrimary} ${styles.chartContainer}`}>
-          <BarsChart />
         </div>
         <br/>
         <div className={`${styles.bgLight} ${styles.mxAuto} ${styles.border} ${styles.border2} ${styles.borderPrimary} ${styles.chartContainer}`}>
@@ -23,6 +20,7 @@ export default function Estadistics() {
           </div>
         </div>
       </div>
+    </div>
     </div>
     </>
   );

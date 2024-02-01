@@ -1,5 +1,10 @@
 /* App.module.css */
 
+.container {
+  display: grid;
+  align-items: center;
+  margin-left: 650px;
+}
 .title {
     font-size: 24px;
   }
