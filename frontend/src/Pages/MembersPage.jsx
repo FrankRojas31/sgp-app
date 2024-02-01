@@ -68,7 +68,7 @@ export default function Members() {
         <h1>MIEMBROS</h1>
 
         <div className={styles.box}>
-          <form name="search">
+          <form name="search" className={styles.form}>
             <input type="text" className={styles.input}
               value={searchTerm}
               onChange={handleSearchChange}

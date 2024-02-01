@@ -133,3 +133,7 @@
   height: 400px; /* Establece la altura fija que desees */
   overflow: auto;
 }
+
+.box{
+  width: 450px;
+}
