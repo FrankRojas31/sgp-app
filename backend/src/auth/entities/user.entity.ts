@@ -35,7 +35,8 @@ export class User {
 
   @Column({
     type: 'varchar',
-    default: 'null',
+    default: 'https://acortar.link/MRAY6q',
+    length: 255
   })
   picture: string;
 
