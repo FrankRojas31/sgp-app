@@ -51,6 +51,31 @@ export default function TableMaterialResource() {
     })
   }
 
+  const handleAgregarClick = () => {
+    Swal.fire({
+      title: 'Agregar Recurso Humano',
+      html: `
+      <input id="nombre" class="swal2-input" placeholder="Nombre">
+      <input id="equipo" class="swal2-input" placeholder="Descripcion">
+      <input id="cargo" class="swal2-input" placeholder="Cantidad Disponible">
+      `,
+      showCancelButton: true,
+      confirmButtonText: 'Agregar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        const nombre = Swal.getPopup().querySelector('#nombre').value;
+        const equipo = Swal.getPopup().querySelector('#equipo').value;
+        const especialidad = Swal.getPopup().querySelector('#especialidad').value;
+        const cargo = Swal.getPopup().querySelector('#cargo').value;
+
+        const nuevaFila = createData(rows.length + 1, nombre, equipo, especialidad, cargo);
+        setRows([...rows, nuevaFila]);
+
+        return true;
+      },
+    });
+  };
+
   return (
     <div className={styles['main-container']}>
       <div className={styles.toolbar}>
@@ -64,9 +89,9 @@ export default function TableMaterialResource() {
           <i className="fas fa-search"></i>
 
         </div>
-        <div className={styles.addButtonContainer}>
-          <button className={styles.iconButton}>
-            <Add style={{ color: '#2196f3' }} />
+        <div className={styles.contenedor}>
+          <button className={styles.botonagregar} onClick={handleAgregarClick}>
+            Agregar
           </button>
         </div>
       </div>
@@ -104,3 +129,30 @@ export default function TableMaterialResource() {
     </div>
   );
 }
+
+const getColorByRole = (role) => {
+  switch (role) {
+    case 'Gestión del desempeño':
+      return '#ff0000';
+    case 'Capacitación y desarrollo':
+      return '#00ff00';
+    case 'Desarrollador':
+      return '#0000ff';
+    case 'Diseñador':
+      return '#ffff00';
+    case 'Analista de datos':
+      return '#ff00ff';
+    case 'Especialista en seguridad informática':
+      return '#00ffff';
+    case 'Ingeniero de sistemas':
+      return '#800080';
+    case 'Gerente de proyectos de software':
+      return '#008080';
+    case 'Especialista en calidad de software':
+      return '#ff4500';
+    case 'Especialista en integración de sistemas':
+      return '#32cd32';
+    default:
+      return '#000000';
+  }
+};
