@@ -36,11 +36,16 @@ export class ProjectsService {
             id: team,
           });
 
-          if (findTeam)
-            return this.teamRepository.preload({
+          if (findTeam) {
+            const updatedTeam = await this.teamRepository.preload({
               id: findTeam.id,
               project,
             });
+
+            if (updatedTeam) {
+              return await this.teamRepository.save(updatedTeam);
+            }
+          }
         } catch (error) {
           this.handleDBErrors(error);
         }
@@ -51,7 +56,11 @@ export class ProjectsService {
   }
 
   findAll() {
-    return this.projectRepository.find();
+    return this.projectRepository.find({
+      relations: {
+        teams: true,
+      },
+    });
   }
 
   findOne(id: string) {
