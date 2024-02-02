@@ -51,6 +51,7 @@ export class UpdateUserDto {
   roles?: ValidRoles;
 
   @IsUUID()
+  @IsOptional()
   @IsString()
   team: Team;
 }
