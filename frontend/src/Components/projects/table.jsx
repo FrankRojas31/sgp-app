@@ -53,7 +53,7 @@ export default function TableProject() {
 
   return (
     <div className={styles['main-container']}>
-      <h1>PROYECTOS </h1>
+      <h1>Proyectos</h1>
       <div className={styles.toolbar}>
       <div className={styles.box}>
           <form name="search">
@@ -62,7 +62,6 @@ export default function TableProject() {
               onChange={""}
               placeholder='Buscar por nombre' />
           </form>
-          <i className="fas fa-search"></i>
 
         </div>
         <div className={styles.addButtonContainer}>

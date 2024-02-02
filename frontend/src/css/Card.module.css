@@ -1,8 +1,11 @@
 /* Card.module.css */
 
 .container {
-  display:flex;
-  margin-left: 20px
+  display: flex;
+  margin-left: 20px;
+  flex-wrap: wrap; /* Permite que los contenedores se envuelvan cuando no hay suficiente espacio */
+  transform: translateY(0); /* Inicialmente sin desplazamiento vertical */
+  transition: transform 0.5s ease; /* Añade una transición suave */
 }
 .e-card {
   background: transparent;
@@ -13,7 +16,8 @@
   border-radius: 16px;
   overflow: hidden;
   display: inline-block;
-  margin-right: 20px;
+  margin-left: 26px;
+  margin-top:40px;
 }
 
 .wave {

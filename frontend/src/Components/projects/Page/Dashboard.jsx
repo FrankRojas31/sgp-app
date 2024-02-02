@@ -9,14 +9,6 @@ export default function DashboardEstad (){
         <Sidebar/>
         <div className={styles.Card}>
             <Card/>
-            <div className={styles.BarChart}>
-            <BarChart/>
-            </div>
-            <div className={styles.Container}>
-            <div className={styles.PiesChart}>
-                <PiesChart/>
-            </div>
-            </div>
         </div>
         </>
     );
