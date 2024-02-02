@@ -43,6 +43,7 @@ export class AuthService {
     const getAllUsers = await this.userRepository.find({
       take: limit,
       skip: offset,
+      where: { isActive: true },
       relations: {
         team: true,
       },
