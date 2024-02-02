@@ -13,8 +13,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path="/login" element={<LoginPage />} />
-        <Route element={<PrivateRoute />}>
+        <Route path="/login" element={<LoginPage />} />
+        <Route element={<PrivateRoute allowRoles={["admin"]} />}>
           <Route path="/members" element={<MembersPage />} />
           <Route path="/teams" element={<TeamsPage />} />
           <Route path="/PageFirstProject" element={<PagePropFirst />} />
@@ -22,6 +22,8 @@ function App() {
           <Route path="/PageSecondProject" element={<PagePropSecond />} />
           <Route path="/HumanResources" element={<HumanResource />} />
           <Route path="/MaterialResources" element={<MaterialResources />} />
+        </Route>
+        <Route element={<PrivateRoute allowRoles={["member", "admin"]} />}>
           <Route path="/dashboard" element={<PagePropThree />} />
         </Route>
       </Routes>

@@ -5,8 +5,15 @@ import * as express from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 
+const httpsOptions = {
+  key: fs.readFileSync('./secrets/create-cert-key.pem'),
+  cert: fs.readFileSync('./secrets/create-cert.pem'),
+};
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    httpsOptions,
+  });
   app.enableCors();
   const logger = new Logger('bootstrap');
   app.setGlobalPrefix('api');
@@ -16,11 +23,11 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
-const uploadsDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir);
-}
-   app.use('/uploads', express.static('uploads'));
+  const uploadsDir = path.join(__dirname, 'uploads');
+  if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir);
+  }
+  app.use('/uploads', express.static('uploads'));
   await app.listen(process.env.PORT);
   logger.log(`App running on port ${process.env.PORT}`);
 }
