@@ -1,14 +1,5 @@
 .Card {
-    margin-top:30px;
+    margin-top:80px;
     margin-left: 310px;
     align-items: center;
-    border-style: dotted;
-    border-color: black;
-}
-
-.BarChart,
-.PiesChart {
-  margin: 5px;
-  max-width: 400px; 
-  display: inline-block;
 }

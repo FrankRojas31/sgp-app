@@ -25,6 +25,17 @@ const cardData = [
     title: datos[1],
     subtitle: 'Recursos',
   },
+
+  {
+    id: 4,
+    title: datos[2],
+    subtitle: 'usuarios',
+  },
+  {
+    id: 4,
+    title: datos[2],
+    subtitle: 'Servicios',
+  },
 ];
 
 export default function CardListComponent() {
