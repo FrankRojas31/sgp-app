@@ -8,7 +8,7 @@
 
 }
 .maincontainer {
-  margin-top: 80px;
+  margin-top: 40px;
   border-color: black;
     display: flex;
     flex-direction: column;
@@ -52,7 +52,7 @@
 }
 
 .box {
-  margin-top: 10px;
+  margin-top:30px;
   transform: translate(-112%, -40%);
 }
 
