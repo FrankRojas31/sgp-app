@@ -110,7 +110,7 @@ export default function TableResource() {
         </div>
       </div>
 
-      <table className={styles.table}>
+      <table className={`${styles.table} ${styles.roundedTable}`}>
         <thead>
           <tr>
             <th>#</th>

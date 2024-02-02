@@ -39,6 +39,11 @@
       border-collapse: collapse;
       margin-top: 20px;
     }
+
+    .roundedTable {
+      border-radius: 10px;
+      overflow: hidden;
+    }
     
     th, td {
       padding: 15px; /* Ajusta el padding para reducir el tamaño de las celdas */

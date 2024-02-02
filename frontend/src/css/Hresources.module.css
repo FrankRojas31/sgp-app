@@ -112,7 +112,7 @@
 
 .searchBar {
   display: flex;
-  margin-right: 830px;
+  margin-right: 810px;
 }
 
 .iconButton {
@@ -129,7 +129,8 @@
 .table {
   width: 90%;
   border-collapse: collapse;
-  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 th,
