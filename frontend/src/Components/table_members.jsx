@@ -10,10 +10,25 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import styles from '../css/members.module.css';
 import defaultImage from '../assets/ppDefault.jpeg';
 import Swal from 'sweetalert2';
+import axios from 'axios';
+import { useEffect } from 'react';
+const server = import.meta.env.VITE_BACKEND_URL
 
 function TablaMiembros({ rows }) {
 
+  useEffect(() => {
+    const RecargarDatos = async () => {
+      try {
+        const respuesta = await axios.get(`${server}/auth/get-all-users`);
+        console.log(respuesta.data);
+      } catch (error) {
+        console.error('Error al recargar datos:', error);
+      }
+    };
 
+    RecargarDatos();
+  }, []); 
+    
 
 
   const handleBorrarClick = (id) => {
