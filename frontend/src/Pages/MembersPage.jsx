@@ -1,92 +1,114 @@
 import { useState } from 'react';
-import styles from '../css/members.module.css';
-import Swal from 'sweetalert2';
-
-import TablaMiembros from '../Components/table_members';
+import { Add } from '@mui/icons-material';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import ModeDeleteIcon from '@mui/icons-material/Delete';
+import ModeSearchIcon from '@mui/icons-material/Search';
 import { Sidebar } from '../Components/dashboard/Sidebar';
 
-function createData(id, name, team, speciality, job) {
+import styles from '../css/table.module.css';
+import Swal from 'sweetalert2';
 
-  return { id, name, team, speciality, job };
-}
-
-export default function Members() {
-  const initialRows = [
-    createData('1', 'Agripino Hernández', 'team demoledor', 'Programador', 1),
-    createData('2', 'Agripino Hernández', 'Esternocleidomastoideo', 'Diseñador', 7),
-    createData('2', 'Agripino Hernández', 'Esternocleidomastoideo', 'ProjectManajer', 7),
-
-  ];
-
-  const [rows, setRows] = useState(initialRows);
+export default function TableProject() {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleAgregarClick = () => {
-    Swal.fire({
-      title: 'Agregar Miembro',
-      html: `
-      <input id="nombre" class="swal2-input" placeholder="Nombre">
-      <input id="equipo" class="swal2-input" placeholder="Equipo">
-      <select id="especialidad" class="swal2-select">
-        <option value="Programador" style="background-color: #1E90FF; color: #FFFFFF;">Programador</option>
-        <option value="Diseñador" style="background-color: #32CD32; color: #FFFFFF;">Diseñador</option>
-        <option value="Analista" style="background-color: #FFA500; color: #FFFFFF;">Analista</option>
-        <option value="Administrador" style="background-color: #8B008B; color: #FFFFFF;">Administrador</option>
-        <option value="ProjectManager" style="background-color: #FF4500; color: #FFFFFF;">ProjectManager</option>
-      </select>
-      <input id="cargo" class="swal2-input" placeholder="Cargo de Trabajo">
-      `,
-      showCancelButton: true,
-      confirmButtonText: 'Agregar',
-      cancelButtonText: 'Cancelar',
-      preConfirm: () => {
-        const nombre = Swal.getPopup().querySelector('#nombre').value;
-        const equipo = Swal.getPopup().querySelector('#equipo').value;
-        const especialidad = Swal.getPopup().querySelector('#especialidad').value;
-        const cargo = Swal.getPopup().querySelector('#cargo').value;
+  const datos = [
+    { id: 1, nombre: 'Juan God', descripcion: 'Agua', Fecha_Inicio: 'Enero', Recurso: '$450' },
+    { id: 2, nombre: 'Irvin God', descripcion: 'Luz', Fecha_Inicio: 'Febrero', Recurso: '$450' },
+    { id: 3, nombre: 'Josue God', descripcion: 'Coche', Fecha_Inicio: 'Marzo', Recurso: '$450' },
+    { id: 4, nombre: 'Emma God', descripcion: 'Internet', Fecha_Inicio: 'Abril', Recurso: '$450' },
+  ];
 
-        const nuevaFila = createData(rows.length + 1, nombre, equipo, especialidad, cargo);
-        setRows([...rows, nuevaFila]);
-
-        return true;
-      },
-    });
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const filteredRows = rows.filter((row) =>
-    row.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredDatos = datos.filter(item =>
+    item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  return (
-    <div className={styles.content}>
-      <Sidebar />
-      <div className={styles.mainContent}>
-        <h1>MIEMBROS</h1>
+  // Acciones
 
-        <div className={styles.box}>
-          <form name="search" className={styles.form}>
+  const HandleEdit = () => {
+    Swal.fire({
+      title: 'Editar Miembro',
+      html: `
+            <input id="nombre" class="swal2-input" placeholder="Nombre" value="${miembro.name}">
+            <input id="equipo" class="swal2-input" placeholder="Equipo" value="${miembro.team}">
+            <input id="especialidad" class="swal2-input" placeholder="Especialidad" value="${miembro.speciality}">
+            <input id="cargo" class="swal2-input" placeholder="Cargo de Trabajo" value="${miembro.job}">
+          `,
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      cancelButtonText: 'Cancelar'
+    })
+  }
+
+  const HandleRemove = () => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción no se puede deshacer',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, borrar',
+      cancelButtonText: 'Cancelar'
+    })
+  }
+
+  return (
+  <>
+  <Sidebar/>
+  
+    <div className={styles['main-container']}>
+      
+      <h1>MIEMBROS</h1>
+      <div className={styles.toolbar}>
+      <div className={styles.box}>
+          <form name="search">
             <input type="text" className={styles.input}
               value={searchTerm}
-              onChange={handleSearchChange}
+              onChange={""}
               placeholder='Buscar por nombre' />
           </form>
-          <i className="fas fa-search"></i>
 
         </div>
-
-<div className={styles.contenedor}>
-        <button className={styles.botonagregar} onClick={handleAgregarClick}>
-          Agregar
-        </button>
-        </div>
-        <div className={styles.containertable}>
-        <TablaMiembros rows={filteredRows} styles={styles} />
+        <div className={styles.addButtonContainer}>
+          <button className={styles.iconButton}>
+            <Add style={{ color: '#2196f3' }} />
+          </button>
         </div>
       </div>
+
+      <table className={`${styles.table} ${styles.roundedTable}`}>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Especialidad</th>
+            <th>cargo de Trabajo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {filteredDatos.map((item, index) => (
+            <tr key={index} className={index % 2 === 0 ? styles.even : ''}>
+              <td>{item.id}</td>
+              <td>{item.nombre}</td>
+              <td>{item.descripcion}</td>
+              <td>{item.Fecha_Inicio}</td>
+              <td>{item.Recurso}</td>
+              <td>
+                <button className={styles.botoneseyb} onClick={HandleEdit}>
+                  <ModeEditIcon sx={{ color: '#fff' }} />
+                </button>
+                <button className={styles.botoneseyb} onClick={HandleRemove}>
+                  <ModeDeleteIcon style={{ color: '#fff' }} />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
+    </>
   );
 }
