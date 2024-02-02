@@ -2,13 +2,17 @@ import { useState } from 'react';
 import { Add } from '@mui/icons-material';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import ModeDeleteIcon from '@mui/icons-material/Delete';
-import ModeSearchIcon from '@mui/icons-material/Search';
 
 import styles from '../../css/table.module.css';
 import Swal from 'sweetalert2';
 
 export default function TableProject() {
   const [searchTerm, setSearchTerm] = useState('');
+
+
+  // Logica para traer datos de la api.
+  
+
 
   const datos = [
     { id: 1, nombre: 'Juan God', descripcion: 'Agua', Fecha_Inicio: 'Enero', Recurso: '$450' },
