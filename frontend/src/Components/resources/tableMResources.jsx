@@ -15,6 +15,8 @@ export default function TableMaterialResource() {
     { id: 2, name: 'Irvin God', description: 'Consultor de Recursos Humanos', quantity_available: 'Relaciones con los Empleados'},
     { id: 3, name: 'Josue God', description: 'Coordinador de Capacitación', quantity_available: 'Desarrollo de Empleados'},
     { id: 4, name: 'Emma God', description: 'Analista de Compensación', quantity_available: 'Compensación y Beneficios'},
+    { id: 4, name: 'Emma God', description: 'Analista de Compensación', quantity_available: 'Compensación y Beneficios'},
+     { id: 4, name: 'Emma God', description: 'Analista de Compensación', quantity_available: 'Compensación y Beneficios'},
   ];
 
 
@@ -77,7 +79,7 @@ export default function TableMaterialResource() {
   };
 
   return (
-    <div className={styles['main-container']}>
+    <div className={styles.maincontainer}>
       <div className={styles.toolbar}>
       <div className={styles.box}>
           <form name="search" className={styles.form}>

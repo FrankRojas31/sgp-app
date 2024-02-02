@@ -7,8 +7,7 @@
 .mainContent {
   margin-left: 25%; 
   padding: 20px;
-  max-height: 600px; /* Establece la altura máxima */
-  overflow-y: auto;
+
 }
 
 .content h1 {
@@ -131,7 +130,7 @@
   
 }
 
-.contenedorTabla {
+.containertable {
   height: 400px; /* Establece la altura fija que desees */
   overflow: auto;
 }

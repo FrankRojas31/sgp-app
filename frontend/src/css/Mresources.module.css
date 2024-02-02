@@ -4,8 +4,20 @@
   font-size: 40px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   width: 200px;
+  
 
 }
+.maincontainer {
+  margin-top: 80px;
+  border-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 320px;
+    font-family: "Arial", sans-serif;
+    max-height: 450px; /* Establece la altura máxima */
+    overflow-y: auto;
+  }
 
 .linkbuttons {
   transform: translate(240%, 50%);
@@ -120,6 +132,8 @@
   width: 90%;
   border-collapse: collapse;
   margin-top: 20px;
+  max-height: 400px; /* Establece la altura máxima */
+  overflow-y: auto;
 }
 
 th,

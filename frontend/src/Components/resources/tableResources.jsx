@@ -91,7 +91,7 @@ export default function TableResource() {
 
 
   return (
-    <div className={styles['main-container']}>
+    <div className={styles.maincontainer}>
       <div className={styles.toolbar}>
         <div className={styles.box}>
           <form name="search" className={styles.form}>
