@@ -83,7 +83,9 @@ export default function Members() {
           Agregar
         </button>
         </div>
+        <div className={styles.containertable}>
         <TablaMiembros rows={filteredRows} styles={styles} />
+        </div>
       </div>
     </div>
   );

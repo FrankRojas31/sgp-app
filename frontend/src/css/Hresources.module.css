@@ -90,15 +90,17 @@
   z-index: -1;
 }
 
-.main-container {
+.maincontainer {
   margin-top: 80px;
-  border-style: dotted;
   border-color: black;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-left: 320px;
   font-family: "Arial", sans-serif;
+  max-height: 450px; /* Establece la altura máxima */
+  overflow-y: auto;
+
 }
 
 .toolbar {
