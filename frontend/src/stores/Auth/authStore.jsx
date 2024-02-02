@@ -27,7 +27,6 @@ export const storeApi = (set) => ({
     }
   },
 
-
   logout: () => {
     set({ status: 'unauthorized', token: undefined, user: undefined });
   },
