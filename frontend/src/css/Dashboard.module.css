@@ -6,15 +6,6 @@
     border-color: black;
 }
 
-.text {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 30px;
-    font-size: 20px;
-    text-transform: uppercase;
-}
-
-
 .BarChart,
 .PiesChart {
   margin: 5px;

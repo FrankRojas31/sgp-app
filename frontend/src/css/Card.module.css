@@ -2,7 +2,7 @@
 
 .container {
   display:flex;
-  margin-left: 55px
+  margin-left: 20px
 }
 .e-card {
   background: transparent;
@@ -12,8 +12,8 @@
   height: 200px;
   border-radius: 16px;
   overflow: hidden;
-  display: inline-block; /* Hace que las tarjetas se muestren en línea */
-  margin-right: 20px; /* Ajusta el espacio entre tarjetas según tus necesidades */
+  display: inline-block;
+  margin-right: 20px;
 }
 
 .wave {
@@ -41,11 +41,11 @@
 
 .infotop {
   text-align: center;
-  font-size: 20px;
+  font-size: 30px;
   position: absolute;
   text-transform: uppercase;
   font-family: Arial, 'sans-serif';
-  top: 50%; /* Centra verticalmente */
+  top: 20%;
   left: 0;
   right: 0;
   color: rgb(255, 255, 255);
@@ -54,11 +54,12 @@
 }
 
 .name {
-  font-size: 14px;
-  font-weight: 100;
+  font-family: Arial, 'sans-serif';
+  font-size: 20px;
+  font-weight: 100px;
   position: relative;
   top: 1em;
-  text-transform: lowercase;
+  text-transform: uppercase;
 }
 
 .playing .wave {

@@ -9,9 +9,6 @@ export default function DashboardEstad (){
         <Sidebar/>
         <div className={styles.Card}>
             <Card/>
-            <div className={styles.text}>
-                <h2>Estadisticas</h2>
-            </div>
             <div className={styles.BarChart}>
             <BarChart/>
             </div>

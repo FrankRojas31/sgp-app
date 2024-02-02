@@ -3,24 +3,27 @@
 import React from 'react'; // Asegúrate de ajustar la ruta según tu estructura de archivos
 import styles from '../css/Card.module.css';
 
+const datos = [1, 2, 3]
 const cardData = [
   {
     id: 1,
-    title: 'Proyecto 1',
-    subtitle: 'Actuales',
-    name: 'MikeAndrewDesigner',
+    title: datos[0],
+    subtitle: 'Proyectos',
   },
   {
     id: 2,
-    title: 'Proyecto 2',
-    subtitle: 'Futuros',
-    name: 'JohnDoeDesigner',
+    title: datos[1],
+    subtitle: 'Miembros',
   },
   {
     id: 3,
-    title: 'Proyecto 3',
-    subtitle: 'Pasados',
-    name: 'JaneDesigner',
+    title: datos[2],
+    subtitle: 'Equipos',
+  },
+  {
+    id: 4,
+    title: datos[1],
+    subtitle: 'Recursos',
   },
 ];
 
