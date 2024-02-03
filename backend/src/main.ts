@@ -6,16 +6,23 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const httpsOptions = {
-  key: fs.readFileSync('./secrets/create-cert-key.pem'),
-  cert: fs.readFileSync('./secrets/create-cert.pem'),
+  key: fs.readFileSync('./secrets/cert.key'),
+  cert: fs.readFileSync('./secrets/cert.crt'),
 };
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     httpsOptions,
   });
-  app.enableCors();
-  const logger = new Logger('bootstrap');
+
+  // Configuración de HTTPS
+  app.enableCors({
+    origin: 'https://localhost:5173',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
+
+  // Otras configuraciones globales
   app.setGlobalPrefix('api');
   app.useGlobalPipes(
     new ValidationPipe({
@@ -23,12 +30,18 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
+  // Configuración de directorio estático
   const uploadsDir = path.join(__dirname, 'uploads');
   if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir);
   }
   app.use('/uploads', express.static('uploads'));
+
+  // Iniciar el servidor
   await app.listen(process.env.PORT);
+  const logger = new Logger('bootstrap');
   logger.log(`App running on port ${process.env.PORT}`);
 }
+
 bootstrap();

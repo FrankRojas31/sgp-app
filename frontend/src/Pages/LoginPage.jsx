@@ -192,7 +192,6 @@ const LoginPage = () => {
                 label="Contraseña"
                 onChange={handleInputChange}
                 type="password"
-                onCha
                 id="password"
                 autoComplete="current-password"
               />
