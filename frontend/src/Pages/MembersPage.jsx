@@ -130,9 +130,9 @@ export default function TableProject() {
       <div className={styles.toolbar}>
       <div className={styles.box}>
           <form name="search">
-            <input type="text" className={styles.input}
+          <input type="text" className={styles.input}
               value={searchTerm}
-              onChange={""}
+              onChange={(e) => setSearchTerm(e.target.value)}
               placeholder='Buscar por nombre' />
           </form>
 
@@ -157,18 +157,23 @@ export default function TableProject() {
 
         <tbody>
         {filteredUsuarios.map((item, index) => (
-              <tr key={index} className={index % 2 === 0 ? styles.even : ''}>
-                <td>{item.nombre}</td>
-                <td>{item.roles}</td>
-                <td>{item.Email}</td>
-                <td>{item.Activo ? 'Sí' : 'No'}</td>
-                <td>
-                <button className={styles.botoneseyb} onClick={() => HandleEdit(item)}>
-                  <ModeEditIcon sx={{ color: '#fff' }} />
-                </button>
-                <button className={styles.botoneseyb} onClick={() => HandleRemove(item.id)}>
-                  <ModeDeleteIcon style={{ color: '#fff' }} />
-                </button>
+            <tr key={index} className={index % 2 === 0 ? styles.even : ''}>
+              <td>{item.nombre}</td>
+              <td>{item.roles}</td>
+              <td>{item.Email}</td>
+              <td>{item.Activo ? 'Sí' : 'No'}</td>
+              <td>
+              <button className={styles.botoneseyb} onClick={() => HandleEdit(item)}>
+                      <ModeEditIcon sx={{ color: '#fff' }} />
+                    </button>
+                {useUser.id !== item.id && (
+                  <>
+
+                    <button className={styles.botoneseyb} onClick={() => HandleRemove(item.id)}>
+                      <ModeDeleteIcon style={{ color: '#fff' }} />
+                    </button>
+                  </>
+                )}
               </td>
             </tr>
           ))}

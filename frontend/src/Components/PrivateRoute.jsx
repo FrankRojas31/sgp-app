@@ -6,11 +6,11 @@ const PrivateRoute = ({ allowRoles }) => {
   const useUser = useAuthStore((state) => state.user);
 
   if (!useUser) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/notfound" />;
   }
 
   if (!allowRoles.some(word => useUser.roles.includes(word))) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/notfound" />;
   }
 
   return <Outlet />;

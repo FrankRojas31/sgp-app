@@ -8,13 +8,14 @@ import HumanResource from "./Components/resources/Pages/HumanResource";
 import MaterialResources from "./Components/resources/Pages/MaterialResource";
 import PagePropThree from "./Components/projects/Page/Dashboard";
 import PrivateRoute from "./Components/PrivateRoute";
+import ErrorPage from "./Pages/404";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<LoginPage/>}></Route> 
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/notfound" element={<ErrorPage />} />
         <Route element={<PrivateRoute allowRoles={["admin"]} />}>
           <Route path="/members" element={<MembersPage />} />
           <Route path="/teams" element={<TeamsPage />} />
@@ -26,6 +27,7 @@ function App() {
         </Route>
         <Route element={<PrivateRoute allowRoles={["member", "admin"]} />}>
           <Route path="/dashboard" element={<PagePropThree />} />
+          <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

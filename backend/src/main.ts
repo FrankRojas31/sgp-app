@@ -5,10 +5,22 @@ import * as express from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {});
+// const httpsOptions = {
+//   key: fs.readFileSync('./secrets/cert.key'),
+//   cert: fs.readFileSync('./secrets/cert.crt'),
+// };
 
-  app.enableCors();
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule, {
+    // httpsOptions,
+  });
+
+  // Configuración de HTTPS
+  app.enableCors({
+    // origin: 'https://localhost:5173',
+    // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    // credentials: true,
+  });
 
   app.setGlobalPrefix('api');
   app.useGlobalPipes(

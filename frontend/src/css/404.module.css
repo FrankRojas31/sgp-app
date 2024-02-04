@@ -1,0 +1,31 @@
+.Button {
+    background-color: #007bff;
+    /* Color de fondo del botón */
+    color: #fff;
+    /* Color del texto del botón */
+    border: none;
+    /* Sin borde */
+    border-radius: 10px;
+    /* Borde redondeado */
+    padding: 15px 30px;
+    /* Espaciado interno mayor */
+    font-size: 24px;
+    /* Tamaño de fuente más grande */
+    cursor: pointer;
+    /* Cambio de cursor al pasar por encima */
+    transition: background-color 0.3s ease;
+    /* Transición suave del color de fondo */
+    display: block;
+    /* Convertir en bloque para centrar */
+    margin: 0 auto;
+    /* Centrar horizontalmente */
+}
+
+/* Estilos adicionales cuando el botón se pasa por encima */
+.Button:hover {
+    background-color: #0056b3;
+    /* Color de fondo al pasar el ratón por encima */
+}
+.foto{
+    position: fixed;
+}
