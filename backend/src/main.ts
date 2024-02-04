@@ -5,21 +5,21 @@ import * as express from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const httpsOptions = {
-  key: fs.readFileSync('./secrets/cert.key'),
-  cert: fs.readFileSync('./secrets/cert.crt'),
-};
+// const httpsOptions = {
+//   key: fs.readFileSync('./secrets/cert.key'),
+//   cert: fs.readFileSync('./secrets/cert.crt'),
+// };
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    httpsOptions,
+    // httpsOptions,
   });
 
   // Configuración de HTTPS
   app.enableCors({
-    origin: 'https://localhost:5173',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
+    // origin: 'https://localhost:5173',
+    // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    // credentials: true,
   });
 
   // Otras configuraciones globales
