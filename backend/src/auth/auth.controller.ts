@@ -18,9 +18,10 @@ import {
   Query,
   Patch,
   ParseUUIDPipe,
-  SetMetadata,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Autenticación y usuarios')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}

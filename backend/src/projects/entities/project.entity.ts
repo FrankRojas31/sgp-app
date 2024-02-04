@@ -9,12 +9,14 @@ import {
 import { Team } from 'src/teams/entities/team.entity'; // Asegúrate de que la ruta sea correcta
 import { HumanResource } from 'src/resources/entities/human-resource.entity';
 import { MaterialResource } from 'src/resources/entities/material-resource.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'projects' })
 export class Project {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  
   @Column('varchar')
   name: string;
 

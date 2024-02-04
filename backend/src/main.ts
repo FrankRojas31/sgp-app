@@ -4,16 +4,10 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import * as express from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
-
-// const httpsOptions = {
-//   key: fs.readFileSync('./secrets/cert.key'),
-//   cert: fs.readFileSync('./secrets/cert.crt'),
-// };
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    // httpsOptions,
-  });
+  const app = await NestFactory.create(AppModule, {});
 
   // Configuración de HTTPS
   app.enableCors({
@@ -34,6 +28,16 @@ async function bootstrap() {
   if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir);
   }
+
+  const config = new DocumentBuilder()
+    .setTitle('SGP Documentación')
+    .setDescription(
+      'Documentación para el proyecto de sistema gestión de proyectos',
+    )
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   app.use('/uploads', express.static('uploads'));
   await app.listen(process.env.PORT);
