@@ -12,7 +12,9 @@ import { CreateHumanResourceDto } from './dto/create-human-resource.dto';
 import { UpdateHumanResourceDto } from './dto/update-human-resource.dto';
 import { CreateMaterialResourceDto } from './dto/create-material-resource.dto';
 import { UpdateMaterialResourceDto } from './dto/update-material-resource.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Recursos')
 @Controller('resources')
 export class ResourcesController {
   constructor(private readonly resourcesService: ResourcesService) {}

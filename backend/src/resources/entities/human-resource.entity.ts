@@ -6,6 +6,7 @@ import {
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
 } from 'typeorm';
 import { validSpecialties } from '../interfaces/valid-specialty.interface';
 
@@ -17,7 +18,7 @@ export class HumanResource {
   @ManyToOne(() => User, (user) => user.humanResource, { eager: true })
   user: User;
 
-  @Column('varchar')
+  @Column('varchar', { nullable: true, default: 'Sin descripción' })
   description: string;
 
   @Column('varchar')
@@ -26,7 +27,7 @@ export class HumanResource {
   @Column({ type: 'boolean', default: true })
   is_available: boolean;
 
-  @Column('int')
+  @Column('int', { default: 1 })
   hoursWorkDaily: number;
 
   @ManyToMany(() => Project, (project) => project.humanResource)

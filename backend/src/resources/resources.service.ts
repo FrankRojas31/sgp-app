@@ -24,9 +24,18 @@ export class ResourcesService {
   ) {}
 
   async createHumanResource(createHumanResourceDto: CreateHumanResourceDto) {
-    try {
-      const resource = this.humanRepository.create(createHumanResourceDto);
-      return await this.humanRepository.save(resource);
+    // const userId: any = createHumanResourceDto.user.id;
+    // const findHuman = await this.humanRepository.find({
+    //   where: { user: userId },
+    // });
+    // if (findHuman) {
+    //   throw new BadRequestException(
+    //     'El usuario ya está asociado a otro recurso humano',
+    //     );
+    //   }
+      try {
+       const resource = this.humanRepository.create(createHumanResourceDto);
+       return await this.humanRepository.save(resource);
     } catch (error) {
       this.handleDBErrors(error);
     }
