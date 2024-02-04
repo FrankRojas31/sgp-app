@@ -1,59 +1,41 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Add } from '@mui/icons-material';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import ModeDeleteIcon from '@mui/icons-material/Delete';
-
 import styles from '../../css/table.module.css';
 import Swal from 'sweetalert2';
+import { sgpApi } from '../../api/sgpApi';
 
 export default function TableProject() {
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [proyectos, setProyectos] = useState([]);
 
   // Logica para traer datos de la api.
-  
 
+  const RecargarDatos = () => {
+    try {
+      const respuesta = sgpApi.get('/project');
+      const datos = respuesta.data.map(project => ({
+        id:project.id,
+        nombre: project.name,
+        descripcion: project.description,
+        Fecha_Inicio: project.startDate,
+        Fecha_Fin: project.endDate,
+        Activo: project.isActive
+      }));
+      setProyectos(datos)
+    } catch (error) {
+      console.log(`Se detecto  un error al cargar los proyectos ${error}`);
+    }
+  }
 
-  const datos = [
-    { id: 1, nombre: 'Juan God', descripcion: 'Agua', Fecha_Inicio: 'Enero', Recurso: '$450' },
-    { id: 2, nombre: 'Irvin God', descripcion: 'Luz', Fecha_Inicio: 'Febrero', Recurso: '$450' },
-    { id: 3, nombre: 'Josue God', descripcion: 'Coche', Fecha_Inicio: 'Marzo', Recurso: '$450' },
-    { id: 4, nombre: 'Emma God', descripcion: 'Internet', Fecha_Inicio: 'Abril', Recurso: '$450' },
-  ];
+  useEffect(() => {
+    RecargarDatos();
+  }, []);
 
-  const filteredDatos = datos.filter(item =>
+  const filteredProyecto = proyectos.filter(item =>
     item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  // Acciones
-
-  const HandleEdit = () => {
-    Swal.fire({
-      title: 'Editar Miembro',
-      html: `
-            <input id="nombre" class="swal2-input" placeholder="Nombre" value="${miembro.name}">
-            <input id="equipo" class="swal2-input" placeholder="Equipo" value="${miembro.team}">
-            <input id="especialidad" class="swal2-input" placeholder="Especialidad" value="${miembro.speciality}">
-            <input id="cargo" class="swal2-input" placeholder="Cargo de Trabajo" value="${miembro.job}">
-          `,
-      showCancelButton: true,
-      confirmButtonText: 'Guardar',
-      cancelButtonText: 'Cancelar'
-    })
-  }
-
-  const HandleRemove = () => {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'Esta acción no se puede deshacer',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Sí, borrar',
-      cancelButtonText: 'Cancelar'
-    })
-  }
 
   return (
     <div className={styles['main-container']}>
@@ -88,13 +70,13 @@ export default function TableProject() {
         </thead>
 
         <tbody>
-          {filteredDatos.map((item, index) => (
+          {filteredProyecto.map((item, index) => (
             <tr key={index} className={index % 2 === 0 ? styles.even : ''}>
               <td>{item.id}</td>
               <td>{item.nombre}</td>
               <td>{item.descripcion}</td>
               <td>{item.Fecha_Inicio}</td>
-              <td>{item.Recurso}</td>
+              <td>{item.Fecha_Fin}</td>
               <td>
                 <button className={styles.botoneseyb} onClick={HandleEdit}>
                   <ModeEditIcon sx={{ color: '#fff' }} />
