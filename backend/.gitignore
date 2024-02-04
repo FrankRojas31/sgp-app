@@ -21,6 +21,8 @@ lerna-debug.log*
 
 .env
 
+/secrets
+
 /schemas
 
 # IDEs and editors

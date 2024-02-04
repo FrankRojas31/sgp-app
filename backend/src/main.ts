@@ -5,17 +5,11 @@ import * as express from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const httpsOptions = {
-  key: fs.readFileSync('./secrets/create-cert-key.pem'),
-  cert: fs.readFileSync('./secrets/create-cert.pem'),
-};
-
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    httpsOptions,
-  });
+  const app = await NestFactory.create(AppModule, {});
+
   app.enableCors();
-  const logger = new Logger('bootstrap');
+
   app.setGlobalPrefix('api');
   app.useGlobalPipes(
     new ValidationPipe({
@@ -23,12 +17,16 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
   const uploadsDir = path.join(__dirname, 'uploads');
   if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir);
   }
+
   app.use('/uploads', express.static('uploads'));
   await app.listen(process.env.PORT);
+  const logger = new Logger('bootstrap');
   logger.log(`App running on port ${process.env.PORT}`);
 }
+
 bootstrap();

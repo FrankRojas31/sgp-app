@@ -29,11 +29,10 @@ export class UserRoleGuard implements CanActivate {
 
     if (!user) throw new BadGatewayException('User not found');
 
-    console.log(typeof(user.roles))
-    console.log(validRoles)
+    console.log(typeof user.roles);
+    console.log(validRoles);
 
-      if (validRoles.includes(user.roles)) return true;
-    
+    if (validRoles.includes(user.roles)) return true;
 
     throw new ForbiddenException(
       `User ${user.fullName} does not have permission, required roles: [${validRoles}]`,

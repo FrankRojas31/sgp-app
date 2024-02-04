@@ -13,6 +13,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<LoginPage/>}></Route> 
         <Route path="/login" element={<LoginPage />} />
         <Route element={<PrivateRoute allowRoles={["admin"]} />}>
           <Route path="/members" element={<MembersPage />} />
