@@ -45,7 +45,7 @@ export class ResourcesController {
     );
   }
 
-  @Delete(':id')
+  @Delete('human-resource/:id')
   removeHumanResource(@Param('id') id: string) {
     return this.resourcesService.setFalseHumanResource(id);
   }

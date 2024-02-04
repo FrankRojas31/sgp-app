@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { MaterialResource } from '../entities/material-resource.entity';
+import { CreateMaterialResourceDto } from './create-material-resource.dto';
 
-export class UpdateMaterialResourceDto extends PartialType(MaterialResource) {}
+export class UpdateMaterialResourceDto extends PartialType(CreateMaterialResourceDto) {}
