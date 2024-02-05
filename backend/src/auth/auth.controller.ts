@@ -18,6 +18,7 @@ import {
   Query,
   Patch,
   ParseUUIDPipe,
+  Delete,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -53,6 +54,11 @@ export class AuthController {
     updateUserDto: UpdateUserDto,
   ) {
     return this.authService.updateUser(id, updateUserDto);
+  }
+
+  @Delete('delete/:id')
+  deleteUser(@Param() id: string) {
+    return this.authService.deleteUser(id);
   }
 
   @Get('private')

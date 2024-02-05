@@ -126,6 +126,12 @@ export class AuthService {
     return token;
   }
 
+   async deleteUser(id: string) {
+    const findUser = await this.userRepository.preload({ id, isActive: false });
+    if (!findUser) throw new NotFoundException('El usuario no existe');
+    return await this.userRepository.save(findUser);
+  }
+
   private handleDBErrors(error: any): never {
     if (error.code === '23505') {
       throw new BadRequestException(error.detail);

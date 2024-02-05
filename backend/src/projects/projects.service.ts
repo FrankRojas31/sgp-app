@@ -57,6 +57,7 @@ export class ProjectsService {
 
   findAll() {
     return this.projectRepository.find({
+      where: { isActive: true },
       relations: {
         teams: true,
       },

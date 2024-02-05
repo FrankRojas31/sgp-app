@@ -71,6 +71,11 @@ export class ResourcesController {
     return this.resourcesService.findOneMaterialResource(id);
   }
 
+  @Delete('material-resource/:id')
+  removeMaterialResource(@Param('id') id: string) {
+    return this.resourcesService.setFalseMaterialResource(id);
+  }
+
   @Patch('material-resource/:id')
   updateMaterialResource(
     @Param('id') id: string,

@@ -33,9 +33,9 @@ export class ResourcesService {
     //     'El usuario ya está asociado a otro recurso humano',
     //     );
     //   }
-      try {
-       const resource = this.humanRepository.create(createHumanResourceDto);
-       return await this.humanRepository.save(resource);
+    try {
+      const resource = this.humanRepository.create(createHumanResourceDto);
+      return await this.humanRepository.save(resource);
     } catch (error) {
       this.handleDBErrors(error);
     }
@@ -111,12 +111,24 @@ export class ResourcesService {
       throw new NotFoundException('Material resource not found');
 
     const saveMaterialResource =
-      await this.humanRepository.save(loadMaterialResource);
+      await this.materialRepository.save(loadMaterialResource);
     return saveMaterialResource;
   }
 
   findAllMaterialResources() {
-    return this.materialRepository.find();
+    return this.materialRepository.find({
+      where: { is_available: true },
+    });
+  }
+
+  async setFalseMaterialResource(id: string) {
+    const findMaterialResource = await this.materialRepository.preload({
+      id,
+      is_available: false,
+    });
+    if (!findMaterialResource)
+      throw new NotFoundException('Human resource not found');
+    return await this.materialRepository.save(findMaterialResource);
   }
 
   private handleDBErrors(error: any): never {

@@ -46,7 +46,7 @@ export class TeamsService {
   }
 
   findAll() {
-    return this.teamRepository.find();
+    return this.teamRepository.find({ where: { isActive: true } });
   }
 
   async findOne(id: string) {

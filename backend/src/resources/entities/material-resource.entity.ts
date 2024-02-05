@@ -19,6 +19,9 @@ export class MaterialResource {
   })
   quantity_available: number;
 
+  @Column({ type: 'boolean', default: true })
+  is_available: boolean;
+
   @ManyToMany(() => Project, (project) => project.materialResource)
   projects: Project[];
 }
