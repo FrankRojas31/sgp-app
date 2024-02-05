@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
 import styles from '../css/targetTeam.module.css';
 import defaultImage from '../assets/ppDefault.jpeg';
-import { Modal, Box, Typography, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
+import { Modal, Box, Typography, List, ListItem, ListItemText, ListItemAvatar, Avatar, FormControl, InputLabel, Select, MenuItem, IconButton, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
 
-function TargetTeam({ teams, onDeleteTeam, onRemoveMember }) {
+function TargetTeam({ teams, onDeleteTeam, onAddMember, members }) {
   const [open, setOpen] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState({});
+  const [selectedMemberId, setSelectedMemberId] = useState('');
+
+  const handleMemberSelectChange = (event) => {
+    setSelectedMemberId(event.target.value);
+  };
+
+  // Función para manejar la adición de un miembro
+  const handleAddMember = () => {
+    onAddMember(selectedTeam.id, selectedMemberId);
+    setSelectedMemberId(''); // Resetear la selección
+  };
 
   const handleOpen = (team) => {
     const updatedTeam = teams.find(t => t.id === team.id);
@@ -17,12 +27,11 @@ function TargetTeam({ teams, onDeleteTeam, onRemoveMember }) {
 
   const handleClose = () => setOpen(false);
 
-  const handleRemoveMemberClick = async (teamId, memberId) => {
-    await onRemoveMember(teamId, memberId);
-    const updatedTeam = teams.find(t => t.id === teamId);
-    setSelectedTeam(updatedTeam);
-  };
+  // En TargetTeam.js
 
+
+
+  
   const modalStyle = {
     position: 'absolute',
     top: '50%',
@@ -80,13 +89,31 @@ function TargetTeam({ teams, onDeleteTeam, onRemoveMember }) {
                   <Avatar src={defaultImage} alt={member.fullName} />
                 </ListItemAvatar>
                 <ListItemText primary={member.fullName} />
-                <IconButton edge="end" aria-label="delete" onClick={() => handleRemoveMemberClick(selectedTeam.id, member.id)}>
-                  <DeleteIcon style={{ color: 'red' }} />
-                </IconButton>
+                {/* 
+                <IconButton edge="end" aria-label="delete">
+                <DeleteIcon style={{ color: 'red' }} />
+                </IconButton> 
+              */}
+
               </ListItem>
             ))}
           </List>
-          <button className={styles.agregarMiembroButton}>Agregar Miembro</button>
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="member-select-label">Agregar Miembro</InputLabel>
+            <Select
+              labelId="member-select-label"
+              value={selectedMemberId}
+              label="Agregar Miembro"
+              onChange={handleMemberSelectChange}
+            >
+              {members.map((member) => (
+                <MenuItem key={member.id} value={member.id}>{member.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button onClick={handleAddMember} variant="contained" color="primary">
+            Agregar
+          </Button>
         </Box>
       </Modal>
     </div>
