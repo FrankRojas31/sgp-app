@@ -14,7 +14,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/notfound" element={<ErrorPage />} />
         <Route element={<PrivateRoute allowRoles={["admin"]} />}>
           <Route path="/members" element={<MembersPage />} />
