@@ -3,6 +3,7 @@ import { Add } from '@mui/icons-material';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import ModeDeleteIcon from '@mui/icons-material/Delete';
 import ModeSearchIcon from '@mui/icons-material/Search';
+import DOMPurify from 'dompurify';
 
 import styles from '../../css/Mresources.module.css';
 import Swal from 'sweetalert2';
@@ -34,30 +35,44 @@ export default function TableMaterialResource() {
   const filteredDatos = material.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  const handleSearchTermChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+  const handleEnterKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      mostrarMaterialResources();
+    }
+  };
 
   //Acciones 
 
   const HandleEdit = async (Material) => {
     console.log('Material:', Material);
     try {
+      const cantidadOptions = Array.from({ length: 50 }, (_, i) => i + 1)
+        .map(value => `<option value="${value}" ${value === Material.quantity_available ? 'selected' : ''}>${value}</option>`)
+        .join('');
+  
       const result = await Swal.fire({
         title: 'Editar Recurso',
         html: `
-              <input id="nombre" class="swal2-input" placeholder="Nombre" value="${Material.name}">
-              <input id="descripcion" class="swal2-input" placeholder="Descripcion" value="${Material.description}">
-              <input id="cantidad" class="swal2-input" placeholder="Cantidad Disponible" value="${Material.quantity_available}">
-            `,
+          <input id="nombre" class="swal2-input" placeholder="Nombre" value="${Material.name}">
+          <input id="descripcion" class="swal2-input" placeholder="Descripcion" value="${Material.description}">
+          <select id="cantidad" class="swal2-select">
+            ${cantidadOptions}
+          </select>
+        `,
         showCancelButton: true,
         confirmButtonText: 'Guardar',
         cancelButtonText: 'Cancelar',
         preConfirm: async () => {
-          const nombre = Swal.getPopup().querySelector('#nombre').value;
-          const descripcion = Swal.getPopup().querySelector('#descripcion').value;
-          const cantidad = Swal.getPopup().querySelector('#cantidad').value;
+          const nombre = DOMPurify.sanitize(Swal.getPopup().querySelector('#nombre').value);
+          const descripcion = DOMPurify.sanitize(Swal.getPopup().querySelector('#descripcion').value);
+          const cantidad = parseFloat(Swal.getPopup().querySelector('#cantidad').value);
           console.log('name:', nombre);
           console.log('description:', descripcion);
           console.log('quantity_available:', cantidad);
-
+  
           try {
             await sgpApi.patch(`/resources/material-resource/${Material.id}`, {
               name: nombre,
@@ -71,7 +86,7 @@ export default function TableMaterialResource() {
           }
         },
       });
-
+  
       if (result.isConfirmed) {
         mostrarMaterialResources();
         Swal.fire('Actualizado', 'El miembro ha sido actualizado correctamente.', 'success');
@@ -97,7 +112,7 @@ export default function TableMaterialResource() {
       });
       if ((await result).isConfirmed) {
         mostrarMaterialResources();
-        await sgpApi.delete(`/resources/${id}`);
+        await sgpApi.delete(`/resources/material-resource/${id}`);
         Swal.fire('Desactivado', 'El recurso ha sido desactivado.', 'success');
 
       }
@@ -110,28 +125,34 @@ export default function TableMaterialResource() {
 
   const handleAgregarClick = async () => {
     try {
+      const cantidadOptions = Array.from({ length: 50 }, (_, i) => i + 1)
+        .map(value => `<option value="${value}">${value}</option>`)
+        .join('');
+  
       const result = await Swal.fire({
         title: 'Agregar Recurso Humano',
         html: `
           <input id="nombre" class="swal2-input" placeholder="Nombre">
           <input id="descripcion" class="swal2-input" placeholder="Descripción">
-          <input id="cantidad" class="swal2-input" placeholder="Cantidad Disponible">
+          <select id="cantidad" class="swal2-select">
+            ${cantidadOptions}
+          </select>
         `,
         showCancelButton: true,
         confirmButtonText: 'Agregar',
         cancelButtonText: 'Cancelar',
         preConfirm: async () => {
-          const nombre = Swal.getPopup().querySelector('#nombre').value;
-          const descripcion = Swal.getPopup().querySelector('#descripcion').value;
+          const nombre = DOMPurify.sanitize(Swal.getPopup().querySelector('#nombre').value);
+          const descripcion = DOMPurify.sanitize(Swal.getPopup().querySelector('#descripcion').value);
           const cantidad = parseFloat(Swal.getPopup().querySelector('#cantidad').value);
-
+  
           try {
             const response = await sgpApi.post('/resources/create-material-resource', {
               name: nombre,
               description: descripcion,
               quantity_available: cantidad
             });
-
+  
             return response.data;
           } catch (error) {
             console.error('Error al agregar el recurso:', error);
@@ -139,9 +160,8 @@ export default function TableMaterialResource() {
           }
         },
       });
-
+  
       if (result.isConfirmed) {
-
         mostrarMaterialResources();
         Swal.fire('Agregado', 'El recurso humano ha sido agregado correctamente.', 'success');
       }
@@ -150,6 +170,7 @@ export default function TableMaterialResource() {
     }
   };
 
+
   return (
     <div className={styles.maincontainer}>
       <div className={styles.toolbar}>
@@ -157,7 +178,8 @@ export default function TableMaterialResource() {
           <form name="search" className={styles.form}>
             <input type="text" className={styles.input}
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleSearchTermChange}
+              onKeyDown={handleEnterKeyPress}
               placeholder='Buscar por nombre' />
           </form>
           <i className="fas fa-search"></i>
@@ -187,10 +209,10 @@ export default function TableMaterialResource() {
               <td>{item.description}</td>
               <td>{item.quantity_available}</td>
               <td>
-                <button className={styles.botoneseyb} onClick={HandleEdit}>
+                <button className={styles.botoneseyb} onClick={() => HandleEdit(item)}>
                   <ModeEditIcon sx={{ color: '#fff' }} />
                 </button>
-                <button className={styles.botoneseyb} onClick={HandleRemove}>
+                <button className={styles.botoneseyb}   onClick={() => HandleRemove(item.id)}>
                   <ModeDeleteIcon style={{ color: '#fff' }} />
                 </button>
               </td>

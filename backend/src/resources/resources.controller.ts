@@ -12,6 +12,7 @@ import { CreateHumanResourceDto } from './dto/create-human-resource.dto';
 import { UpdateHumanResourceDto } from './dto/update-human-resource.dto';
 import { CreateMaterialResourceDto } from './dto/create-material-resource.dto';
 import { UpdateMaterialResourceDto } from './dto/update-material-resource.dto';
+import { validSpecialties } from './interfaces/valid-specialty.interface';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Recursos')
@@ -43,6 +44,10 @@ export class ResourcesController {
       id,
       updateHumanResourceDto,
     );
+  }
+  @Get('specialties')
+  getSpecialties() {
+    return { validSpecialties };
   }
 
   @Delete('human-resource/:id')
