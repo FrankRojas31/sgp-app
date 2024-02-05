@@ -22,10 +22,11 @@ export class ProjectsService {
   ) {}
 
   async create(createProjectDto: CreateProjectDto) {
-    const { name, teams = [] } = createProjectDto;
+    const { name, teams = [], ...rest } = createProjectDto;
     const project = this.projectRepository.create({
       name,
       teams,
+      ...rest,
     });
 
     await this.projectRepository.save(project);

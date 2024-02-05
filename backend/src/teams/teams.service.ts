@@ -24,10 +24,11 @@ export class TeamsService {
   ) {}
 
   async create(createTeamDto: CreateTeamDto) {
-    const { name, members = [] } = createTeamDto;
+    const { name, members = [], ...rest } = createTeamDto;
     const team = this.teamRepository.create({
       name,
       members,
+      ...rest,
     });
     await this.teamRepository.save(team);
 
