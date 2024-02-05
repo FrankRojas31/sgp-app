@@ -6,7 +6,6 @@ import {
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
-  Unique,
 } from 'typeorm';
 import { validSpecialties } from '../interfaces/valid-specialty.interface';
 

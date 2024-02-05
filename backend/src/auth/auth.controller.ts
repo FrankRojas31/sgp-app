@@ -21,6 +21,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { CreatePermissionDto } from './dto/create-permission.dto';
+import { AssignPermissionToUserDto } from './dto/assign-permission-user.dto';
 
 @ApiTags('Autenticación y usuarios')
 @Controller('auth')
@@ -61,6 +63,23 @@ export class AuthController {
     return this.authService.deleteUser(id);
   }
 
+  @Get('get-all-permissions')
+  getAllPermissions() {
+    return this.authService.getAllPermissions();
+  }
+
+  @Post('create-permission')
+  createPermission(@Body() createPermissionDto: CreatePermissionDto) {
+    return this.authService.createPermission(createPermissionDto);
+  }
+
+  @Post('assign-permission-user')
+  assignPermissionToUser(
+    @Body() assignPermissionToUserDto: AssignPermissionToUserDto,
+  ) {
+    return this.authService.assignPermissionToUser(assignPermissionToUserDto);
+  }
+
   @Get('private')
   @UseGuards(AuthGuard())
   testingPrivateRoute(
@@ -77,9 +96,8 @@ export class AuthController {
     };
   }
 
-  // @SetMetadata('roles', ['member'])
   @Get('private2')
-  @RoleProtected(ValidRoles.member, ValidRoles.admin)
+  @RoleProtected(ValidRoles.admin)
   @UseGuards(AuthGuard(), UserRoleGuard)
   privateRoute2(@GetUser() user: User) {
     return {
@@ -90,7 +108,7 @@ export class AuthController {
   }
 
   @Get('private3')
-  @Auth(ValidRoles.admin)
+  @Auth()
   privateRoute3(@GetUser() user: User) {
     return {
       ok: true,

@@ -3,6 +3,8 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -10,6 +12,7 @@ import {
 import { ValidRoles } from '../interfaces/valid-roles.interface';
 import { Team } from 'src/teams/entities/team.entity';
 import { HumanResource } from 'src/resources/entities/human-resource.entity';
+import { Permission } from './permissions.entity';
 
 @Entity('users')
 export class User {
@@ -38,7 +41,7 @@ export class User {
   @Column({
     type: 'varchar',
     default: 'https://acortar.link/MRAY6q',
-    length: 255
+    length: 255,
   })
   picture: string;
 
@@ -47,6 +50,10 @@ export class User {
 
   @OneToMany(() => HumanResource, (humanResource) => humanResource.user)
   humanResource: HumanResource;
+
+  @ManyToMany(() => Permission, { eager: true })
+  @JoinTable()
+  permissions: Permission[];
 
   @BeforeInsert()
   checkFields() {
