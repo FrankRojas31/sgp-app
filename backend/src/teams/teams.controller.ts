@@ -23,10 +23,11 @@ export class TeamsController {
     return this.teamsService.create(createTeamDto);
   }
 
-  @Post()
+  @Post('add-member')
   addMember(@Body() addMemberDto: AddMemberDto) {
     return this.teamsService.AddMember(addMemberDto);
   }
+  
 
   @Get()
   findAll() {
