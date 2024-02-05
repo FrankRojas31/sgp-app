@@ -112,4 +112,81 @@
     }
     
 
-    
+/* Estilos para las casillas de verificación como en la imagen proporcionada */
+.checkboxContainer {
+  border: 1px solid #e0e0e0;
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+}
+
+.checkboxNumber {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.checkboxName {
+  flex-grow: 1;
+  text-align: left;
+}
+.agregarMiembroButton{
+  background-color: #191c40; /* Color de fondo morado */
+  color: white; /* Texto en color blanco */
+  border: none; /* Sin borde */
+  padding: 8px 16px; /* Padding horizontal y vertical reducido */
+  border-radius: 20px; /* Bordes redondeados */
+  font-size: 14px; /* Tamaño de la fuente reducido */
+  cursor: pointer; /* Cambiar cursor a mano al pasar por encima */
+  margin-top: 20px; /* Espacio por encima del botón */
+  font-weight: bold; /* Fuente en negrita */
+  outline: none; /* Quitar outline al hacer focus */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para dar efecto elevado */
+  transition: background-color 0.3s; /* Transición suave al cambiar de color */
+  margin-left: auto;
+  display: block;
+  margin-right: 17px;
+  margin-bottom: 15px;
+}
+
+.agregarMiembroButton:hover {
+  background-color: #8093a1; /* Color ligeramente más oscuro al pasar el ratón por encima */
+}
+
+.createTeamButton{
+  background-color: #191c40; /* Color de fondo morado */
+  color: white; /* Texto en color blanco */
+  border: none; /* Sin borde */
+  padding: 8px 16px; /* Padding horizontal y vertical reducido */
+  border-radius: 20px; /* Bordes redondeados */
+  font-size: 14px; /* Tamaño de la fuente reducido */
+  cursor: pointer; /* Cambiar cursor a mano al pasar por encima */
+  margin-top: 20px; /* Espacio por encima del botón */
+  font-weight: bold; /* Fuente en negrita */
+  outline: none; /* Quitar outline al hacer focus */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para dar efecto elevado */
+  transition: background-color 0.3s; /* Transición suave al cambiar de color */
+  margin-left: auto;
+  display: block;
+  margin-right: 17px;
+  margin-bottom: 15px;
+}
+.createTeamButton:hover {
+  background-color: #8093a1; /* Color ligeramente más oscuro al pasar el ratón por encima */
+}
+/* En tu archivo CSS para TargetTeam */
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Alinear botones a la derecha */
+  padding-right: 10px; /* Espacio a la derecha para evitar que se peguen al borde */
+}
+
+.deleteButton {
+  margin-left: 10px; /* Espacio entre el botón Ver Miembros y el icono de eliminar */
+}
