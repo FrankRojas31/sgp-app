@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Add } from '@mui/icons-material';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import ModeDeleteIcon from '@mui/icons-material/Delete';
-import ModeSearchIcon from '@mui/icons-material/Search';
 import DOMPurify from 'dompurify';
 
 import styles from '../../css/Mresources.module.css';
@@ -224,29 +222,3 @@ export default function TableMaterialResource() {
   );
 }
 
-const getColorByRole = (role) => {
-  switch (role) {
-    case 'Gestión del desempeño':
-      return '#ff0000';
-    case 'Capacitación y desarrollo':
-      return '#00ff00';
-    case 'Desarrollador':
-      return '#0000ff';
-    case 'Diseñador':
-      return '#ffff00';
-    case 'Analista de datos':
-      return '#ff00ff';
-    case 'Especialista en seguridad informática':
-      return '#00ffff';
-    case 'Ingeniero de sistemas':
-      return '#800080';
-    case 'Gerente de proyectos de software':
-      return '#008080';
-    case 'Especialista en calidad de software':
-      return '#ff4500';
-    case 'Especialista en integración de sistemas':
-      return '#32cd32';
-    default:
-      return '#000000';
-  }
-};

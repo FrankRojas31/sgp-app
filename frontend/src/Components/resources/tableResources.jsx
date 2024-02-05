@@ -55,11 +55,9 @@ export default function TableResource() {
       const specialtiesResponse = await sgpApi.get('/resources/specialties');
       const validSpecialties = specialtiesResponse.data.validSpecialties;
   
-      // Obtener todos los usuarios desde el servidor
       const usersResponse = await sgpApi.get('auth/get-all-users');
       const allUsers = usersResponse.data;
   
-      // Crear opciones para el menú desplegable de horas diarias trabajadas
       const hoursOptions = Array.from({ length: 8 }, (_, i) => i + 1)
         .map(value => `<option value="${value}" ${value === human.hoursWorkDaily ? 'selected' : ''}>${value}</option>`)
         .join('');
@@ -86,7 +84,6 @@ export default function TableResource() {
           const speciality = Swal.getPopup().querySelector('#especialidad').value;
           const hoursWorkDaily = parseFloat(Swal.getPopup().querySelector('#hoursWorkDaily').value); // Convertir a número
   
-          // Validar si hoursWorkDaily es un número válido
           if (isNaN(hoursWorkDaily)) {
             throw new Error('Las horas diarias de trabajo deben ser un número válido.');
           }
