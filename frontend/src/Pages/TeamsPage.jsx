@@ -1,9 +1,12 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../css/targetTeam.module.css';
 import { Sidebar } from '../Components/dashboard/Sidebar';
 import TargetTeam from '../Components/targetTeam';
-import { Modal, Box, Typography, TextField, Checkbox, FormControlLabel } from '@mui/material';
+import { Modal, Box, Typography, TextField, Checkbox, FormControlLabel, Button } from '@mui/material';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+
+
 
 
 function TeamsPage() {
@@ -12,32 +15,27 @@ function TeamsPage() {
   const [members, setMembers] = useState([]);
   const [teams, setTeams] = useState([]);
 
-  
   const handleOpen = () => {
     fetchMembers();
     setOpen(true);
   };
 
   const handleClose = () => setOpen(false);
+
   const handleTeamNameChange = (event) => setTeamName(event.target.value);
+
   const handleMemberChange = (index) => {
     const newMembers = [...members];
     newMembers[index].checked = !newMembers[index].checked;
     setMembers(newMembers);
   };
 
-  const updateSelectedTeam = (updatedTeam) => {
-    // Esta función se pasará a TargetTeam para actualizar selectedTeam
-  };
-  
-
-
   const fetchMembers = async () => {
     try {
       const response = await axios.get('http://localhost:4000/api/auth/get-all-users');
-      const fetchedMembers = response.data.map(user => ({
-        id: user.id, // Asume que tienes un ID para cada usuario
-        name: user.fullName,
+      const fetchedMembers = response.data.filter(user => user.roles === 'member').map(member => ({
+        id: member.id,
+        name: member.fullName,
         checked: false,
       }));
       setMembers(fetchedMembers);
@@ -46,75 +44,94 @@ function TeamsPage() {
     }
   };
   
-  
   const fetchTeams = async () => {
     try {
       const response = await axios.get('http://localhost:4000/api/teams');
-      const activeTeams = response.data.filter(team => team.isActive); // Filtrar solo equipos activos
+      const activeTeams = response.data.filter(team => team.isActive);
       setTeams(activeTeams);
     } catch (error) {
       console.error('Error al obtener equipos:', error);
     }
   };
-  
+
   useEffect(() => {
     fetchTeams();
   }, []);
-  
+
   const createTeam = async () => {
-    const selectedMemberIds = members
-      .filter(member => member.checked)
-      .map(member => member.id);
-  
-    const newTeam = {
-      name: teamName,
-      members: selectedMemberIds,
-    };
-  
+    const selectedMemberIds = members.filter(member => member.checked).map(member => member.id);
+    const newTeam = { name: teamName, members: selectedMemberIds };
+
     try {
       await axios.post('http://localhost:4000/api/teams', newTeam);
-      fetchTeams(); // Recarga la lista de equipos
-      handleClose(); // Cierra el modal
+      fetchTeams();
+      handleClose();
+  
+      // Mostrar la alerta de éxito
+      Swal.fire({
+        icon: 'success',
+        title: 'Equipo Creado Exitosamente',
+        text: 'El equipo se ha creado correctamente.',
+      });
     } catch (error) {
       console.error('Error al crear el equipo:', error);
+  
+      // Mostrar una alerta de error si es necesario
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al Crear el Equipo',
+        text: 'Hubo un problema al crear el equipo. Inténtalo de nuevo más tarde.',
+      });
     }
   };
+
+  const handleDeleteTeam = (teamId) => {
+    // Mostrar Sweet Alert de confirmación
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Estás a punto de disolver este equipo. Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, disolver equipo',
+      cancelButtonText: 'Cancelar',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`http://localhost:4000/api/teams/${teamId}`);
+          fetchTeams();
   
- 
+          // Mostrar una alerta de éxito después de eliminar el equipo
+          Swal.fire({
+            icon: 'success',
+            title: 'Equipo Disuelto',
+            text: 'El equipo ha sido disuelto correctamente.',
+          });
+        } catch (error) {
+          console.error('Error al eliminar el equipo:', error);
+  
+          // Mostrar una alerta de error si es necesario
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al Disolver el Equipo',
+            text: 'Hubo un problema al disolver el equipo. Inténtalo de nuevo más tarde.',
+          });
+        }
+      }
+    });
+  };
 
-const handleDeleteTeam = async (teamId) => {
-  try {
-    await axios.delete(`http://localhost:4000/api/teams/${teamId}`);
-    // Actualizar la lista de equipos después de la eliminación
-    fetchTeams();
-  } catch (error) {
-    console.error('Error al eliminar el equipo:', error);
-    // Manejar el error adecuadamente, por ejemplo, mostrar un mensaje al usuario
-  }
-};
 
-const removeMemberFromTeam = async (teamId, memberId) => {
-  try {
-    const updatedMembers = teams.find(team => team.id === teamId).members.filter(member => member.id !== memberId);
-    await axios.patch(`http://localhost:4000/api/teams/${teamId}`, { members: updatedMembers.map(member => member.id) });
-    
-    const updatedTeam = { ...teams.find(team => team.id === teamId), members: updatedMembers };
-
-    // Actualizar el estado de los equipos con la nueva información
-    setTeams(teams.map(team => team.id === teamId ? updatedTeam : team));
-
-    // Actualizar el equipo seleccionado si es el mismo que el del modal
-    if (selectedTeam && selectedTeam.id === teamId) {
-      setSelectedTeam(updatedTeam);
+  const addMemberToTeam = async (teamId, memberId) => {
+    try {
+      const addMemberDto = { teamId, userId: memberId };
+      await axios.post(`http://localhost:4000/api/teams/add-member`, addMemberDto);
+      fetchTeams();
+    } catch (error) {
+      console.error('Error al agregar miembro:', error);
     }
-    
-  } catch (error) {
-    console.error('Error al eliminar miembro:', error);
-  }
-};
-
-
-
+  };
 
   const modalStyle = {
     position: 'absolute',
@@ -125,7 +142,9 @@ const removeMemberFromTeam = async (teamId, memberId) => {
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
-    borderRadius: '8px', // Border radius para el modal
+    borderRadius: '8px',
+    overflowY: 'auto',
+    maxHeight: '300px',
   };
 
   const checkboxListStyle = {
@@ -147,37 +166,21 @@ const removeMemberFromTeam = async (teamId, memberId) => {
         <Modal open={open} onClose={handleClose}>
           <Box sx={modalStyle}>
             <Typography variant="h6" component="h2">Añadir Equipo</Typography>
-            <TextField 
-              fullWidth 
-              label="Nombre del Equipo" 
-              value={teamName} 
-              onChange={handleTeamNameChange} 
-              margin="normal"
-            />
+            <TextField fullWidth label="Nombre del Equipo" value={teamName} onChange={handleTeamNameChange} margin="normal" />
             <Typography variant="subtitle1" sx={{ mt: 2 }}>Miembros</Typography>
             <Box sx={checkboxListStyle}>
-  {members.map((member, index) => (
-    <div key={index} className={styles.checkboxContainer}>
-      <FormControlLabel
-        control={
-          <Checkbox checked={member.checked} onChange={() => handleMemberChange(index)} />
-        }
-        label={<span className={styles.checkboxLabel}>{member.name}</span>}
-      />
-    </div>
-  ))}
-</Box>
-
-            <button className={styles.createTeamButton}  onClick={createTeam}>Crear Equipo</button>
+              {members.map((member, index) => (
+                <div key={index} className={styles.checkboxContainer}>
+                  <FormControlLabel control={<Checkbox checked={member.checked} onChange={() => handleMemberChange(index)} />} label={<span className={styles.checkboxLabel}>{member.name}</span>} />
+                </div>
+              ))}
+            </Box>
+            <Button className={styles.createTeamButton} onClick={createTeam} variant="contained" color="primary">
+              Crear Equipo
+            </Button>
           </Box>
         </Modal>
-        <TargetTeam 
-  teams={teams}
-  onDeleteTeam={handleDeleteTeam}
-  onRemoveMember={removeMemberFromTeam}
-  onUpdateSelectedTeam={updateSelectedTeam} // Nueva prop
-/>
-
+        <TargetTeam teams={teams} onDeleteTeam={handleDeleteTeam}  onAddMember={addMemberToTeam} members={members} />
       </div>
     </div>
   );
