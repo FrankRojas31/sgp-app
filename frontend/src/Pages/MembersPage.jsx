@@ -2,14 +2,12 @@ import { useEffect, useState } from 'react';
 import { Add } from '@mui/icons-material';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import ModeDeleteIcon from '@mui/icons-material/Delete';
-import ModeSearchIcon from '@mui/icons-material/Search';
 import { Sidebar } from '../Components/dashboard/Sidebar';
 import styles from '../css/table.module.css';
 import Swal from 'sweetalert2';
-import axios from 'axios';
 import { sgpApi } from '../api/sgpApi';
 import { useAuthStore } from '../stores/Auth/authStore';
-
+import DOMPurify from 'dompurify';
 export default function TableProject() {
   const [searchTerm, setSearchTerm] = useState('');
   const [usuarios, setUsuarios] = useState([]);
@@ -33,13 +31,62 @@ export default function TableProject() {
   
   useEffect(() => {
     RecargarDatos();
-  }, []);
+  }, [usuarios]);
 
   const filteredUsuarios = usuarios.filter(item =>
     item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+
   // Acciones
+
+  const HandleAdd = async() => {
+    try {
+      const result = await Swal.fire({
+        title: 'Añadir Miembro',
+        html: `
+          <input id="nombre" class="swal2-input" placeholder="Nombre" required>
+          <input id="rol" class="swal2-input" placeholder="Rol" required>
+          <input id="email" class="swal2-input" type="email" placeholder="Email" required>
+          <input id="contraseña" class="swal2-input" placeholder="Contraseña" required>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+        cancelButtonText: 'Cancelar',
+        preConfirm: async () => {
+          const nombre = DOMPurify.sanitize(Swal.getPopup().querySelector('#nombre').value);
+          const rol = DOMPurify.sanitize(Swal.getPopup().querySelector('#rol').value);
+          const email = DOMPurify.sanitize(Swal.getPopup().querySelector('#email').value);
+          const contraseña = DOMPurify.sanitize(Swal.getPopup().querySelector('#contraseña').value);
+
+          if (!nombre.trim() || !rol.trim() || !email|| !contraseña) {
+            Swal.showValidationMessage('Todos los campos son obligatorios');
+          } else {
+          try {
+            await sgpApi.post(`/auth/register`, {
+              fullName: nombre,
+              roles: rol,
+              email: email,
+              password: contraseña
+            });
+  
+            return { nombre, rol, email, contraseña };
+          } catch (error) {
+            console.error('Error al crear el miembro:', error);
+            Swal.fire('Error', 'Hubo un problema al crear el miembro.', 'error');
+          }
+          }
+        },
+      });
+  
+      if (result.isConfirmed) {
+        RecargarDatos();
+        Swal.fire('Creado', 'El miembro ha sido creado correctamente.', 'success');
+      }
+    } catch (error) {
+      console.error('Error al abrir el modal de creacion:', error);
+    }
+  };
 
   const HandleEdit = async (miembro) => {
     try {
@@ -139,7 +186,7 @@ export default function TableProject() {
         </div>
         <div className={styles.addButtonContainer}>
           <button className={styles.iconButton}>
-            <Add style={{ color: '#2196f3' }} />
+            <Add style={{ color: '#2196f3' }} onClick={HandleAdd}/>
           </button>
         </div>
       </div>
@@ -168,7 +215,6 @@ export default function TableProject() {
                     </button>
                 {useUser.id !== item.id && (
                   <>
-
                     <button className={styles.botoneseyb} onClick={() => HandleRemove(item.id)}>
                       <ModeDeleteIcon style={{ color: '#fff' }} />
                     </button>
