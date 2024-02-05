@@ -88,7 +88,7 @@ export class ProjectsService {
       isActive: false,
     });
 
-    return projectLoad;
+    return await this.projectRepository.save(projectLoad);
   }
 
   private handleDBErrors(error: any): never {

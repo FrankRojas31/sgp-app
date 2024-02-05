@@ -187,7 +187,7 @@ export default function TableMaterialResource() {
               <td>{item.description}</td>
               <td>{item.quantity_available}</td>
               <td>
-                <button className={styles.botoneseyb} onClick={HandleEdit}>
+                <button className={styles.botoneseyb} onClick={() => HandleEdit(item)}>
                   <ModeEditIcon sx={{ color: '#fff' }} />
                 </button>
                 <button className={styles.botoneseyb} onClick={HandleRemove}>

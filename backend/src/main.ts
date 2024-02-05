@@ -11,9 +11,9 @@ async function bootstrap() {
 
   // Configuración de HTTPS
   app.enableCors({
-    // origin: 'https://localhost:5173',
-    // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    // credentials: true,
+    origin: 'https://localhost:5173',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
   });
 
   app.setGlobalPrefix('api');

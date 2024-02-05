@@ -1,14 +1,31 @@
 import { useEffect, useState } from 'react';
 import { Add } from '@mui/icons-material';
+import DOMPurify from 'dompurify';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import ModeDeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 import styles from '../../css/table.module.css';
 import Swal from 'sweetalert2';
 import { sgpApi } from '../../api/sgpApi';
 
 export default function TableProject() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchActive, setSearchActive] = useState(false); 
   const [proyectos, setProyectos] = useState([]);
+
+  const handleSearchInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchButtonClick = () => {
+    setSearchActive(true);
+  };
+
+  const handleSearchFormSubmit = (event) => {
+    event.preventDefault();
+    setSearchActive(true);
+  };
 
   // Logica para traer datos de la api.
 
@@ -35,7 +52,7 @@ export default function TableProject() {
 
   useEffect(() => {
     RecargarDatos();
-  }, []);
+  }, [proyectos]);
 
   const HandleEdit = async (project) => {
     try {
@@ -51,12 +68,12 @@ export default function TableProject() {
         confirmButtonText: 'Guardar',
         cancelButtonText: 'Cancelar',
         preConfirm: async () => {
-          const nombre = Swal.getPopup().querySelector('#nombre').value;
-          const descripcion = Swal.getPopup().querySelector('#descripcion').value;
-          const startDate = Swal.getPopup().querySelector('#startDate').value;
-          const endDate = Swal.getPopup().querySelector('#endDate').value;
+          const nombre = DOMPurify.sanitize(Swal.getPopup().querySelector('#nombre').value);
+          const descripcion = DOMPurify.sanitize(Swal.getPopup().querySelector('#descripcion').value);
+          const startDate = DOMPurify.sanitize(Swal.getPopup().querySelector('#startDate').value);
+          const endDate = DOMPurify.sanitize(Swal.getPopup().querySelector('#endDate').value);
   
-          if (!nombre || !descripcion || !startDate || !endDate) {
+          if (!nombre.trim() || !descripcion.trim() || !startDate || !endDate) {
             Swal.showValidationMessage('Todos los campos son obligatorios');
           } else if (startDate > endDate) {
             Swal.showValidationMessage('La fecha de inicio no puede ser posterior a la fecha de fin');
@@ -104,7 +121,7 @@ export default function TableProject() {
       if (result.isConfirmed) {
         RecargarDatos();
         await sgpApi.delete(`/projects/${id}`);
-        Swal.fire('Eliminado', 'El proyectp ha sido eliminado.', 'success');
+        Swal.fire('Eliminado', 'El proyecto ha sido eliminado.', 'success');
         
       }
     } catch (error) {
@@ -127,14 +144,14 @@ export default function TableProject() {
         confirmButtonText: 'Guardar',
         cancelButtonText: 'Cancelar',
         preConfirm: async () => {
-          const nombre = Swal.getPopup().querySelector('#nombre').value;
-          const descripcion = Swal.getPopup().querySelector('#descripcion').value;
-          const startDate = Swal.getPopup().querySelector('#startDate').value;
-          const endDate = Swal.getPopup().querySelector('#endDate').value;
-
+          const nombre = DOMPurify.sanitize(Swal.getPopup().querySelector('#nombre').value);
+          const descripcion = DOMPurify.sanitize(Swal.getPopup().querySelector('#descripcion').value);
+          const startDate = DOMPurify.sanitize(Swal.getPopup().querySelector('#startDate').value);
+          const endDate = DOMPurify.sanitize(Swal.getPopup().querySelector('#endDate').value);
+  
           console.log(startDate, endDate);
-
-          if (!nombre || !descripcion || !startDate || !endDate) {
+  
+           if (!nombre.trim() || !descripcion.trim() || !startDate || !endDate) {
             Swal.showValidationMessage('Todos los campos son obligatorios');
           } else if (startDate > endDate) {
             Swal.showValidationMessage('La fecha de inicio no puede ser posterior a la fecha de fin');
@@ -168,20 +185,28 @@ export default function TableProject() {
 
 
 
-  const filteredProyecto = proyectos.filter(item =>
-    item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProyecto = searchActive
+    ? proyectos.filter((item) =>
+        item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : proyectos;
 
   return (
     <div className={styles['main-container']}>
       <h1>Proyectos</h1>
       <div className={styles.toolbar}>
       <div className={styles.box}>
-          <form name="search">
-            <input type="text" className={styles.input}
+          <form name="search" onSubmit={handleSearchFormSubmit}>
+            <input
+              type="text"
+              className={styles.input}
               value={searchTerm}
-              onChange={""}
-              placeholder='Buscar por nombre' />
+              onChange={handleSearchInputChange}
+              placeholder="Buscar por nombre"
+            />
+            <IconButton color="primary" onClick={handleSearchButtonClick}>
+              <SearchIcon />
+            </IconButton>
           </form>
 
         </div>
