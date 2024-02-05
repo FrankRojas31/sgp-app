@@ -12,6 +12,7 @@ import { CreateHumanResourceDto } from './dto/create-human-resource.dto';
 import { UpdateHumanResourceDto } from './dto/update-human-resource.dto';
 import { CreateMaterialResourceDto } from './dto/create-material-resource.dto';
 import { UpdateMaterialResourceDto } from './dto/update-material-resource.dto';
+import { validSpecialties } from './interfaces/valid-specialty.interface';
 
 @Injectable()
 export class ResourcesService {
@@ -137,5 +138,8 @@ export class ResourcesService {
     }
     this.logger.error(error);
     throw new InternalServerErrorException(error.detail);
+  }
+  getSpecialties() {
+    return { validSpecialties };
   }
 }
