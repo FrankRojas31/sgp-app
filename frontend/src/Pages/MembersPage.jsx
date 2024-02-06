@@ -48,26 +48,27 @@ export default function TableProject() {
           </select>
           <input id="email" class="swal2-input" type="email" placeholder="Email" required>
           <input id="contraseña" class="swal2-input" placeholder="Contraseña" required>
+          <p id="passwordHint" style="color: red;"></p>
         `,
         showCancelButton: true,
         confirmButtonText: "Guardar",
         cancelButtonText: "Cancelar",
         preConfirm: async () => {
-          const nombre = DOMPurify.sanitize(
-            Swal.getPopup().querySelector("#nombre").value
-          );
-          const rol = DOMPurify.sanitize(
-            Swal.getPopup().querySelector("#rol").value
-          );
-          const email = DOMPurify.sanitize(
-            Swal.getPopup().querySelector("#email").value
-          );
-          const contraseña = DOMPurify.sanitize(
-            Swal.getPopup().querySelector("#contraseña").value
-          );
-
+          const nombre = DOMPurify.sanitize(Swal.getPopup().querySelector('#nombre').value);
+          const rol = DOMPurify.sanitize(Swal.getPopup().querySelector('#rol').value);
+          const email = DOMPurify.sanitize(Swal.getPopup().querySelector('#email').value);
+          const contraseña = DOMPurify.sanitize(Swal.getPopup().querySelector('#contraseña').value);
+  
+          // Función para verificar la fortaleza de la contraseña
+          const isPasswordSecure = (password) => {
+            // Aquí puedes implementar tu lógica de verificación de contraseña, por ejemplo, longitud mínima, uso de mayúsculas, minúsculas, números, caracteres especiales, etc.
+            return password.length >= 8 && /[a-z]/.test(password) && /[A-Z]/.test(password) && /\d/.test(password);
+          };
+  
           if (!nombre.trim() || !rol.trim() || !email || !contraseña) {
-            Swal.showValidationMessage("Todos los campos son obligatorios");
+            Swal.showValidationMessage('Todos los campos son obligatorios');
+          } else if (!isPasswordSecure(contraseña)) {
+            Swal.showValidationMessage('La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas y números.');
           } else {
             try {
               await sgpApi.post(`/auth/register`, {
