@@ -5,7 +5,7 @@ import TargetTeam from '../Components/targetTeam';
 import { Modal, Box, Typography, TextField, Checkbox, FormControlLabel, Button } from '@mui/material';
 import Swal from 'sweetalert2';
 import { sgpApi } from '../api/sgpApi';
-
+import DOMPurify from 'dompurify';
 
 
 
@@ -59,20 +59,38 @@ function TeamsPage() {
   }, []);
 
   const createTeam = async () => {
+    // Sanitiza el nombre del equipo
+    const sanitizedTeamName = DOMPurify.sanitize(teamName);
+  
+    // Verifica si el campo del nombre del equipo está vacío o contiene solo espacios
+    if (!sanitizedTeamName.trim()) {
+      // Muestra una alerta indicando que el nombre del equipo es inválido
+      Swal.fire({
+        icon: 'error',
+        title: 'Nombre de Equipo Inválido',
+        text: 'Por favor, ingresa un nombre válido para el equipo.',
+      });
+      return; // Detiene la creación del equipo
+    }
+  
+    // Continúa con la creación del equipo
     const selectedMemberIds = members.filter(member => member.checked).map(member => member.id);
-    const newTeam = { name: teamName, members: selectedMemberIds };
-
+    const newTeam = { name: sanitizedTeamName, members: selectedMemberIds };
+  
     try {
       await sgpApi.post('/teams', newTeam);
       fetchTeams();
       handleClose();
-  
+      
+      setOpen(false);  
       // Mostrar la alerta de éxito
       Swal.fire({
         icon: 'success',
         title: 'Equipo Creado Exitosamente',
         text: 'El equipo se ha creado correctamente.',
       });
+  
+      fetchTeams();
     } catch (error) {
       console.error('Error al crear el equipo:', error);
   
@@ -84,7 +102,9 @@ function TeamsPage() {
       });
     }
   };
-
+  
+  
+  
   const handleDeleteTeam = (teamId) => {
     // Mostrar Sweet Alert de confirmación
     Swal.fire({
@@ -163,7 +183,7 @@ function TeamsPage() {
       <div className={styles.mainContainer}>
         <h1>EQUIPOS</h1>
         <button className={styles.botonagregar} onClick={handleOpen}>Agregar</button>
-        <Modal open={open} onClose={handleClose}>
+        <Modal open={open} onClose={handleClose} onExited={createTeam}>
           <Box sx={modalStyle}>
             <Typography variant="h6" component="h2">Añadir Equipo</Typography>
             <TextField fullWidth label="Nombre del Equipo" value={teamName} onChange={handleTeamNameChange} margin="normal" />

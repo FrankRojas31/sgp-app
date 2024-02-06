@@ -3,6 +3,7 @@ import styles from '../css/targetTeam.module.css';
 import defaultImage from '../assets/ppDefault.jpeg';
 import { Modal, Box, Typography, List, ListItem, ListItemText, ListItemAvatar, Avatar, FormControl, InputLabel, Select, MenuItem, IconButton, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Swal from 'sweetalert2';
 
 function TargetTeam({ teams, onDeleteTeam, onAddMember, members }) {
   const [open, setOpen] = useState(false);
@@ -14,10 +15,25 @@ function TargetTeam({ teams, onDeleteTeam, onAddMember, members }) {
   };
 
   // Función para manejar la adición de un miembro
-  const handleAddMember = () => {
-    onAddMember(selectedTeam.id, selectedMemberId);
-    setSelectedMemberId(''); // Resetear la selección
-  };
+  // Función para manejar la adición de un miembro
+const handleAddMember = () => {
+  // Cierra el modal primero
+  handleClose();
+
+  onAddMember(selectedTeam.id, selectedMemberId);
+  setSelectedMemberId(''); // Resetear la selección
+
+  // Mostrar la alerta de éxito
+  Swal.fire({
+    icon: 'success',
+    title: 'Miembro Agregado',
+    text: 'El miembro se ha agregado al equipo correctamente.',
+    customClass: {
+      popup: 'my-sweetalert', // Agrega una clase personalizada
+    },
+  });
+};
+
 
   const handleOpen = (team) => {
     const updatedTeam = teams.find(t => t.id === team.id);
