@@ -59,36 +59,29 @@ export default function TableResource() {
       const usersResponse = await sgpApi.get('auth/get-all-users');
       const allUsers = usersResponse.data;
   
-      // Crear opciones para el menú desplegable de horas diarias trabajadas
-      const hoursOptions = Array.from({ length: 8 }, (_, i) => i + 1)
-        .map(value => `<option value="${value}" ${value === human.hoursWorkDaily ? 'selected' : ''}>${value}</option>`)
-        .join('');
-  
       const result = await Swal.fire({
         title: 'Editar recurso',
         html: `
-        <input id="description" class="swal2-input" placeholder="Equipo" value="${DOMPurify.sanitize(human.description)}">
-        <select id="especialidad" class="swal2-select">
-          ${Object.keys(validSpecialties).map(key => `<option value="${key}">${DOMPurify.sanitize(validSpecialties[key])}</option>`).join('')}
-        </select>
-        <select id="hoursWorkDaily" class="swal2-select">
-          ${hoursOptions}
-        </select>
-        <select id="userId" class="swal2-select">
-          ${allUsers.map(user => `<option value="${user.id}" ${user.id === human.userId ? 'selected' : ''}>${DOMPurify.sanitize(user.fullName)}</option>`).join('')}
-        </select>
+          <input id="description" class="swal2-input" placeholder="Equipo" value="${DOMPurify.sanitize(human.description)}">
+          <select id="especialidad" class="swal2-select">
+            ${Object.keys(validSpecialties).map(key => `<option value="${key}">${DOMPurify.sanitize(validSpecialties[key])}</option>`).join('')}
+          </select>
+          <input id="hoursWorkDaily" class="swal2-input" type="number" min="1" max="8" step="1" placeholder="Horas diarias" value="${human.hoursWorkDaily}">
+          <select id="userId" class="swal2-select">
+            ${allUsers.map(user => `<option value="${user.id}" ${user.id === human.userId ? 'selected' : ''}>${DOMPurify.sanitize(user.fullName)}</option>`).join('')}
+          </select>
         `,
         showCancelButton: true,
         confirmButtonText: 'Guardar',
         cancelButtonText: 'Cancelar',
         preConfirm: async () => {
-          const description = Swal.getPopup().querySelector('#description').value;
+          const description = Swal.getPopup().querySelector('#description').value.trim();
           const speciality = Swal.getPopup().querySelector('#especialidad').value;
-          const hoursWorkDaily = parseFloat(Swal.getPopup().querySelector('#hoursWorkDaily').value); // Convertir a número
+          const hoursWorkDaily = parseFloat(Swal.getPopup().querySelector('#hoursWorkDaily').value.trim()); // Convertir a número
   
-          // Validar si hoursWorkDaily es un número válido
-          if (isNaN(hoursWorkDaily)) {
-            throw new Error('Las horas diarias de trabajo deben ser un número válido.');
+          if (!description || !speciality || isNaN(hoursWorkDaily) || hoursWorkDaily < 1 || hoursWorkDaily > 8) {
+            Swal.showValidationMessage('Por favor, completa todos los campos correctamente y asegúrate de que las horas diarias de trabajo sean un número entre 1 y 8.');
+            return;
           }
   
           const userId = Swal.getPopup().querySelector('#userId').value;
@@ -116,9 +109,8 @@ export default function TableResource() {
     } catch (error) {
       console.error('Error al abrir el modal de edición:', error);
     }
-  }
+  };
   
-
 
 
 
@@ -153,65 +145,71 @@ export default function TableResource() {
 
 
 
-const handleAgregarClick = async () => {
-  try {
-    const specialtiesResponse = await sgpApi.get('/resources/specialties');
-    const validSpecialties = specialtiesResponse.data.validSpecialties;
-    const usersResponse = await sgpApi.get('auth/get-all-users');
-    const allUsers = usersResponse.data;
-    const specialtyOptions = Object.keys(validSpecialties).map(key => `<option value="${key}">${DOMPurify.sanitize(validSpecialties[key])}</option>`).join('');
-    const userOptions = allUsers.map(user => `<option value="${user.id}">${DOMPurify.sanitize(user.fullName)}</option>`).join('');
-    const hoursOptions = Array.from({ length: 8 }, (_, i) => i + 1)
-      .map(value => `<option value="${value}">${value}</option>`)
-      .join('');
-
-    const result = await Swal.fire({
-      title: 'Agregar Recurso Humano',
-      html: `
-        <input id="description" class="swal2-input" placeholder="Descripción">
-        <select id="especialidad" class="swal2-select">
-          ${specialtyOptions}
-        </select>
-        <select id="hoursWorkDaily" class="swal2-select">
-          ${hoursOptions}
-        </select>
-        <select id="userId" class="swal2-select">
-          ${userOptions}
-        </select>
-      `,
-      showCancelButton: true,
-      confirmButtonText: 'Agregar',
-      cancelButtonText: 'Cancelar',
-      preConfirm: async () => {
-        const description = Swal.getPopup().querySelector('#description').value;
-        const speciality = Swal.getPopup().querySelector('#especialidad').value;
-        const hoursWorkDaily = parseFloat(Swal.getPopup().querySelector('#hoursWorkDaily').value);
-        const userId = Swal.getPopup().querySelector('#userId').value;
-
-        try {
-          const response = await sgpApi.post('/resources/create-human-resource', {
-            description: description,
-            specialty: speciality,
-            hoursWorkDaily: hoursWorkDaily,
-            user: userId,
-          });
-
-          return response.data;
-        } catch (error) {
-          console.error('Error al agregar el recurso:', error);
-          Swal.fire('Error', 'Hubo un problema al agregar el recurso humano.', 'error');
+  const handleAgregarClick = async () => {
+    try {
+      const specialtiesResponse = await sgpApi.get('/resources/specialties');
+      const validSpecialties = specialtiesResponse.data.validSpecialties;
+      const usersResponse = await sgpApi.get('auth/get-all-users');
+      const allUsers = usersResponse.data;
+      const specialtyOptions = Object.keys(validSpecialties).map(key => `<option value="${key}">${DOMPurify.sanitize(validSpecialties[key])}</option>`).join('');
+      const userOptions = allUsers.map(user => `<option value="${user.id}">${DOMPurify.sanitize(user.fullName)}</option>`).join('');
+      const hoursOptions = Array.from({ length: 8 }, (_, i) => i + 1)
+        .map(value => `<option value="${value}">${value}</option>`)
+        .join('');
+  
+      const result = await Swal.fire({
+        title: 'Agregar Recurso Humano',
+        html: `
+          <input id="description" class="swal2-input" placeholder="Descripción">
+          <select id="especialidad" class="swal2-select">
+            ${specialtyOptions}
+          </select>
+          <select id="hoursWorkDaily" class="swal2-select">
+            ${hoursOptions}
+          </select>
+          <select id="userId" class="swal2-select">
+            ${userOptions}
+          </select>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Agregar',
+        cancelButtonText: 'Cancelar',
+        preConfirm: async () => {
+          const description = Swal.getPopup().querySelector('#description').value.trim();
+          const speciality = Swal.getPopup().querySelector('#especialidad').value;
+          const hoursWorkDaily = parseFloat(Swal.getPopup().querySelector('#hoursWorkDaily').value);
+          const userId = Swal.getPopup().querySelector('#userId').value;
+  
+          if (!description || !speciality || isNaN(hoursWorkDaily) || !userId) {
+            Swal.showValidationMessage('Por favor, completa todos los campos correctamente.');
+            return;
+          }
+  
+          try {
+            const response = await sgpApi.post('/resources/create-human-resource', {
+              description: description,
+              specialty: speciality,
+              hoursWorkDaily: hoursWorkDaily,
+              user: userId,
+            });
+  
+            return response.data;
+          } catch (error) {
+            console.error('Error al agregar el recurso:', error);
+            Swal.fire('Error', 'Hubo un problema al agregar el recurso humano.', 'error');
+          }
         }
+      });
+  
+      if ((await result).isConfirmed) {
+        mostrarHumanResources();
+        Swal.fire('Agregado', 'El recurso humano ha sido agregado correctamente.', 'success');
       }
-    });
-
-    if ((await result).isConfirmed) {
-      mostrarHumanResources();
-      Swal.fire('Agregado', 'El recurso humano ha sido agregado correctamente.', 'success');
+    } catch (error) {
+      console.error('Error al abrir el modal de agregar:', error);
     }
-  } catch (error) {
-    console.error('Error al abrir el modal de agregar:', error);
-  }
-};
+  };
+  
 
   
 

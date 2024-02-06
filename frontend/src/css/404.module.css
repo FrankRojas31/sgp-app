@@ -1,31 +1,37 @@
-.Button {
-    background-color: #007bff;
-    /* Color de fondo del botón */
-    color: #fff;
-    /* Color del texto del botón */
-    border: none;
-    /* Sin borde */
-    border-radius: 10px;
-    /* Borde redondeado */
-    padding: 15px 30px;
-    /* Espaciado interno mayor */
-    font-size: 24px;
-    /* Tamaño de fuente más grande */
-    cursor: pointer;
-    /* Cambio de cursor al pasar por encima */
-    transition: background-color 0.3s ease;
-    /* Transición suave del color de fondo */
-    display: block;
-    /* Convertir en bloque para centrar */
-    margin: 0 auto;
-    /* Centrar horizontalmente */
-}
+/* styles.module.css */
 
-/* Estilos adicionales cuando el botón se pasa por encima */
-.Button:hover {
-    background-color: #0056b3;
-    /* Color de fondo al pasar el ratón por encima */
-}
-.foto{
-    position: fixed;
-}
+.body {
+    width: 100%;
+    font-family: 'Tomorrow', sans-serif;
+    height: 98vh;
+    background-image: linear-gradient( #2e1753, #1f1746, #131537, #0d1028, #050819);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .text {
+    position: absolute;
+    top: 30%;
+    color: #fff;
+    text-align: center;
+
+  }
+  .dash{
+    background-color: rgb(24, 123, 229);
+    height: 40px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-radius: 5px;
+    color: white;
+    border: 3px #fff;
+    margin-top: 20%;
+    cursor: pointer;
+  }
+  
+  h1 {
+    font-size: 50px;
+  }
+  
+  
+
+  
