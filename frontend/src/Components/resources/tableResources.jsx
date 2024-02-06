@@ -167,6 +167,7 @@ export default function TableResource() {
             ${userOptions}
           </select>
         `,
+        //se guarda
         showCancelButton: true,
         confirmButtonText: 'Agregar',
         cancelButtonText: 'Cancelar',
