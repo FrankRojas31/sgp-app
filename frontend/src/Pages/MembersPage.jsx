@@ -40,13 +40,20 @@ export default function TableProject() {
 
   // Acciones
 
-  const HandleAdd = async() => {
+  const HandleAdd = async () => {
     try {
+      const roles = [
+        { value: 'member', text: 'Miembro' },
+        { value: 'admin', text: 'Administrador' }
+      ];
+  
       const result = await Swal.fire({
         title: 'Añadir Miembro',
         html: `
           <input id="nombre" class="swal2-input" placeholder="Nombre" required>
-          <input id="rol" class="swal2-input" placeholder="Rol" required>
+          <select id="rol" class="swal2-select" required>
+            ${roles.map(role => `<option value="${role.value}">${role.text}</option>`).join('')}
+          </select>
           <input id="email" class="swal2-input" type="email" placeholder="Email" required>
           <input id="contraseña" class="swal2-input" placeholder="Contraseña" required>
         `,
@@ -58,35 +65,43 @@ export default function TableProject() {
           const rol = DOMPurify.sanitize(Swal.getPopup().querySelector('#rol').value);
           const email = DOMPurify.sanitize(Swal.getPopup().querySelector('#email').value);
           const contraseña = DOMPurify.sanitize(Swal.getPopup().querySelector('#contraseña').value);
-
-          if (!nombre.trim() || !rol.trim() || !email|| !contraseña) {
+  
+          if (!nombre.trim() || !rol.trim() || !email || !contraseña) {
             Swal.showValidationMessage('Todos los campos son obligatorios');
           } else {
-          try {
-            await sgpApi.post(`/auth/register`, {
-              fullName: nombre,
-              roles: rol,
-              email: email,
-              password: contraseña
-            });
+            try {
+              const usuariosAntes = await sgpApi.get(`/auth/get-all-users`);
+              
+              if (usuariosAntes.data.some(user => user.email === email)) {
+                Swal.showValidationMessage('El correo ya está registrado');
+              } else {
+                await sgpApi.post(`/auth/register`, {
+                  fullName: nombre,
+                  roles: rol,
+                  email: email,
+                  password: contraseña
+                });
   
-            return { nombre, rol, email, contraseña };
-          } catch (error) {
-            console.error('Error al crear el miembro:', error);
-            Swal.fire('Error', 'Hubo un problema al crear el miembro.', 'error');
-          }
+                await RecargarDatos();
+  
+                return { nombre, rol, email, contraseña };
+              }
+            } catch (error) {
+              console.error('Error al crear el miembro:', error);
+              Swal.fire('Error', 'Hubo un problema al crear el miembro.', 'error');
+            }
           }
         },
       });
   
       if (result.isConfirmed) {
-        RecargarDatos();
         Swal.fire('Creado', 'El miembro ha sido creado correctamente.', 'success');
       }
     } catch (error) {
-      console.error('Error al abrir el modal de creacion:', error);
+      console.error('Error al abrir el modal de creación:', error);
     }
   };
+  
 
   const HandleEdit = async (miembro) => {
     try {
