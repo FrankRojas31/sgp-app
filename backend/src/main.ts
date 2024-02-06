@@ -7,13 +7,18 @@ import * as path from 'path';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {});
+  const httpsOptions = {
+    key: fs.readFileSync('./secrets/create-cert-key.pem'),
+    cert: fs.readFileSync('./secrets/create-cert.pem'),
+  };
 
-  // Configuración de HTTPS
+  const app = await NestFactory.create(AppModule, {
+    httpsOptions,
+  });
+
   app.enableCors({
     origin: 'https://localhost:5173',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATH'],
   });
 
   app.setGlobalPrefix('api');

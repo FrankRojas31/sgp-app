@@ -12,7 +12,6 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Project } from './entities/project.entity';
-import { Auth } from 'src/auth/decorators';
 
 @ApiTags('Proyectos')
 @Controller('projects')
@@ -25,7 +24,6 @@ export class ProjectsController {
     return this.projectsService.create(createProjectDto);
   }
 
-  @Auth()
   @Get()
   findAll() {
     return this.projectsService.findAll();

@@ -4,7 +4,6 @@ import { AuthGuard } from '@nestjs/passport';
 import { User } from './entities/user.entity';
 import { Auth, GetHeader, GetUser } from './decorators/index';
 import { UserRoleGuard } from './guards/user-role.guard';
-import { RoleProtected } from './decorators/role-protected.decorator';
 import { ValidRoles } from './interfaces/valid-roles.interface';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -29,15 +28,13 @@ import { AssignPermissionToUserDto } from './dto/assign-permission-user.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @RoleProtected(ValidRoles.admin)
-  @Auth()
+  @Auth(ValidRoles.admin)
   @Get('get-all-users')
   getAllUsers(@Query() paginationDto: PaginationDto) {
     return this.authService.getAllUsers(paginationDto);
   }
 
-  @RoleProtected(ValidRoles.admin)
-  @Auth()
+  @Auth(ValidRoles.admin)
   @Get('find-user/:id')
   findUser(@Param('id') id: string) {
     return this.authService.findUser(id);
@@ -53,8 +50,7 @@ export class AuthController {
     return this.authService.login(loginUserDto);
   }
 
-  @RoleProtected(ValidRoles.admin)
-  @Auth()
+  @Auth(ValidRoles.admin)
   @Patch('update/:id')
   updateUser(
     @Param('id', ParseUUIDPipe) id: string,
@@ -64,29 +60,25 @@ export class AuthController {
     return this.authService.updateUser(id, updateUserDto);
   }
 
-  @RoleProtected(ValidRoles.admin)
-  @Auth()
+  @Auth(ValidRoles.admin)
   @Delete('delete/:id')
   deleteUser(@Param() id: string) {
     return this.authService.deleteUser(id);
   }
 
-  @RoleProtected(ValidRoles.admin)
-  @Auth()
+  @Auth(ValidRoles.admin)
   @Get('get-all-permissions')
   getAllPermissions() {
     return this.authService.getAllPermissions();
   }
 
-  @RoleProtected(ValidRoles.admin)
-  @Auth()
+  @Auth(ValidRoles.admin)
   @Post('create-permission')
   createPermission(@Body() createPermissionDto: CreatePermissionDto) {
     return this.authService.createPermission(createPermissionDto);
   }
 
-  @RoleProtected(ValidRoles.admin)
-  @Auth()
+  @Auth(ValidRoles.admin)
   @Post('assign-permission-user')
   assignPermissionToUser(
     @Body() assignPermissionToUserDto: AssignPermissionToUserDto,
@@ -111,7 +103,7 @@ export class AuthController {
   }
 
   @Get('private2')
-  @RoleProtected(ValidRoles.admin)
+  // @RoleProtected(ValidRoles.admin)
   @UseGuards(AuthGuard(), UserRoleGuard)
   privateRoute2(@GetUser() user: User) {
     return {

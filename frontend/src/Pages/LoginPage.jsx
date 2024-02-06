@@ -14,7 +14,7 @@ import {
 import { styled } from "@mui/system";
 import WelcomeIMG from "../assets/WelcomeIMG.png";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../Components/dashboard/SideMenu.module.css";
 import { useAuthStore } from "../stores/Auth/authStore";
@@ -46,7 +46,15 @@ const theme = createTheme({
 // Componente
 const LoginPage = () => {
   const navigate = useNavigate();
+  const useUser = useAuthStore((state) => state.user);
 
+  useEffect(() => {
+    if (useUser) {
+      navigate("/dashboard");
+    }
+  }, [useUser, navigate]);
+  
+  
   const useLogin = useAuthStore((state) => state.login);
 
   const [error, setError] = useState(null);
