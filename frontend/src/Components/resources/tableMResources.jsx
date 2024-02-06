@@ -28,7 +28,7 @@ export default function TableMaterialResource() {
   };
   useEffect(() => {
     mostrarMaterialResources();
-  }, []);
+  }, [material]);
 
   const filteredDatos = material.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())

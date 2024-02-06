@@ -59,16 +59,16 @@ export default function TableProject() {
           const email = DOMPurify.sanitize(Swal.getPopup().querySelector('#email').value);
           const contraseña = DOMPurify.sanitize(Swal.getPopup().querySelector('#contraseña').value);
   
-          // Función para verificar la fortaleza de la contraseña
           const isPasswordSecure = (password) => {
-            // Aquí puedes implementar tu lógica de verificación de contraseña, por ejemplo, longitud mínima, uso de mayúsculas, minúsculas, números, caracteres especiales, etc.
             return password.length >= 8 && /[a-z]/.test(password) && /[A-Z]/.test(password) && /\d/.test(password);
           };
-  
+
           if (!nombre.trim() || !rol.trim() || !email || !contraseña) {
             Swal.showValidationMessage('Todos los campos son obligatorios');
           } else if (!isPasswordSecure(contraseña)) {
             Swal.showValidationMessage('La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas y números.');
+          } else if (usuarios.some(member => member.email.toLowerCase() === email.toLowerCase())) {
+            Swal.showValidationMessage('El correo ya ha sido registrado');
           } else {
             try {
               await sgpApi.post(`/auth/register`, {
@@ -107,20 +107,24 @@ export default function TableProject() {
 
   const HandleEdit = async (miembro) => {
     try {
+      const roles = [
+        { value: 'member', text: 'Miembro' },
+        { value: 'admin', text: 'Administrador' }
+      ];
+
       const result = await Swal.fire({
         title: "Editar Miembro",
         html: `
           <input id="nombre" class="swal2-input" placeholder="Nombre" value="${
-            miembro.nombre
+            miembro.fullName
           }">
-          <input id="rol" class="swal2-input" placeholder="Rol" value="${
-            miembro.roles
-          }">
+           <select id="rol" class="swal2-select" required>
+            ${roles.map(role => `<option value="${role.value}">${role.text}</option>`).join('')}
           <input id="email" class="swal2-input" placeholder="Email" value="${
-            miembro.Email
+            miembro.email
           }">
           <input id="activo" class="swal2-input" placeholder="Activo" value="${
-            miembro.Activo ? "Sí" : "No"
+            miembro.isActive ? "Sí" : "No"
           }">
         `,
         showCancelButton: true,
@@ -130,9 +134,11 @@ export default function TableProject() {
           const nombre = Swal.getPopup().querySelector("#nombre").value;
           const rol = Swal.getPopup().querySelector("#rol").value;
           const email = Swal.getPopup().querySelector("#email").value;
-          const activo =
-            Swal.getPopup().querySelector("#activo").value === "Sí";
+          const activo = Swal.getPopup().querySelector("#activo").value === "Sí";
 
+          if (usuarios.some(member => member.email.toLowerCase() === email.toLowerCase())) {
+              Swal.showValidationMessage('El correo ya ha sido registrado');
+          } else {
           try {
             await sgpApi.patch(`/auth/update/${miembro.id}`, {
               fullName: nombre,
@@ -150,7 +156,7 @@ export default function TableProject() {
               "error"
             );
           }
-        },
+        }},
       });
 
       if (result.isConfirmed) {
@@ -220,6 +226,7 @@ export default function TableProject() {
           </div>
         </div>
 
+        <div className={styles.scrollableTableContainer}>
         <table className={`${styles.table} ${styles.roundedTable}`}>
           <thead>
             <tr>
@@ -239,14 +246,14 @@ export default function TableProject() {
                 <td>{item.email}</td>
                 <td>{item.isActive ? "Sí" : "No"}</td>
                 <td>
-                  <button
+                  {useUser.id !== item.id && (
+                    <>
+                    <button
                     className={styles.botoneseyb}
                     onClick={() => HandleEdit(item)}
                   >
                     <ModeEditIcon sx={{ color: "#fff" }} />
                   </button>
-                  {useUser.id !== item.id && (
-                    <>
                       <button
                         className={styles.botoneseyb}
                         onClick={() => HandleRemove(item.id)}
@@ -260,6 +267,7 @@ export default function TableProject() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </>
   );

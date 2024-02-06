@@ -18,7 +18,7 @@
 
   }
   .dash{
-    background-color: rgb(24, 123, 229);
+    background-color: rgb(94, 17, 92);
     height: 40px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     border-radius: 5px;
@@ -26,6 +26,7 @@
     border: 3px #fff;
     margin-top: 20%;
     cursor: pointer;
+    font-weight: bold
   }
   
   h1 {

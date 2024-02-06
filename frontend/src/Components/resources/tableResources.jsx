@@ -42,7 +42,7 @@ export default function TableResource() {
 
   useEffect(() => {
     mostrarHumanResources();
-  }, []);
+  }, [human]);
 
   const filteredDatos = human.filter(item =>
     item.description && item.description.toLowerCase().includes(searchTerm.toLowerCase())

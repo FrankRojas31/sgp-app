@@ -89,7 +89,7 @@ export class AuthService {
     const { password, email } = loginUserDto;
 
     const user = await this.userRepository.findOne({
-      where: { email },
+      where: { email, isActive: true },
       select: {
         email: true,
         password: true,
@@ -177,7 +177,6 @@ export class AuthService {
     user.permissions.push(permission);
     return this.userRepository.save(user);
   }
-
 
   private handleDBErrors(error: any): never {
     if (error.code === '23505') {
