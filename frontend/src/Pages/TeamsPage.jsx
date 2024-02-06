@@ -3,9 +3,9 @@ import styles from '../css/targetTeam.module.css';
 import { Sidebar } from '../Components/dashboard/Sidebar';
 import TargetTeam from '../Components/targetTeam';
 import { Modal, Box, Typography, TextField, Checkbox, FormControlLabel, Button } from '@mui/material';
-import axios from 'axios';
 import Swal from 'sweetalert2';
-
+import { sgpApi } from '../api/sgpApi';
+import DOMPurify from 'dompurify';
 
 
 
@@ -32,8 +32,8 @@ function TeamsPage() {
 
   const fetchMembers = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/auth/get-all-users');
-      const fetchedMembers = response.data.filter(user => user.roles === 'member').map(member => ({
+      const response = await sgpApi.get('/auth/get-all-users');
+      const fetchedMembers = response.data.filter(user => user.roles === 'member' || 'admin').map(member => ({
         id: member.id,
         name: member.fullName,
         checked: false,
@@ -46,7 +46,7 @@ function TeamsPage() {
   
   const fetchTeams = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/teams');
+      const response = await sgpApi.get('/teams');
       const activeTeams = response.data.filter(team => team.isActive);
       setTeams(activeTeams);
     } catch (error) {
@@ -59,20 +59,38 @@ function TeamsPage() {
   }, []);
 
   const createTeam = async () => {
+    // Sanitiza el nombre del equipo
+    const sanitizedTeamName = DOMPurify.sanitize(teamName);
+  
+    // Verifica si el campo del nombre del equipo está vacío o contiene solo espacios
+    if (!sanitizedTeamName.trim()) {
+      // Muestra una alerta indicando que el nombre del equipo es inválido
+      Swal.fire({
+        icon: 'error',
+        title: 'Nombre de Equipo Inválido',
+        text: 'Por favor, ingresa un nombre válido para el equipo.',
+      });
+      return; // Detiene la creación del equipo
+    }
+  
+    // Continúa con la creación del equipo
     const selectedMemberIds = members.filter(member => member.checked).map(member => member.id);
-    const newTeam = { name: teamName, members: selectedMemberIds };
-
+    const newTeam = { name: sanitizedTeamName, members: selectedMemberIds };
+  
     try {
-      await axios.post('http://localhost:4000/api/teams', newTeam);
+      await sgpApi.post('/teams', newTeam);
       fetchTeams();
       handleClose();
-  
+      
+      setOpen(false);  
       // Mostrar la alerta de éxito
       Swal.fire({
         icon: 'success',
         title: 'Equipo Creado Exitosamente',
         text: 'El equipo se ha creado correctamente.',
       });
+  
+      fetchTeams();
     } catch (error) {
       console.error('Error al crear el equipo:', error);
   
@@ -84,7 +102,9 @@ function TeamsPage() {
       });
     }
   };
-
+  
+  
+  
   const handleDeleteTeam = (teamId) => {
     // Mostrar Sweet Alert de confirmación
     Swal.fire({
@@ -99,7 +119,7 @@ function TeamsPage() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:4000/api/teams/${teamId}`);
+          await sgpApi.delete(`/teams/${teamId}`);
           fetchTeams();
   
           // Mostrar una alerta de éxito después de eliminar el equipo
@@ -126,7 +146,7 @@ function TeamsPage() {
   const addMemberToTeam = async (teamId, memberId) => {
     try {
       const addMemberDto = { teamId, userId: memberId };
-      await axios.post(`http://localhost:4000/api/teams/add-member`, addMemberDto);
+      await sgpApi.post(`/teams/add-member`, addMemberDto);
       fetchTeams();
     } catch (error) {
       console.error('Error al agregar miembro:', error);
@@ -163,7 +183,7 @@ function TeamsPage() {
       <div className={styles.mainContainer}>
         <h1>EQUIPOS</h1>
         <button className={styles.botonagregar} onClick={handleOpen}>Agregar</button>
-        <Modal open={open} onClose={handleClose}>
+        <Modal open={open} onClose={handleClose} onExited={createTeam}>
           <Box sx={modalStyle}>
             <Typography variant="h6" component="h2">Añadir Equipo</Typography>
             <TextField fullWidth label="Nombre del Equipo" value={teamName} onChange={handleTeamNameChange} margin="normal" />

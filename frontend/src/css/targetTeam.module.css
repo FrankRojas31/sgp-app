@@ -190,3 +190,7 @@
 .deleteButton {
   margin-left: 10px; /* Espacio entre el botón Ver Miembros y el icono de eliminar */
 }
+
+.my-sweetalert {
+  z-index: 9999 !important; /* Ajusta el valor de z-index según sea necesario */
+}

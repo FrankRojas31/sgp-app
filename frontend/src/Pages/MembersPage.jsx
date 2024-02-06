@@ -34,11 +34,18 @@ export default function TableProject() {
 
   const HandleAdd = async () => {
     try {
+      const roles = [
+        { value: 'member', text: 'Miembro' },
+        { value: 'admin', text: 'Administrador' }
+      ];
+  
       const result = await Swal.fire({
         title: "Añadir Miembro",
         html: `
           <input id="nombre" class="swal2-input" placeholder="Nombre" required>
-          <input id="rol" class="swal2-input" placeholder="Rol" required>
+          <select id="rol" class="swal2-select" required>
+            ${roles.map(role => `<option value="${role.value}">${role.text}</option>`).join('')}
+          </select>
           <input id="email" class="swal2-input" type="email" placeholder="Email" required>
           <input id="contraseña" class="swal2-input" placeholder="Contraseña" required>
         `,
@@ -95,6 +102,7 @@ export default function TableProject() {
       console.error("Error al abrir el modal de creacion:", error);
     }
   };
+  
 
   const HandleEdit = async (miembro) => {
     try {

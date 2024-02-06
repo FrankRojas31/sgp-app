@@ -1,5 +1,9 @@
 /* table.module.css */
 
+.scrollableTableContainer {
+  height: 400px;
+  overflow: auto;
+}
 .main-container {
   margin-top: 45px;
     display: flex;
