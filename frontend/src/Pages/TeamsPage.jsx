@@ -3,8 +3,8 @@ import styles from '../css/targetTeam.module.css';
 import { Sidebar } from '../Components/dashboard/Sidebar';
 import TargetTeam from '../Components/targetTeam';
 import { Modal, Box, Typography, TextField, Checkbox, FormControlLabel, Button } from '@mui/material';
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import { sgpApi } from '../api/sgpApi';
 
 
 
@@ -32,8 +32,8 @@ function TeamsPage() {
 
   const fetchMembers = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/auth/get-all-users');
-      const fetchedMembers = response.data.filter(user => user.roles === 'member').map(member => ({
+      const response = await sgpApi.get('/auth/get-all-users');
+      const fetchedMembers = response.data.filter(user => user.roles === 'member' || 'admin').map(member => ({
         id: member.id,
         name: member.fullName,
         checked: false,
@@ -46,7 +46,7 @@ function TeamsPage() {
   
   const fetchTeams = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/teams');
+      const response = await sgpApi.get('/teams');
       const activeTeams = response.data.filter(team => team.isActive);
       setTeams(activeTeams);
     } catch (error) {
@@ -63,7 +63,7 @@ function TeamsPage() {
     const newTeam = { name: teamName, members: selectedMemberIds };
 
     try {
-      await axios.post('http://localhost:4000/api/teams', newTeam);
+      await sgpApi.post('/teams', newTeam);
       fetchTeams();
       handleClose();
   
@@ -99,7 +99,7 @@ function TeamsPage() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:4000/api/teams/${teamId}`);
+          await sgpApi.delete(`/teams/${teamId}`);
           fetchTeams();
   
           // Mostrar una alerta de éxito después de eliminar el equipo
@@ -126,7 +126,7 @@ function TeamsPage() {
   const addMemberToTeam = async (teamId, memberId) => {
     try {
       const addMemberDto = { teamId, userId: memberId };
-      await axios.post(`http://localhost:4000/api/teams/add-member`, addMemberDto);
+      await sgpApi.post(`/teams/add-member`, addMemberDto);
       fetchTeams();
     } catch (error) {
       console.error('Error al agregar miembro:', error);
