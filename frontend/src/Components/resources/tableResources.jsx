@@ -55,9 +55,9 @@ export default function TableResource() {
       const specialtiesResponse = await sgpApi.get('/resources/specialties');
       const validSpecialties = specialtiesResponse.data.validSpecialties;
   
+      // Obtener todos los usuarios desde el servidor
       const usersResponse = await sgpApi.get('auth/get-all-users');
       const allUsers = usersResponse.data;
-  
   
       const result = await Swal.fire({
         title: 'Editar recurso',
@@ -79,6 +79,10 @@ export default function TableResource() {
           const speciality = Swal.getPopup().querySelector('#especialidad').value;
           const hoursWorkDaily = parseFloat(Swal.getPopup().querySelector('#hoursWorkDaily').value.trim()); // Convertir a número
   
+          if (!description || !speciality || isNaN(hoursWorkDaily) || hoursWorkDaily < 1 || hoursWorkDaily > 8) {
+            Swal.showValidationMessage('Por favor, completa todos los campos correctamente y asegúrate de que las horas diarias de trabajo sean un número entre 1 y 8.');
+            return;
+          }
   
           const userId = Swal.getPopup().querySelector('#userId').value;
   
