@@ -12,6 +12,8 @@ import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
 import { AddMemberDto } from './dto/add-member.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Auth, GetUser } from 'src/auth/decorators';
+import { User } from 'src/auth/entities/user.entity';
 
 @ApiTags('Equipos')
 @Controller('teams')
@@ -27,11 +29,16 @@ export class TeamsController {
   addMember(@Body() addMemberDto: AddMemberDto) {
     return this.teamsService.AddMember(addMemberDto);
   }
-  
 
   @Get()
   findAll() {
     return this.teamsService.findAll();
+  }
+
+  @Get('user-team')
+  @Auth()
+  getTeamUser(@GetUser() user: User) {
+    return this.teamsService.getUserTeam(user);
   }
 
   @Get(':id')

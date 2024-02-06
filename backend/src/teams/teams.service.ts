@@ -46,6 +46,17 @@ export class TeamsService {
     return 'Equipo creado correctamente.';
   }
 
+  getUserTeam(user: User) {
+    const findTeamUser = this.teamRepository.findOne({
+      where: { members: user },
+    });
+    if (!findTeamUser)
+      throw new NotFoundException(
+        `El usuario con el id: ${user.id} no tiene equipo asignado`,
+      );
+    return findTeamUser;  
+  }
+
   findAll() {
     return this.teamRepository.find({ where: { isActive: true } });
   }
