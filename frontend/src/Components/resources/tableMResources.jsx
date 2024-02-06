@@ -64,12 +64,18 @@ export default function TableMaterialResource() {
         confirmButtonText: 'Guardar',
         cancelButtonText: 'Cancelar',
         preConfirm: async () => {
-          const nombre = DOMPurify.sanitize(Swal.getPopup().querySelector('#nombre').value);
-          const descripcion = DOMPurify.sanitize(Swal.getPopup().querySelector('#descripcion').value);
-          const cantidad = parseFloat(Swal.getPopup().querySelector('#cantidad').value);
-          console.log('name:', nombre);
-          console.log('description:', descripcion);
-          console.log('quantity_available:', cantidad);
+          const nombreInput = Swal.getPopup().querySelector('#nombre');
+          const descripcionInput = Swal.getPopup().querySelector('#descripcion');
+          const cantidadInput = Swal.getPopup().querySelector('#cantidad');
+  
+          const nombre = DOMPurify.sanitize(nombreInput.value.trim());
+          const descripcion = DOMPurify.sanitize(descripcionInput.value.trim());
+          const cantidad = parseFloat(cantidadInput.value);
+  
+          if (!nombre || !descripcion || isNaN(cantidad)) {
+            Swal.showValidationMessage('Por favor, completa todos los campos correctamente.');
+            return;
+          }
   
           try {
             await sgpApi.patch(`/resources/material-resource/${Material.id}`, {
@@ -93,7 +99,7 @@ export default function TableMaterialResource() {
       console.error('Error al abrir el modal de edición:', error);
     }
   };
-
+  
 
 
   const HandleRemove = async (id) => {
@@ -140,9 +146,18 @@ export default function TableMaterialResource() {
         confirmButtonText: 'Agregar',
         cancelButtonText: 'Cancelar',
         preConfirm: async () => {
-          const nombre = DOMPurify.sanitize(Swal.getPopup().querySelector('#nombre').value);
-          const descripcion = DOMPurify.sanitize(Swal.getPopup().querySelector('#descripcion').value);
-          const cantidad = parseFloat(Swal.getPopup().querySelector('#cantidad').value);
+          const nombreInput = Swal.getPopup().querySelector('#nombre');
+          const descripcionInput = Swal.getPopup().querySelector('#descripcion');
+          const cantidadInput = Swal.getPopup().querySelector('#cantidad');
+  
+          const nombre = DOMPurify.sanitize(nombreInput.value.trim());
+          const descripcion = DOMPurify.sanitize(descripcionInput.value.trim());
+          const cantidad = parseFloat(cantidadInput.value);
+  
+          if (!nombre || !descripcion || isNaN(cantidad)) {
+            Swal.showValidationMessage('Por favor, completa todos los campos correctamente.');
+            return;
+          }
   
           try {
             const response = await sgpApi.post('/resources/create-material-resource', {
@@ -167,6 +182,7 @@ export default function TableMaterialResource() {
       console.error('Error al abrir el modal de agregar:', error);
     }
   };
+  
 
 
   return (
