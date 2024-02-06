@@ -21,17 +21,23 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { CreatePermissionDto } from './dto/create-permission.dto';
+import { AssignPermissionToUserDto } from './dto/assign-permission-user.dto';
 
 @ApiTags('Autenticación y usuarios')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @RoleProtected(ValidRoles.admin)
+  @Auth()
   @Get('get-all-users')
   getAllUsers(@Query() paginationDto: PaginationDto) {
     return this.authService.getAllUsers(paginationDto);
   }
 
+  @RoleProtected(ValidRoles.admin)
+  @Auth()
   @Get('find-user/:id')
   findUser(@Param('id') id: string) {
     return this.authService.findUser(id);
@@ -47,6 +53,8 @@ export class AuthController {
     return this.authService.login(loginUserDto);
   }
 
+  @RoleProtected(ValidRoles.admin)
+  @Auth()
   @Patch('update/:id')
   updateUser(
     @Param('id', ParseUUIDPipe) id: string,
@@ -56,9 +64,34 @@ export class AuthController {
     return this.authService.updateUser(id, updateUserDto);
   }
 
+  @RoleProtected(ValidRoles.admin)
+  @Auth()
   @Delete('delete/:id')
   deleteUser(@Param() id: string) {
     return this.authService.deleteUser(id);
+  }
+
+  @RoleProtected(ValidRoles.admin)
+  @Auth()
+  @Get('get-all-permissions')
+  getAllPermissions() {
+    return this.authService.getAllPermissions();
+  }
+
+  @RoleProtected(ValidRoles.admin)
+  @Auth()
+  @Post('create-permission')
+  createPermission(@Body() createPermissionDto: CreatePermissionDto) {
+    return this.authService.createPermission(createPermissionDto);
+  }
+
+  @RoleProtected(ValidRoles.admin)
+  @Auth()
+  @Post('assign-permission-user')
+  assignPermissionToUser(
+    @Body() assignPermissionToUserDto: AssignPermissionToUserDto,
+  ) {
+    return this.authService.assignPermissionToUser(assignPermissionToUserDto);
   }
 
   @Get('private')
@@ -77,9 +110,8 @@ export class AuthController {
     };
   }
 
-  // @SetMetadata('roles', ['member'])
   @Get('private2')
-  @RoleProtected(ValidRoles.member, ValidRoles.admin)
+  @RoleProtected(ValidRoles.admin)
   @UseGuards(AuthGuard(), UserRoleGuard)
   privateRoute2(@GetUser() user: User) {
     return {
@@ -90,7 +122,7 @@ export class AuthController {
   }
 
   @Get('private3')
-  @Auth(ValidRoles.admin)
+  @Auth()
   privateRoute3(@GetUser() user: User) {
     return {
       ok: true,
