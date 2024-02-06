@@ -206,6 +206,7 @@ export default function TableProject() {
         </div>
       </div>
 
+    <div className={styles.scrollableTableContainer}>
       <table className={`${styles.table} ${styles.roundedTable}`}>
         <thead>
           <tr>
@@ -240,6 +241,7 @@ export default function TableProject() {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
     </>
   );
