@@ -71,6 +71,8 @@ export default function CardListComponent() {
     }
   };
 
+
+
   const RecargarDatosRecursosHumanos = async () => {
     try {
       const respuesta = await sgpApi.get(`/resources/get-all-human-resources`);
@@ -189,28 +191,34 @@ export default function CardListComponent() {
 
   return (
     <div className={styles.container}>
-      {updatedCardData.map((card) => (
-        <div key={card.id} className={`${styles['e-card']} ${styles.playing}`}>
-          <div className={styles.image}></div>
+      {updatedCardData.map((card) => {
+        const isMember = usuarios.some((user) => user.roles.includes('member'));
+        const isRestrictedCard = ['Usuarios(Miembros)', 'Proyectos', 'Administradores'].includes(card.subtitle);
 
-          <div className={styles.wave}></div>
-          <div className={styles.wave}></div>
-          <div className={styles.wave}></div>
+        if (!isMember || !isRestrictedCard) {
+          return (
+            <div key={card.id} className={`${styles['e-card']} ${styles.playing}`}>
+              <div className={styles.image}></div>
 
-          <div className={styles.infotop}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className={styles.icon}>
-              {/* SVG Path */}
-            </svg>
-            <br />
-            {card.title}
-            <br />
-            <div className={styles.name}>{card.subtitle}</div>
-          </div>
-        </div>
-      ))}
+              <div className={styles.wave}></div>
+              <div className={styles.wave}></div>
+              <div className={styles.wave}></div>
+
+              <div className={styles.infotop}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className={styles.icon}>
+                  {/* SVG Path */}
+                </svg>
+                <br />
+                {card.title}
+                <br />
+                <div className={styles.name}>{card.subtitle}</div>
+              </div>
+            </div>
+          );
+        } else {
+          return null;
+        }
+      })}
     </div>
-  );
+  )
 }
-
-
-
