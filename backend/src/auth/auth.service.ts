@@ -100,6 +100,9 @@ export class AuthService {
         picture: true,
         permissions: true,
       },
+      relations: {
+        team: true,
+      },
     });
 
     if (!user) throw new NotFoundException('Credentials are not valid (email)');
@@ -118,7 +121,14 @@ export class AuthService {
     };
   }
 
-  
+  async validatePasswordAdmin(password: string, user: User) {
+    const findUser = await this.userRepository.findOne({
+      where: { email: user.email },
+    });
+    const isValid = await bcrypt.compare(password, findUser.password);
+    if (!isValid) throw new UnauthorizedException('Invalid password');
+    return user;
+  }
 
   async updateUser(id: string, updateUser: UpdateUserDto) {
     const { password, ...restUserUpdate } = updateUser;

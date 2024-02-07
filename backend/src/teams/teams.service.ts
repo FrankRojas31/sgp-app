@@ -54,7 +54,7 @@ export class TeamsService {
       throw new NotFoundException(
         `El usuario con el id: ${user.id} no tiene equipo asignado`,
       );
-    return findTeamUser;  
+    return findTeamUser;
   }
 
   findAll() {

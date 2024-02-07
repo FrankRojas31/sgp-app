@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 import { sgpApi } from "../api/sgpApi";
 import { useAuthStore } from "../stores/Auth/authStore";
 import DOMPurify from "dompurify";
+import RecoveryButton from "../Components/actions/RecoveryButton";
+
 export default function TableProject() {
   const [searchTerm, setSearchTerm] = useState("");
   const [usuarios, setUsuarios] = useState([]);
@@ -35,16 +37,20 @@ export default function TableProject() {
   const HandleAdd = async () => {
     try {
       const roles = [
-        { value: 'member', text: 'Miembro' },
-        { value: 'admin', text: 'Administrador' }
+        { value: "member", text: "Miembro" },
+        { value: "admin", text: "Administrador" },
       ];
-  
+
       const result = await Swal.fire({
         title: "Añadir Miembro",
         html: `
           <input id="nombre" class="swal2-input" placeholder="Nombre" required>
           <select id="rol" class="swal2-select" required>
-            ${roles.map(role => `<option value="${role.value}">${role.text}</option>`).join('')}
+            ${roles
+              .map(
+                (role) => `<option value="${role.value}">${role.text}</option>`
+              )
+              .join("")}
           </select>
           <input id="email" class="swal2-input" type="email" placeholder="Email" required>
           <input id="contraseña" class="swal2-input" placeholder="Contraseña" required>
@@ -54,21 +60,40 @@ export default function TableProject() {
         confirmButtonText: "Guardar",
         cancelButtonText: "Cancelar",
         preConfirm: async () => {
-          const nombre = DOMPurify.sanitize(Swal.getPopup().querySelector('#nombre').value);
-          const rol = DOMPurify.sanitize(Swal.getPopup().querySelector('#rol').value);
-          const email = DOMPurify.sanitize(Swal.getPopup().querySelector('#email').value);
-          const contraseña = DOMPurify.sanitize(Swal.getPopup().querySelector('#contraseña').value);
-  
+          const nombre = DOMPurify.sanitize(
+            Swal.getPopup().querySelector("#nombre").value
+          );
+          const rol = DOMPurify.sanitize(
+            Swal.getPopup().querySelector("#rol").value
+          );
+          const email = DOMPurify.sanitize(
+            Swal.getPopup().querySelector("#email").value
+          );
+          const contraseña = DOMPurify.sanitize(
+            Swal.getPopup().querySelector("#contraseña").value
+          );
+
           const isPasswordSecure = (password) => {
-            return password.length >= 8 && /[a-z]/.test(password) && /[A-Z]/.test(password) && /\d/.test(password);
+            return (
+              password.length >= 8 &&
+              /[a-z]/.test(password) &&
+              /[A-Z]/.test(password) &&
+              /\d/.test(password)
+            );
           };
 
           if (!nombre.trim() || !rol.trim() || !email || !contraseña) {
-            Swal.showValidationMessage('Todos los campos son obligatorios');
+            Swal.showValidationMessage("Todos los campos son obligatorios");
           } else if (!isPasswordSecure(contraseña)) {
-            Swal.showValidationMessage('La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas y números.');
-          } else if (usuarios.some(member => member.email.toLowerCase() === email.toLowerCase())) {
-            Swal.showValidationMessage('El correo ya ha sido registrado');
+            Swal.showValidationMessage(
+              "La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas y números."
+            );
+          } else if (
+            usuarios.some(
+              (member) => member.email.toLowerCase() === email.toLowerCase()
+            )
+          ) {
+            Swal.showValidationMessage("El correo ya ha sido registrado");
           } else {
             try {
               await sgpApi.post(`/auth/register`, {
@@ -103,13 +128,12 @@ export default function TableProject() {
       console.error("Error al abrir el modal de creacion:", error);
     }
   };
-  
 
   const HandleEdit = async (miembro) => {
     try {
       const roles = [
-        { value: 'member', text: 'Miembro' },
-        { value: 'admin', text: 'Administrador' }
+        { value: "member", text: "Miembro" },
+        { value: "admin", text: "Administrador" },
       ];
 
       const result = await Swal.fire({
@@ -119,7 +143,11 @@ export default function TableProject() {
             miembro.fullName
           }">
            <select id="rol" class="swal2-select" required>
-            ${roles.map(role => `<option value="${role.value}">${role.text}</option>`).join('')}
+            ${roles
+              .map(
+                (role) => `<option value="${role.value}">${role.text}</option>`
+              )
+              .join("")}
           <input id="email" class="swal2-input" placeholder="Email" value="${
             miembro.email
           }">
@@ -134,29 +162,35 @@ export default function TableProject() {
           const nombre = Swal.getPopup().querySelector("#nombre").value;
           const rol = Swal.getPopup().querySelector("#rol").value;
           const email = Swal.getPopup().querySelector("#email").value;
-          const activo = Swal.getPopup().querySelector("#activo").value === "Sí";
+          const activo =
+            Swal.getPopup().querySelector("#activo").value === "Sí";
 
-          if (usuarios.some(member => member.email.toLowerCase() === email.toLowerCase())) {
-              Swal.showValidationMessage('El correo ya ha sido registrado');
+          if (
+            usuarios.some(
+              (member) => member.email.toLowerCase() === email.toLowerCase()
+            )
+          ) {
+            Swal.showValidationMessage("El correo ya ha sido registrado");
           } else {
-          try {
-            await sgpApi.patch(`/auth/update/${miembro.id}`, {
-              fullName: nombre,
-              roles: rol,
-              email: email,
-              isActive: activo,
-            });
+            try {
+              await sgpApi.patch(`/auth/update/${miembro.id}`, {
+                fullName: nombre,
+                roles: rol,
+                email: email,
+                isActive: activo,
+              });
 
-            return { nombre, rol, email, activo };
-          } catch (error) {
-            console.error("Error al actualizar el miembro:", error);
-            Swal.fire(
-              "Error",
-              "Hubo un problema al actualizar el miembro.",
-              "error"
-            );
+              return { nombre, rol, email, activo };
+            } catch (error) {
+              console.error("Error al actualizar el miembro:", error);
+              Swal.fire(
+                "Error",
+                "Hubo un problema al actualizar el miembro.",
+                "error"
+              );
+            }
           }
-        }},
+        },
       });
 
       if (result.isConfirmed) {
@@ -227,46 +261,50 @@ export default function TableProject() {
         </div>
 
         <div className={styles.scrollableTableContainer}>
-        <table className={`${styles.table} ${styles.roundedTable}`}>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Rol</th>
-              <th>Email</th>
-              <th>Activo</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {filteredUsuarios.map((item, index) => (
-              <tr key={index} className={index % 2 === 0 ? styles.even : ""}>
-                <td>{item.fullName}</td>
-                <td>{item.roles}</td>
-                <td>{item.email}</td>
-                <td>{item.isActive ? "Sí" : "No"}</td>
-                <td>
-                  {useUser.id !== item.id && (
-                    <>
-                    <button
-                    className={styles.botoneseyb}
-                    onClick={() => HandleEdit(item)}
-                  >
-                    <ModeEditIcon sx={{ color: "#fff" }} />
-                  </button>
-                      <button
-                        className={styles.botoneseyb}
-                        onClick={() => HandleRemove(item.id)}
-                      >
-                        <ModeDeleteIcon style={{ color: "#fff" }} />
-                      </button>
-                    </>
-                  )}
-                </td>
+          <table className={`${styles.table} ${styles.roundedTable}`}>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th>Email</th>
+                <th>Activo</th>
+                <th>Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {filteredUsuarios.map((item, index) => (
+                <tr key={index} className={index % 2 === 0 ? styles.even : ""}>
+                  <td>{item.fullName}</td>
+                  <td>{item.roles}</td>
+                  <td>{item.email}</td>
+                  <td>{item.isActive ? "Sí" : "No"}</td>
+                  <td>
+                    {useUser.id !== item.id && (
+                      <>
+                        {useUser.permissions.includes("reset_password") ? (
+                          <RecoveryButton miembro={item} />
+                        ) : null}
+
+                        <button
+                          className={styles.botoneseyb}
+                          onClick={() => HandleEdit(item)}
+                        >
+                          <ModeEditIcon sx={{ color: "#fff" }} />
+                        </button>
+                        <button
+                          className={styles.botoneseyb}
+                          onClick={() => HandleRemove(item.id)}
+                        >
+                          <ModeDeleteIcon style={{ color: "#fff" }} />
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </>
