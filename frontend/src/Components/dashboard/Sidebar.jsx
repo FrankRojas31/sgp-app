@@ -28,6 +28,11 @@ const menuItems = [
     href: "/teams",
     Icon: RiTeamFill,
   },
+  {title: "Tu equipo",
+  subTitle: "Gestionar equipos",
+  href: "/teamread",
+  Icon: RiTeamFill,
+},
   {
     title: "Recursos",
     subTitle: "Gestionar recursos",
@@ -47,8 +52,13 @@ export const Sidebar = () => {
   const useUser = useAuthStore((state) => state.user);
 
   let filteredMenuItems = menuItems;
+
   if (useUser.roles.includes('member')) {
-    filteredMenuItems = menuItems.filter(item => item.title === 'Dashboard');
+    filteredMenuItems = menuItems.filter(item => item.title === 'Dashboard' || item.title === 'Tu equipo');
+  }
+  
+  if (useUser.roles.includes('admin')) {
+    filteredMenuItems = menuItems;
   }
 
   if (useUser.roles.includes('admin')) {

@@ -9,6 +9,7 @@ import MaterialResources from "./Components/resources/Pages/MaterialResource";
 import PagePropThree from "./Components/projects/Page/Dashboard";
 import PrivateRoute from "./Components/PrivateRoute";
 import ErrorPage from "./Pages/404";
+import TeamsRead from "./Pages/ReadTeams";
 
 function App() {
   return (
@@ -24,9 +25,11 @@ function App() {
           <Route path="/PageSecondProject" element={<PagePropSecond />} />
           <Route path="/HumanResources" element={<HumanResource />} />
           <Route path="/MaterialResources" element={<MaterialResources />} />
+          
         </Route>
         <Route element={<PrivateRoute allowRoles={["member", "admin"]} />}>
           <Route path="/dashboard" element={<PagePropThree />} />
+          <Route path="/teamread" element={<TeamsRead />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>

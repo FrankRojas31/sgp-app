@@ -1,0 +1,199 @@
+
+.content h1 {
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  }
+  .botonagregar{
+    background-color:#191c40;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    height: 30px;
+    width: 150px;
+    font:bold;
+    font-size: 18px;
+    margin-left: 87.5%;
+    margin-bottom: 4%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    cursor: pointer;
+  }
+  
+  .botonagregar:hover{
+    background-color: #8093a1;
+    color: #fefeff;
+  }
+  /* DIV QUE ENGLOBA LA TARGET, QUITAR ESTOS ESTILOS DE SER NECESARIO*/
+  
+  
+  /*LA TARGET EN SI */
+  .myTable {
+    width: 350px;
+    background-color: #dfd9e2;
+    border-collapse: collapse; /* Usa 'collapse' para manejar los bordes como un solo borde */
+    margin: 0;
+    border-radius: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: "Lalezar", sans-serif;
+    transform: translate(450px,100px);
+    
+  }
+  
+  .myTableCell {
+    padding: 20px 15px;
+    text-align: center;
+    font-size: 25px;
+    border: none; /* Elimina todos los bordes */
+    background-color: #dfd9e2;
+    height: 50px;
+  }
+  
+  /* Agrega el borde solo a la primera celda */
+  .myTable tr:first-child .myTableCell {
+    border-bottom: 5px solid #ffffff;
+  }
+  
+  .membersCol {
+    color: #1b205c;
+    font-size: 20px;
+    padding-left: 27px;
+    display: flex; /* Usa Flexbox para alinear elementos internos */
+    align-items: center;
+    padding-top: 10px; /* Aumenta el espacio en la parte superior */
+    padding-bottom: 20px;
+    background-color: #dfd9e2;
+    height: 45px;
+  }
+  
+  .verMiembrosButton {
+    background-color: #191c40; /* Color de fondo morado */
+    color: white; /* Texto en color blanco */
+    border: none; /* Sin borde */
+    padding: 8px 16px; /* Padding horizontal y vertical reducido */
+    border-radius: 20px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño de la fuente reducido */
+    cursor: pointer; /* Cambiar cursor a mano al pasar por encima */
+    margin-top: 20px; /* Espacio por encima del botón */
+    font-weight: bold; /* Fuente en negrita */
+    outline: none; /* Quitar outline al hacer focus */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para dar efecto elevado */
+    transition: background-color 0.3s; /* Transición suave al cambiar de color */
+    margin-left: auto;
+    display: block;
+    margin-right: 17px;
+    margin-bottom: 15px;
+  }
+  
+  .verMiembrosButton:hover {
+    background-color: #8093a1; /* Color ligeramente más oscuro al pasar el ratón por encima */
+  }
+  
+  
+  .pageContainer{
+    margin-left: 315px; /* Ajusta según sea necesario para dar espacio a la barra lateral */
+    padding: 20px;
+  }
+  
+  .pageContainer h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      }
+  
+   .tableContainer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        max-height: 400px; /* Altura máxima antes de que la barra de desplazamiento aparezca, ajusta según sea necesario */
+      }
+      
+  
+      .iconpp {
+        width: 24px; /* o el tamaño que prefieras */
+        height: 24px; /* asegúrate de que sea igual al ancho para mantener la imagen cuadrada */
+        border-radius: 50%; /* opcional, para hacer la imagen redonda */
+        margin-right: 10px; /* espacio entre la imagen y el texto */
+        vertical-align: middle; /* alinea la imagen con el texto */
+      }
+      
+  
+  /* Estilos para las casillas de verificación como en la imagen proporcionada */
+  .checkboxContainer {
+    border: 1px solid #e0e0e0;
+    padding: 8px;
+    margin-bottom: 8px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+  }
+  
+  .checkboxLabel {
+    display: flex;
+    align-items: center;
+  }
+  
+  .checkboxNumber {
+    font-weight: bold;
+    margin-right: 8px;
+  }
+  
+  .checkboxName {
+    flex-grow: 1;
+    text-align: left;
+  }
+  .agregarMiembroButton{
+    background-color: #191c40; /* Color de fondo morado */
+    color: white; /* Texto en color blanco */
+    border: none; /* Sin borde */
+    padding: 8px 16px; /* Padding horizontal y vertical reducido */
+    border-radius: 20px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño de la fuente reducido */
+    cursor: pointer; /* Cambiar cursor a mano al pasar por encima */
+    margin-top: 20px; /* Espacio por encima del botón */
+    font-weight: bold; /* Fuente en negrita */
+    outline: none; /* Quitar outline al hacer focus */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para dar efecto elevado */
+    transition: background-color 0.3s; /* Transición suave al cambiar de color */
+    margin-left: auto;
+    display: block;
+    margin-right: 17px;
+    margin-bottom: 15px;
+  }
+  
+  .agregarMiembroButton:hover {
+    background-color: #8093a1; /* Color ligeramente más oscuro al pasar el ratón por encima */
+  }
+  
+  .createTeamButton{
+    background-color: #191c40; /* Color de fondo morado */
+    color: white; /* Texto en color blanco */
+    border: none; /* Sin borde */
+    padding: 8px 16px; /* Padding horizontal y vertical reducido */
+    border-radius: 20px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño de la fuente reducido */
+    cursor: pointer; /* Cambiar cursor a mano al pasar por encima */
+    margin-top: 20px; /* Espacio por encima del botón */
+    font-weight: bold; /* Fuente en negrita */
+    outline: none; /* Quitar outline al hacer focus */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para dar efecto elevado */
+    transition: background-color 0.3s; /* Transición suave al cambiar de color */
+    margin-left: auto;
+    display: block;
+    margin-right: 17px;
+    margin-bottom: 15px;
+  }
+  .createTeamButton:hover {
+    background-color: #8093a1; /* Color ligeramente más oscuro al pasar el ratón por encima */
+  }
+  /* En tu archivo CSS para TargetTeam */
+  .buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Alinear botones a la derecha */
+    padding-right: 10px; /* Espacio a la derecha para evitar que se peguen al borde */
+  }
+  
+  .deleteButton {
+    margin-left: 10px; /* Espacio entre el botón Ver Miembros y el icono de eliminar */
+  }
+  
+  .my-sweetalert {
+    z-index: 9999 !important; /* Ajusta el valor de z-index según sea necesario */
+  }
+  

@@ -211,3 +211,6 @@ export default function CardListComponent() {
     </div>
   );
 }
+
+
+
