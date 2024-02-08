@@ -10,14 +10,11 @@ export class AuthService {
         email,
         password,
       });
-      console.log(data);
       return data;
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.log(error.response?.data);
         throw new Error(error.response?.data.message);
       }
-      console.log(error);
       throw new Error('An error occurred while logging in');
     }
   };

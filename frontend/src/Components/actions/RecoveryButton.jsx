@@ -46,7 +46,6 @@ const RecoveryButton = ({ miembro }) => {
               const response = await sgpApi.patch(`/auth/update/${miembro.id}`, {
                 password: confirmPassword,
               });
-              console.log(response)
               return true;
             }
           } catch (error) {

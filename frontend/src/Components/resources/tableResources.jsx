@@ -31,7 +31,6 @@ export default function TableResource() {
       });
   
       setHuman(arreglo);
-      console.log(arreglo);
     } catch (error) {
       console.error('Error al cargar los datos:', error);
     }
@@ -134,7 +133,6 @@ export default function TableResource() {
         Swal.fire('Desactivado', 'El recurso ha sido desactivado', 'success')
       }
     } catch (error) {
-      console.log('Error al eliminar recurso', error);
       Swal.fire('Error', 'hubo un problema al eliminar el recurso', 'error')
     }
 

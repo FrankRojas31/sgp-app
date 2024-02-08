@@ -25,10 +25,10 @@ function App() {
           <Route path="/PageSecondProject" element={<PagePropSecond />} />
           <Route path="/HumanResources" element={<HumanResource />} />
           <Route path="/MaterialResources" element={<MaterialResources />} />
+          <Route path="/dashboard" element={<PagePropThree />} />
           
         </Route>
         <Route element={<PrivateRoute allowRoles={["member", "admin"]} />}>
-          <Route path="/dashboard" element={<PagePropThree />} />
           <Route path="/teamread" element={<TeamsRead />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>

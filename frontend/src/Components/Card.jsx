@@ -90,7 +90,6 @@ export default function CardListComponent() {
       });
   
       setHuman(arreglo);
-      console.log(arreglo);
     } catch (error) {
       console.error('Error al cargar los datos:', error);
     }
@@ -187,15 +186,14 @@ export default function CardListComponent() {
     }
   });
 
-  console.log(updatedCardData);
 
   return (
     <div className={styles.container}>
       {updatedCardData.map((card) => {
-        const isMember = usuarios.some((user) => user.roles.includes('member'));
-        const isRestrictedCard = ['Usuarios(Miembros)', 'Proyectos', 'Administradores'].includes(card.subtitle);
+        const isMember = usuarios.some((user) => user.roles.includes('admin'));
+        const isRestrictedCard = ['Proyectos', 'Equipos'].includes(card.subtitle);
 
-        if (!isMember || !isRestrictedCard) {
+        if (isMember || isRestrictedCard) {
           return (
             <div key={card.id} className={`${styles['e-card']} ${styles.playing}`}>
               <div className={styles.image}></div>

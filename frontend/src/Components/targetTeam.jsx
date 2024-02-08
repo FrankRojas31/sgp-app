@@ -97,7 +97,7 @@ const handleAddMember = () => {
 
       <Modal open={open} onClose={handleClose}>
         <Box sx={modalStyle}>
-          <Typography variant="h6" component="h2">Editar Equipo</Typography>
+          <Typography variant="h6" component="h2">Ver Usuarios</Typography>
           <List dense>
             {selectedTeam.members?.map((member, index) => (
               <ListItem key={index}>
@@ -114,22 +114,7 @@ const handleAddMember = () => {
               </ListItem>
             ))}
           </List>
-          <FormControl fullWidth margin="normal">
-            <InputLabel id="member-select-label">Agregar Miembro</InputLabel>
-            <Select
-              labelId="member-select-label"
-              value={selectedMemberId}
-              label="Agregar Miembro"
-              onChange={handleMemberSelectChange}
-            >
-              {members.map((member) => (
-                <MenuItem key={member.id} value={member.id}>{member.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Button onClick={handleAddMember} variant="contained" color="primary">
-            Agregar
-          </Button>
+          
         </Box>
       </Modal>
     </div>

@@ -51,7 +51,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (useUser) {
       navigate("/dashboard");
-    }
+    } 
   }, [useUser, navigate]);
   
   
@@ -90,8 +90,12 @@ const LoginPage = () => {
     }
 
     try {
-      await useLogin(email, password);
-      navigate("/dashboard");
+      const response = await useLogin(email, password);
+      if (response.roles.includes('admin')) {
+        navigate("/dashboard");
+      } else {
+        navigate('/teamread')
+      }
     } catch (error) {
       if (error.message === "Credentials are not valid (password)") {
         setError({ message: "Contraseña incorrecta" });

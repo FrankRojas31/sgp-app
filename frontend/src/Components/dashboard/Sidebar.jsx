@@ -54,7 +54,7 @@ export const Sidebar = () => {
   let filteredMenuItems = menuItems;
 
   if (useUser.roles.includes('member')) {
-    filteredMenuItems = menuItems.filter(item => item.title === 'Dashboard' || item.title === 'Tu equipo');
+    filteredMenuItems = menuItems.filter(item => item.title === 'Tu equipo');
   }
   
   if (useUser.roles.includes('admin')) {

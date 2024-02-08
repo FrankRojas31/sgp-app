@@ -45,7 +45,6 @@ export default function TableMaterialResource() {
   //Acciones 
 
   const HandleEdit = async (Material) => {
-    console.log('Material:', Material);
     try {
       const cantidadOptions = Array.from({ length: 50 }, (_, i) => i + 1)
         .map(value => `<option value="${value}" ${value === Material.quantity_available ? 'selected' : ''}>${value}</option>`)

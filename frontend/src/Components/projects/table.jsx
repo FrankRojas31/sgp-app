@@ -44,7 +44,6 @@ export default function TableProject() {
         }));
   
       setProyectos(datos);
-      console.log(setProyectos);
     } catch (error) {
       console.log(`Se detectó un error al cargar los proyectos: ${error}`);
     }
@@ -149,7 +148,6 @@ export default function TableProject() {
           const startDate = DOMPurify.sanitize(Swal.getPopup().querySelector('#startDate').value);
           const endDate = DOMPurify.sanitize(Swal.getPopup().querySelector('#endDate').value);
   
-          console.log(startDate, endDate);
   
            if (!nombre.trim() || !descripcion.trim() || !startDate || !endDate) {
             Swal.showValidationMessage('Todos los campos son obligatorios');

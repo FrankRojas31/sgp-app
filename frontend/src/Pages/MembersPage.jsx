@@ -142,18 +142,26 @@ export default function TableProject() {
           <input id="nombre" class="swal2-input" placeholder="Nombre" value="${
             miembro.fullName
           }">
-           <select id="rol" class="swal2-select" required>
+          <select id="rol" class="swal2-select" required>
             ${roles
               .map(
-                (role) => `<option value="${role.value}">${role.text}</option>`
+                (role) => `<option value="${role.value}" ${
+                  miembro.roles === role.value ? "selected" : ""
+                }>${role.text}</option>`
               )
               .join("")}
+          </select>
           <input id="email" class="swal2-input" placeholder="Email" value="${
             miembro.email
           }">
-          <input id="activo" class="swal2-input" placeholder="Activo" value="${
-            miembro.isActive ? "Sí" : "No"
-          }">
+          <select id="activo" class="swal2-select" required>
+            <option value="true" ${
+              miembro.isActive ? "selected" : ""
+            }>Sí</option>
+            <option value="false" ${
+              !miembro.isActive ? "selected" : ""
+            }>No</option>
+          </select>
         `,
         showCancelButton: true,
         confirmButtonText: "Guardar",
@@ -162,12 +170,11 @@ export default function TableProject() {
           const nombre = Swal.getPopup().querySelector("#nombre").value;
           const rol = Swal.getPopup().querySelector("#rol").value;
           const email = Swal.getPopup().querySelector("#email").value;
-          const activo =
-            Swal.getPopup().querySelector("#activo").value === "Sí";
+          const activo = Swal.getPopup().querySelector("#activo").value === "true";
 
           if (
             usuarios.some(
-              (member) => member.email.toLowerCase() === email.toLowerCase()
+              (member) => member.email.toLowerCase() === email.toLowerCase() && member.id !== miembro.id
             )
           ) {
             Swal.showValidationMessage("El correo ya ha sido registrado");
@@ -285,7 +292,6 @@ export default function TableProject() {
                         {useUser.permissions.includes("reset_password") ? (
                           <RecoveryButton miembro={item} />
                         ) : null}
-
                         <button
                           className={styles.botoneseyb}
                           onClick={() => HandleEdit(item)}

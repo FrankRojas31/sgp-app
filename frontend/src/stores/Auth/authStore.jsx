@@ -9,8 +9,8 @@ export const storeApi = (set) => ({
   login: async (email, password) => {
     try {
       const { token, ...user } = await AuthService.login(email, password);
-      console.log(token)
       set({ status: 'authorized', token, user });
+      return user;
     } catch (error) {
       set({ status: 'unauthorized', token: undefined, user: undefined });
       throw error;
