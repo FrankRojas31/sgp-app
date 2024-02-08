@@ -1,4 +1,4 @@
-import { AuthService } from '../../services/authService';
+import { AuthService } from '../../services/authService.jsx';
 import { devtools, persist } from 'zustand/middleware';
 import { create } from 'zustand';
 

@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import styles from '../../css/table.module.css';
 import Swal from 'sweetalert2';
-import { sgpApi } from '../../api/sgpApi';
+import { sgpApi } from '../../api/sgpApi.jsx';
 
 export default function TableProject() {
   const [searchTerm, setSearchTerm] = useState('');

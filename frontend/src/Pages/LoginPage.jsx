@@ -17,7 +17,7 @@ import Swal from "sweetalert2";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../Components/dashboard/SideMenu.module.css";
-import { useAuthStore } from "../stores/Auth/authStore";
+import { useAuthStore } from "../stores/Auth/authStore.jsx";
 
 //tema
 const theme = createTheme({

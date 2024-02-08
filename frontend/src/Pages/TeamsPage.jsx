@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../css/targetTeam.module.css';
-import { Sidebar } from '../Components/dashboard/Sidebar';
-import TargetTeam from '../Components/targetTeam';
+import { Sidebar } from '../Components/dashboard/Sidebar.jsx';
+import TargetTeam from '../Components/targetTeam.jsx';
 import { Modal, Box, Typography, TextField, Checkbox, FormControlLabel, Button } from '@mui/material';
 import Swal from 'sweetalert2';
-import { sgpApi } from '../api/sgpApi';
+import { sgpApi } from '../api/sgpApi.jsx';
 import DOMPurify from 'dompurify';
 
 

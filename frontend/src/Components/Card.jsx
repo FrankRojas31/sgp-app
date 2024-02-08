@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import styles from '../css/Card.module.css';
-import { sgpApi } from '../api/sgpApi';
+import { sgpApi } from '../api/sgpApi.jsx';
 
 const datos = ["DEFAULT"];
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../css/targetTeam.module.css';
-import { Sidebar } from '../Components/dashboard/Sidebar';
+import { Sidebar } from '../Components/dashboard/Sidebar.jsx';
 import { Modal, Box, Typography, TextField, Button } from '@mui/material';
-import { sgpApi } from '../api/sgpApi';
+import { sgpApi } from '../api/sgpApi.jsx';
 import styless from '../css/tarjet.module.css';
 import defaultImage from '../assets/ppDefault.jpeg';
 

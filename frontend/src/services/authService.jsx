@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { sgpApi } from '../api/sgpApi';
+import { sgpApi } from '../api/sgpApi.jsx';
 
 export class AuthService {
   /* Login */

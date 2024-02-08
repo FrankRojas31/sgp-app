@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../css/404.module.css";
 import { Link } from "react-router-dom";
-import { useAuthStore } from "../stores/Auth/authStore";
+import { useAuthStore } from "../stores/Auth/authStore.jsx";
 const ErrorPage = () => {
   const useUser = useAuthStore((state) => state.user);
 

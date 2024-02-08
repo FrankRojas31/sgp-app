@@ -7,7 +7,7 @@ import { SiTaichigraphics } from "react-icons/si";
 import { RiTeamFill } from "react-icons/ri";
 import styles from "./SideMenu.module.css";
 import { FaPersonCirclePlus } from "react-icons/fa6";
-import { useAuthStore } from "../../stores/Auth/authStore";
+import { useAuthStore } from "../../stores/Auth/authStore.jsx";
 
 const menuItems = [
   {

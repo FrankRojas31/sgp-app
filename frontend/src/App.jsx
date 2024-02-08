@@ -1,15 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "./Pages/LoginPage";
-import TeamsPage from "./Pages/TeamsPage";
-import MembersPage from "./Pages/MembersPage";
-import PagePropFirst from "./Components/projects/Page/FirstProjectProp";
-import PagePropSecond from "./Components/projects/Page/SecondProject";
-import HumanResource from "./Components/resources/Pages/HumanResource";
-import MaterialResources from "./Components/resources/Pages/MaterialResource";
-import PagePropThree from "./Components/projects/Page/Dashboard";
-import PrivateRoute from "./Components/PrivateRoute";
-import ErrorPage from "./Pages/404";
-import TeamsRead from "./Pages/ReadTeams";
+import LoginPage from "./Pages/LoginPage.jsx";
+import TeamsPage from "./Pages/TeamsPage.jsx";
+import MembersPage from "./Pages/MembersPage.jsx";
+import PagePropFirst from "./Components/projects/Page/FirstProjectProp.jsx";
+import PagePropSecond from "./Components/projects/Page/SecondProject.jsx";
+import HumanResource from "./Components/resources/Pages/HumanResource.jsx";
+import MaterialResources from "./Components/resources/Pages/MaterialResource.jsx";
+import PagePropThree from "./Components/projects/Page/Dashboard.jsx";
+import PrivateRoute from "./Components/PrivateRoute.jsx";
+import ErrorPage from "./Pages/404.jsx";
+import TeamsRead from "./Pages/ReadTeams.jsx";
 
 function App() {
   return (
