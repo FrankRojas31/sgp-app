@@ -8,10 +8,11 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { Permission } from './entities/permissions.entity';
+import { Jwt2faStrategy } from './strategies/jwt-2fa.strategy';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, Jwt2faStrategy],
   imports: [
     ConfigModule,
     TypeOrmModule.forFeature([User, Permission]),

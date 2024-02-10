@@ -18,6 +18,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../Components/dashboard/SideMenu.module.css";
 import { useAuthStore } from "../stores/Auth/authStore";
+import { AuthService } from "../services/authService";
 
 //tema
 const theme = createTheme({
@@ -51,10 +52,9 @@ const LoginPage = () => {
   useEffect(() => {
     if (useUser) {
       navigate("/dashboard");
-    } 
+    }
   }, [useUser, navigate]);
-  
-  
+
   const useLogin = useAuthStore((state) => state.login);
 
   const [error, setError] = useState(null);
@@ -90,11 +90,46 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await useLogin(email, password);
-      if (response.roles.includes('admin')) {
-        navigate("/dashboard");
+      const validateUser = await AuthService.validateUser(email, password);
+      if (validateUser && validateUser.isTwoFactorAuthenticationEnabled) {
+        const { value: code } = await Swal.fire({
+          title: "Autenticación de dos factores",
+          input: "text",
+          inputLabel: "Ingrese el código de autenticación",
+          inputPlaceholder: "Código de autenticación",
+          showCancelButton: true,
+          inputValidator: async (value) => {
+            if (!/^\d{6}$/.test(value)) {
+              return "¡El código debe tener 6 dígitos!";
+            }
+            if (!value) {
+              return "¡Necesitas ingresar un código!";
+            } else {
+              const response = await AuthService.MultifaAunthentication(
+                value,
+                validateUser.token
+              );
+              if (response.status) {
+                Swal.close()
+                const data = await useLogin(email, password);
+                if (data.roles.includes("admin")) {
+                  navigate("/dashboard");
+                } else {
+                  navigate("/teamread");
+                }
+              } else {
+                return "Código incorrecto";
+              }
+            }
+          },
+        });
       } else {
-        navigate('/teamread')
+        const response = await useLogin(email, password);
+        if (response.roles.includes("admin")) {
+          navigate("/dashboard");
+        } else {
+          navigate("/teamread");
+        }
       }
     } catch (error) {
       if (error.message === "Credentials are not valid (password)") {

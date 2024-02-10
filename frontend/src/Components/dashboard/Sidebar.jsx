@@ -8,6 +8,7 @@ import { RiTeamFill } from "react-icons/ri";
 import styles from "./SideMenu.module.css";
 import { FaPersonCirclePlus } from "react-icons/fa6";
 import { useAuthStore } from "../../stores/Auth/authStore";
+import { MdSecurity } from "react-icons/md";
 
 const menuItems = [
   {
@@ -44,6 +45,12 @@ const menuItems = [
     subTitle: "Gestionar miembros",
     href: "/members",
     Icon: FaPersonCirclePlus,
+  },
+  {
+    title: "Seguridad",
+    subTitle: "Gestionar seguridad",
+    href: "/security",
+    Icon: MdSecurity,
   },
 ];
 

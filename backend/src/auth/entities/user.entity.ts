@@ -51,9 +51,18 @@ export class User {
   @OneToMany(() => HumanResource, (humanResource) => humanResource.user)
   humanResource: HumanResource;
 
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  twoFactorAuthenticationSecret: string;
+
+  @Column({ type: 'boolean', default: false })  
+  isTwoFactorAuthenticationEnabled: boolean;
+
   @ManyToMany(() => Permission, { eager: true })
   @JoinTable()
   permissions: Permission[];
+  twoFactorSecret: string;
+
+
 
   @BeforeInsert()
   checkFields() {

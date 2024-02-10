@@ -18,15 +18,81 @@ import {
   Patch,
   ParseUUIDPipe,
   Delete,
+  UnauthorizedException,
+  HttpCode,
+  Req,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreatePermissionDto } from './dto/create-permission.dto';
 import { AssignPermissionToUserDto } from './dto/assign-permission-user.dto';
+import { Jwt2faAuthGuard } from './guards/jwt-2fa-auth.guard';
 
 @ApiTags('Autenticación y usuarios')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Auth()
+  @Post('2fa/turn-on')
+  async turnOnTwoFactorAuthentication(
+    @GetUser() user: User,
+    @Body() body: any,
+  ) {
+    const isCodeValid = this.authService.isTwoFactorAuthenticationCodeValid(
+      body.twoFactorAuthenticationCode,
+      user,
+    );
+    if (!isCodeValid) {
+      throw new UnauthorizedException('Wrong authentication code');
+    }
+    await this.authService.turnOnTwoFactorAuthentication(user.id);
+  }
+
+  @Auth()
+  @Post('2fa/activate')
+  async activateTwoFactorAuthentication(@GetUser() user: User) {
+    return this.authService.activateTwoFactorAuthentication(user);
+  }
+
+  @Auth()
+  @Get('2fa/verify')
+  async verifyTwoFactorAuthenticationCode(@GetUser() user: User) {
+    return this.authService.verifyTwoFactorAuthenticationCode(user);
+  }
+
+  @Auth()
+  @Post('2fa/desactivate')
+  async desactivateTwoFactorAuthentication(@GetUser() user: User) {
+    return this.authService.desactivateTwoFactorAuthentication(user);
+  }
+
+  @Auth()
+  @Post('2fa/generate')
+  async generateTwoFactorAuthenticationSecret(@GetUser() user: User) {
+    return this.authService.generateTwoFactorAuthenticationSecret(user);
+  }
+
+  @Post('2fa/authenticate')
+  @UseGuards(Jwt2faAuthGuard)
+  @HttpCode(200)
+  async authenticate(@Req() request, @Body() body: any) {
+    const isCodeValid =
+      await this.authService.isTwoFactorAuthenticationCodeValid(
+        body.twoFactorAuthenticationCode,
+        request.user,
+      );
+
+    if (!isCodeValid) {
+      throw new UnauthorizedException('Wrong authentication code');
+    }
+
+    return this.authService.loginWith2fa(request.user);
+  }
+
+  @Post('validate-user')
+  validateUser(@Body() loginUserDto: LoginUserDto) {
+    return this.authService.validateUser(loginUserDto);
+  }
 
   @Auth(ValidRoles.admin)
   @Get('get-all-users')

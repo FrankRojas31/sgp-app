@@ -20,6 +20,9 @@ import { Permission } from './entities/permissions.entity';
 import { CreatePermissionDto } from './dto/create-permission.dto';
 import { AssignPermissionToUserDto } from './dto/assign-permission-user.dto';
 
+import { authenticator } from 'otplib';
+import * as qrcode from 'qrcode';
+
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger('AuthService');
@@ -29,6 +32,117 @@ export class AuthService {
     private readonly PermissionRepository: Repository<Permission>,
     private readonly jwtService: JwtService,
   ) {}
+
+  async generateTwoFactorAuthenticationSecret(user: User) {
+    const secret = authenticator.generateSecret();
+    const otpauthUrl = authenticator.keyuri(user.email, 'SGP_APP', secret);
+    await this.setTwoFactorAuthenticationSecret(secret, user.id);
+
+    const QR = this.generateQrCodeDataURL(otpauthUrl);
+
+    console.log(QR);
+
+    return QR;
+  }
+
+  async setTwoFactorAuthenticationSecret(secret: string, userId: string) {
+    const userfind = await this.userRepository.preload({
+      id: userId,
+      twoFactorAuthenticationSecret: secret,
+    });
+    if (!userfind) throw new NotFoundException('User not found');
+    return await this.userRepository.save(userfind);
+  }
+
+  async generateQrCodeDataURL(otpAuthUrl: string) {
+    const qrCodeDataURL = await qrcode.toDataURL(otpAuthUrl);
+    return qrCodeDataURL;
+  }
+
+  async turnOnTwoFactorAuthentication(userId: string) {
+    return this.userRepository.update(
+      { id: userId },
+      { isTwoFactorAuthenticationEnabled: true },
+    );
+  }
+
+  async isTwoFactorAuthenticationCodeValid(
+    twoFactorAuthenticationCode: string,
+    user: User,
+  ) {
+    const result = authenticator.verify({
+      token: twoFactorAuthenticationCode,
+      secret: user.twoFactorAuthenticationSecret,
+    });
+
+    return result;
+  }
+
+  async loginWith2fa(userWithoutPsw: Partial<User>) {
+    const payload = {
+      email: userWithoutPsw.email,
+      isTwoFactorAuthenticationEnabled:
+        !!userWithoutPsw.isTwoFactorAuthenticationEnabled,
+      isTwoFactorAuthenticated: true,
+    };
+
+    return {
+      ...userWithoutPsw,
+      token: this.jwtService.sign(payload),
+      status: true,
+    };
+  }
+
+  async validateUser(loginUserDto: LoginUserDto) {
+    const { password, email } = loginUserDto;
+
+    const user = await this.userRepository.findOne({
+      where: { email, isActive: true },
+      select: {
+        id: true,
+        password: true,
+        isTwoFactorAuthenticationEnabled: true,
+      },
+    });
+
+    if (!user) throw new NotFoundException('Credentials are not valid (email)');
+
+    if (!bcrypt.compareSync(password, user.password))
+      throw new UnauthorizedException('Credentials are not valid (password)');
+
+    return {
+      ...user,
+      token: this.jwtService.sign({ id: user.id }),
+    };
+  }
+
+  async activateTwoFactorAuthentication(user: User) {
+    return await  this.userRepository.update(
+      { id: user.id },
+      { isTwoFactorAuthenticationEnabled: true },
+    );
+  }
+
+  async desactivateTwoFactorAuthentication(user: User) {
+    return await this.userRepository.update(
+      { id: user.id },
+      { isTwoFactorAuthenticationEnabled: false },
+    );
+  }
+
+  async verifyTwoFactorAuthenticationCode(user: User) {
+    const findUser = await this.userRepository.findOne({
+      where: { id: user.id },
+      select: {
+        id: true,
+        isTwoFactorAuthenticationEnabled: true,
+      },
+    });
+
+    if (!findUser) throw new NotFoundException('User not found');
+
+    return findUser.isTwoFactorAuthenticationEnabled;
+  }
 
   async findUser(id: string) {
     const user = await this.userRepository.findOne({
@@ -197,4 +311,7 @@ export class AuthService {
     this.logger.error(error);
     throw new InternalServerErrorException(error.detail);
   }
+}
+function toDataURL(otpAuthUrl: string) {
+  throw new Error('Function not implemented.');
 }
