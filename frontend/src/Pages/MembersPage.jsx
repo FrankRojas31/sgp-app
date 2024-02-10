@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { Add } from "@mui/icons-material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import ModeDeleteIcon from "@mui/icons-material/Delete";
-import { Sidebar } from "../Components/dashboard/Sidebar";
+import { Sidebar } from "../Components/dashboard/Sidebar.jsx";
 import styles from "../css/table.module.css";
 import Swal from "sweetalert2";
-import { sgpApi } from "../api/sgpApi";
-import { useAuthStore } from "../stores/Auth/authStore";
+import { sgpApi } from "../api/sgpApi.jsx";
+import { useAuthStore } from "../stores/Auth/authStore.jsx";
 import DOMPurify from "dompurify";
-import RecoveryButton from "../Components/actions/RecoveryButton";
+import RecoveryButton from "../Components/actions/RecoveryButton.jsx";
 
 export default function TableProject() {
   const [searchTerm, setSearchTerm] = useState("");

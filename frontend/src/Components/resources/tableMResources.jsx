@@ -5,7 +5,7 @@ import DOMPurify from 'dompurify';
 
 import styles from '../../css/Mresources.module.css';
 import Swal from 'sweetalert2';
-import { sgpApi } from '../../api/sgpApi';
+import { sgpApi } from '../../api/sgpApi.jsx';
 
 export default function TableMaterialResource() {
   const [searchTerm, setSearchTerm] = useState('');

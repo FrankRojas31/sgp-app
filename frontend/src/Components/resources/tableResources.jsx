@@ -3,7 +3,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import ModeDeleteIcon from '@mui/icons-material/Delete';
 import styles from '../../css/Hresources.module.css';
 import Swal from 'sweetalert2';
-import { sgpApi } from '../../api/sgpApi';
+import { sgpApi } from '../../api/sgpApi.jsx';
 import DOMPurify from 'dompurify';
 
 export default function TableResource() {

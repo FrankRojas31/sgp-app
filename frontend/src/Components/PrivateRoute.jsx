@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
-import { useAuthStore } from '../stores/Auth/authStore';
+import { useAuthStore } from '../stores/Auth/authStore.jsx';
 
 const PrivateRoute = ({ allowRoles }) => {
   const useUser = useAuthStore((state) => state.user);
